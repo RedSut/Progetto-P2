@@ -1,3 +1,6 @@
+#ifndef ISTOGRAMMA_H
+#define ISTOGRAMMA_H
+
 #include <string>
 #include <map>
 #include "graficoSemplice.h"
@@ -9,3 +12,5 @@ class istogramma : public graficoSemplice{
     public:
         istogramma(std::map<std::string,double>);
 };
+
+#endif

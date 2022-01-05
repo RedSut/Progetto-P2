@@ -1,3 +1,5 @@
+#ifndef GRAFICO_H
+#define GRAFICO_H
 #include<string>
 
 class grafico{
@@ -6,3 +8,5 @@ class grafico{
     public:
         std::string getTitolo() const {return titolo;};
 };
+
+#endif
