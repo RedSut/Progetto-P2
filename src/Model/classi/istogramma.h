@@ -11,6 +11,9 @@ class istogramma : public graficoSemplice{
         std::string nomeDatoString;
     public:
         istogramma(std::map<std::string,double>);
+        std::string getNomeDatoDouble() const;
+        std::string getNomeDatoString() const;
+        void setNomeDati(std::string,std::string);
 };
 
 #endif
