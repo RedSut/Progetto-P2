@@ -10,11 +10,17 @@
 #include "Model/classi/barre.h"
 
 int main(){
-    std::map<std::string, double> m;
+    std::map<std::string, double> m; // NO
+    std::vector<std::pair<std::string,double>> m_NEW; // MEGLIO QUESTA RAPPRESENTAZIONE PER GRAFICO_SEMPLICE
     std::vector<std::pair<double,double>> v;
+    std::vector<std::pair<std::string,graficoSemplice>> mm; // MEGLIO QUESTA RAPPRESENTAZIONE PER GRAFICO_COMLESSO
+    std::map<std::string, double> mi; // NO
 
     m.insert({"gennaio",1}); m.insert({"febbraio",2}); m.insert({"marzo",3}); m.insert({"aprile",4});
     v.push_back({12.6,13.4}); v.push_back({14.2,15.8}); v.push_back({16.1,17.5}); v.push_back({18.2,19.8});
+    mi.insert({"gennaio",1});
+    mm.push_back(std::make_pair("gennaio",istogramma(mi)));
+    m_NEW.push_back({"gennaio",1});
 
     torta t(m);
     istogramma i(m);
