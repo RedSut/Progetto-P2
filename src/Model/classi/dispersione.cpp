@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <math.h>
 #include "dispersione.h"
 
 dispersione::dispersione(std::vector<std::pair<double,double>> input): graficoPianoCartesiano(input){};
