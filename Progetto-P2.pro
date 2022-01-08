@@ -15,11 +15,30 @@ SOURCES += \
     src/Model/classi/istogramma.cpp \
     src/Model/classi/linea.cpp \
     src/Model/classi/torta.cpp \
+    src/main.cpp \
+    src/Model/classi/barre.cpp \
+    src/Model/classi/dispersione.cpp \
+    src/Model/classi/grafico.cpp \
+    src/Model/classi/graficoComplesso.cpp \
+    src/Model/classi/graficoPianoCartesiano.cpp \
+    src/Model/classi/graficoSemplice.cpp \
+    src/Model/classi/istogramma.cpp \
+    src/Model/classi/linea.cpp \
+    src/Model/classi/torta.cpp \
     src/main.cpp
 
 HEADERS += \
     src/Model/classi/dispersione.h \
     src/Model/classi/grafico.h \
+    src/Model/classi/graficoPianoCartesiano.h \
+    src/Model/classi/graficoSemplice.h \
+    src/Model/classi/istogramma.h \
+    src/Model/classi/linea.h \
+    src/Model/classi/torta.h \
+    src/Model/classi/barre.h \
+    src/Model/classi/dispersione.h \
+    src/Model/classi/grafico.h \
+    src/Model/classi/graficoComplesso.h \
     src/Model/classi/graficoPianoCartesiano.h \
     src/Model/classi/graficoSemplice.h \
     src/Model/classi/istogramma.h \
