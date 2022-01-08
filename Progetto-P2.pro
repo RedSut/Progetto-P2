@@ -9,8 +9,6 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
     src/Model/classi/dispersione.cpp \
     src/Model/classi/graficoPianoCartesiano.cpp \
     src/Model/classi/graficoSemplice.cpp \
@@ -20,7 +18,6 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
-    mainwindow.h \
     src/Model/classi/dispersione.h \
     src/Model/classi/grafico.h \
     src/Model/classi/graficoPianoCartesiano.h \
@@ -29,8 +26,6 @@ HEADERS += \
     src/Model/classi/linea.h \
     src/Model/classi/torta.h
 
-FORMS += \
-    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
