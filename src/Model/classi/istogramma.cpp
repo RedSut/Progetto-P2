@@ -1,8 +1,8 @@
 #include <string>
-#include <map>
+#include <vector>
 #include "istogramma.h"
 
-istogramma::istogramma(std::map<std::string,double> input): graficoSemplice(input){};
+istogramma::istogramma(std::vector<std::pair<std::string,double>> input): graficoSemplice(input){};
 
 
 std::string istogramma::getNomeDatoDouble() const{

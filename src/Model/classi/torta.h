@@ -1,16 +1,14 @@
 #ifndef TORTA_H
 #define TORTA_H
 
-#include <map>
+#include <vector>
 #include <string>
 #include "graficoSemplice.h"
 
 class torta : public graficoSemplice{
-    private:
-        std::map<std::string,double> p;
     public:
-        torta(std::map<std::string,double>);
-        std::map<std::string,double> getDataInPercentage() const;
+        torta(std::vector<std::pair<std::string,double>>);
+        std::vector<std::pair<std::string,double>> getDataInPercentage() const;
         bool checkNegative() const;
 };
 

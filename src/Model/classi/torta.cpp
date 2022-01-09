@@ -2,12 +2,12 @@
 #include <string>
 #include "torta.h"
 
-torta::torta(std::map<std::string,double> input): graficoSemplice(input){};
+torta::torta(std::vector<std::pair<std::string,double>> input): graficoSemplice(input){};
 
 
-std::map<std::string,double> torta::getDataInPercentage() const{
+std::vector<std::pair<std::string,double>> torta::getDataInPercentage() const{
     double somma=0;
-    std::map<std::string,double> d1 = graficoSemplice::getData();
+    std::vector<std::pair<std::string,double>> d1 = graficoSemplice::getData();
     if(checkNegative()){
         return d1;
     }
@@ -21,7 +21,7 @@ std::map<std::string,double> torta::getDataInPercentage() const{
 };
 
 bool torta::checkNegative() const {
-    std::map<std::string,double> s = graficoSemplice::getData();
+    std::vector<std::pair<std::string,double>> s = graficoSemplice::getData();
     for(auto it = s.begin(); it != s.end(); ++it){
         if(it->second<0){return true;}
     }

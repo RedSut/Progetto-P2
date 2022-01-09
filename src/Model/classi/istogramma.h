@@ -2,7 +2,7 @@
 #define ISTOGRAMMA_H
 
 #include <string>
-#include <map>
+#include <vector>
 #include "graficoSemplice.h"
 
 class istogramma : public graficoSemplice{
@@ -10,7 +10,7 @@ class istogramma : public graficoSemplice{
         std::string nomeDatoDouble;
         std::string nomeDatoString;
     public:
-        istogramma(std::map<std::string,double>);
+        istogramma(std::vector<std::pair<std::string,double>>);
         std::string getNomeDatoDouble() const;
         std::string getNomeDatoString() const;
         void setNomeDati(std::string,std::string);
