@@ -3,7 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "graficoSemplice.h"
+#include <tuple>
+#include "grafico.h"
 
 class graficoComplesso: public grafico{ //FORSE VA BENE ANCHE COSI' OPPRURE DERIVARE DA GRAFICO_SEMPLICE
     private:

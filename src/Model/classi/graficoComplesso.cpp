@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <tuple>
 #include "graficoComplesso.h"
 
 //graficoComplesso::graficoComplesso(std::vector<std::pair<std::string,graficoSemplice>> input): c(input){};

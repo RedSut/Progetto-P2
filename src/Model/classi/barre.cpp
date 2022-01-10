@@ -1,4 +1,5 @@
 #include<string>
+#include <tuple>
 #include "barre.h"
 
 //barre::barre(std::vector<std::pair<std::string,graficoSemplice>> input): graficoComplesso(input){};

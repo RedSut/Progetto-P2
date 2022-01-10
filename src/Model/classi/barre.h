@@ -2,6 +2,7 @@
 #define BARRE_H
 
 #include <string>
+#include <tuple>
 #include "graficoComplesso.h"
 
 class barre: public graficoComplesso{

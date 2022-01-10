@@ -21,7 +21,7 @@ int main(){
     m.push_back({"gennaio",1}); m.push_back({"febbraio",2}); m.push_back({"marzo",3}); m.push_back({"aprile",4});
     v.push_back({12.6,13.4}); v.push_back({14.2,15.8}); v.push_back({16.1,17.5}); v.push_back({18.2,19.8});
     mi.push_back({"gennaio",1});
-    mm.push_back(std::make_tuple("gennaio","gennaio",1));
+    mm.push_back(std::make_tuple<std::string,std::string,double>("gennaio","gennaio",1));
     //m_NEW.push_back({"gennaio",1});
 
     torta t(m);
@@ -84,7 +84,7 @@ int main(){
     for(auto itb = db.begin(); itb!=db.end(); ++itb){
         std::cout<<std::get<0>(*itb)<<" ";
         std::cout<<std::get<1>(*itb)<<" ";
-        std::cout<<std::get<2>(*itb)<<" ";
+        std::cout<<std::get<2>(*itb)<<" "<<std::endl;
     }
     return 0;
 }
