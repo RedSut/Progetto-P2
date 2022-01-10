@@ -72,7 +72,7 @@ int main(){
     l.setNomeAssi("AsseXl","AsseYl");
     std::cout<<l.getNomeAsseX()<<" "<<l.getNomeAsseY()<<std::endl;
 
-    std::cout<<b.getTitolo()<<std::endl;
+    std::cout<<std::endl<<b.getTitolo()<<std::endl;
     /*std::vector<std::pair<std::string,graficoSemplice>> db = b.getData();
     for(auto itb = db.begin(); itb!=db.end(); ++itb){
         std::cout<<itb->first<<" ";
@@ -86,5 +86,8 @@ int main(){
         std::cout<<std::get<1>(*itb)<<" ";
         std::cout<<std::get<2>(*itb)<<" "<<std::endl;
     }
+    b.setNomeAssi("AsseXb","AsseYb");
+    std::cout<<b.getNomeAsseX()<<" "<<b.getNomeAsseY()<<std::endl;
+
     return 0;
 }
