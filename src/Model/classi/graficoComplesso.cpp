@@ -1,11 +1,14 @@
 #include <string>
-#include <map>
+#include <vector>
 #include "graficoComplesso.h"
 
-graficoComplesso::graficoComplesso(std::map<std::string,std::map<std::string,double>> input): c(input){};
+//graficoComplesso::graficoComplesso(std::vector<std::pair<std::string,graficoSemplice>> input): c(input){};
+graficoComplesso::graficoComplesso(std::vector<std::tuple<std::string,std::string,double>> input): c(input){};
 
-std::map<std::string,std::map<std::string,double>> graficoComplesso::getData()const{
+/*std::vector<std::pair<std::string,graficoSemplice>> graficoComplesso::getData()const{
+    return c;
+}*/
+std::vector<std::tuple<std::string,std::string,double>> graficoComplesso::getData()const{
     return c;
 }
-
 
