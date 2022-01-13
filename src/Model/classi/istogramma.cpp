@@ -4,6 +4,11 @@
 
 istogramma::istogramma(std::vector<std::pair<std::string,double>> input): graficoSemplice(input){};
 
+istogramma::istogramma(){
+    graficoSemplice();
+    setNomeDati("Categorie","Valori");
+};
+
 
 std::string istogramma::getNomeDatoDouble() const{
     return nomeDatoDouble;

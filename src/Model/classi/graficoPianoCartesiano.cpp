@@ -4,6 +4,10 @@
 
 graficoPianoCartesiano::graficoPianoCartesiano(std::vector<std::pair<double,double>> input): pc(input){};
 
+graficoPianoCartesiano::graficoPianoCartesiano(){
+    pc.push_back({0,0});
+    setNomeAssi("Asse X", "Asse Y");
+};
 
 std::vector<std::pair<double,double>> graficoPianoCartesiano::getData()const{return pc;}
 

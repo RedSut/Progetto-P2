@@ -12,6 +12,7 @@ class barre: public graficoComplesso{
     public:
         //barre(std::vector<std::pair<std::string,graficoSemplice>>);
         barre(std::vector<std::tuple<std::string,std::string,double>>);
+        barre();
         std::string getNomeAsseX() const;
         std::string getNomeAsseY() const;
         void setNomeAssi(std::string,std::string);

@@ -5,6 +5,8 @@
 
 dispersione::dispersione(std::vector<std::pair<double,double>> input): graficoPianoCartesiano(input){};
 
+dispersione::dispersione(): graficoPianoCartesiano(){};
+
 
 std::vector<double> dispersione::regressioneLineare(){
     std::vector<double> X, Y;

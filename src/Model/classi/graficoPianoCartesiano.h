@@ -11,6 +11,7 @@ class graficoPianoCartesiano: public grafico{
         std::string nome_asse_x;
         std::string nome_asse_y;
     public:
+        graficoPianoCartesiano();
         graficoPianoCartesiano(std::vector<std::pair<double,double>>);
         std::vector<std::pair<double,double>> getData() const;
         std::string getNomeAsseX() const;

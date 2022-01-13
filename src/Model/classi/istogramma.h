@@ -10,6 +10,7 @@ class istogramma : public graficoSemplice{
         std::string nomeDatoDouble;
         std::string nomeDatoString;
     public:
+        istogramma();
         istogramma(std::vector<std::pair<std::string,double>>);
         std::string getNomeDatoDouble() const;
         std::string getNomeDatoString() const;

@@ -5,6 +5,11 @@
 //barre::barre(std::vector<std::pair<std::string,graficoSemplice>> input): graficoComplesso(input){};
 barre::barre(std::vector<std::tuple<std::string,std::string,double>> input): graficoComplesso(input){};
 
+barre::barre(){
+    graficoComplesso();
+    setNomeAssi("Categorie","Valori");
+};
+
 std::string barre::getNomeAsseX() const{
     return nome_asse_x;
 }

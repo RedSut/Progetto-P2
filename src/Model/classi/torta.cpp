@@ -4,6 +4,8 @@
 
 torta::torta(std::vector<std::pair<std::string,double>> input): graficoSemplice(input){};
 
+torta::torta(): graficoSemplice(){};
+
 
 std::vector<std::pair<std::string,double>> torta::getDataInPercentage() const{
     double somma=0;

@@ -4,18 +4,19 @@
 #include <vector>
 #include <string>
 #include <tuple>
-#include "Model/classi/linea.h"
-#include "Model/classi/torta.h"
-#include "Model/classi/dispersione.h"
-#include "Model/classi/istogramma.h"
-#include "Model/classi/barre.h"
+#include "Model\classi\linea.h"
+#include "Model\classi\torta.h"
+#include "Model\classi\dispersione.h"
+#include "Model\classi\istogramma.h"
+#include "Model\classi\barre.h"
+#include "Model\classi\graficoCreator.h"
 
 int main(){
     std::map<std::string, double> m_OLD; // NO
     std::vector<std::pair<std::string,double>> m; // MEGLIO QUESTA RAPPRESENTAZIONE PER GRAFICO_SEMPLICE
     std::vector<std::pair<double,double>> v;
-    //std::vector<std::pair<std::string,graficoSemplice>> mm; // MEGLIO QUESTA RAPPRESENTAZIONE PER GRAFICO_COMLESSO
-    std::vector<std::tuple<std::string,std::string,double>> mm;
+    //std::vector<std::pair<std::string,graficoSemplice>> mm; // NO
+    std::vector<std::tuple<std::string,std::string,double>> mm; // MEGLIO QUESTA RAPPRESENTAZIONE PER GRAFICO_COMLESSO
     std::vector<std::pair<std::string,double>> mi;
 
     m.push_back({"gennaio",1}); m.push_back({"febbraio",2}); m.push_back({"marzo",3}); m.push_back({"aprile",4});
@@ -88,6 +89,12 @@ int main(){
     }
     b.setNomeAssi("AsseXb","AsseYb");
     std::cout<<b.getNomeAsseX()<<" "<<b.getNomeAsseY()<<std::endl;
+
+    graficoCreator gc;
+    torta* tt = gc.createTorta();
+
+    std::vector<std::pair<std::string,double>> vv = (*tt).getData();
+    std::cout<<vv.data()->first<<vv.data()->second<<std::endl;
 
     return 0;
 }

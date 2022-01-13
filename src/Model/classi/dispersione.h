@@ -7,6 +7,7 @@
 
 class dispersione: public graficoPianoCartesiano{
     public:
+        dispersione();
         dispersione(std::vector<std::pair<double,double>>);
         std::vector<double> regressioneLineare();
 };

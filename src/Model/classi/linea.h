@@ -7,6 +7,7 @@
 
 class linea : public graficoPianoCartesiano{
     public:
+        linea();
         linea(std::vector<std::pair<double,double>>);
 };
 
