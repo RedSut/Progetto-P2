@@ -2,11 +2,11 @@
 #include <string>
 #include "torta.h"
 
-torta::torta(std::vector<std::pair<std::string,double>> input): graficoSemplice(input){};
+//torta::torta(std::vector<std::pair<std::string,double>> input): graficoSemplice(input){};
 
-torta::torta(): graficoSemplice(){};
+torta::torta(std::string t,std::vector<std::string> l,std::vector<double> v): graficoSemplice(t,l,v){};
 
-
+/*
 std::vector<std::pair<std::string,double>> torta::getDataInPercentage() const{
     double somma=0;
     std::vector<std::pair<std::string,double>> d1 = graficoSemplice::getData();
@@ -28,4 +28,4 @@ bool torta::checkNegative() const {
         if(it->second<0){return true;}
     }
     return false;
-};
+};*/

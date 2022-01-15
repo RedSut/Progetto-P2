@@ -1,16 +1,21 @@
 #ifndef GRAFICO_H
 #define GRAFICO_H
 #include <string>
+#include <vector>
+#include <map>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonValue>
 
-class grafico{
-    private:
-        std::string titolo;
+class grafico{ //classe astratta
     public:
-        std::string getTitolo() const;
-        void setTitolo(std::string);
+        //grafico();
+
+        //virtual std::list<std::string> getLegenda()const=0;
+        //virtual std::list<double> getValore1()const=0;
+        virtual std::string getTitolo() const=0;
+
+        virtual std::map<std::string,std::string> getInfo()const=0;
 
         //virtual void loadDataFromJSON(const QJsonObject&)=0; // JSON input
         //virtual void saveDataToJSON(QJsonObject&)const=0; // JSON output

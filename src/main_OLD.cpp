@@ -24,18 +24,18 @@ int main(){
     mi.push_back({"gennaio",1});
     mm.push_back(std::make_tuple<std::string,std::string,double>("gennaio","gennaio",1));
     //m_NEW.push_back({"gennaio",1});
+    /*
+    torta t; t.setData(m);
+    istogramma i; i.setData(m);
 
-    torta t(m);
-    istogramma i(m);
+    dispersione d; d.setData(v);
+    linea l; l.setData(v);
 
-    dispersione d(v);
-    linea l(v);
-
-    barre b(mm);
+    barre b; b.setData(mm);
 
     t.setTitolo("torta"); i.setTitolo("istogramma"); d.setTitolo("dispersione"); l.setTitolo("linea");b.setTitolo("barre");
 
-    std::cout<<t.getTitolo()<<std::endl;
+    std::cout<<t.getTitolo()<<std::endl; // TORTA
     std::vector<std::pair<std::string,double>> dt = t.getData();
     for(auto it = dt.begin(); it!=dt.end(); ++it){
         std::cout<<it->first<<" "<<it->second<<std::endl;
@@ -45,7 +45,7 @@ int main(){
         std::cout<<it->first<<" "<<it->second<<std::endl;
     }
 
-    std::cout<<std::endl<<i.getTitolo()<<std::endl;
+    std::cout<<std::endl<<i.getTitolo()<<std::endl; // ISTOGRAMMA
     std::vector<std::pair<std::string,double>> di = i.getData();
     for(auto it = di.begin(); it!=di.end(); ++it){
         std::cout<<it->first<<" "<<it->second<<std::endl;
@@ -53,7 +53,7 @@ int main(){
     i.setNomeDati("Valori","Mesi");
     std::cout<<i.getNomeDatoDouble()<<" "<<i.getNomeDatoString()<<std::endl;
 
-    std::cout<<std::endl<<d.getTitolo()<<std::endl;
+    std::cout<<std::endl<<d.getTitolo()<<std::endl; // DISPERSIONE
     std::vector<std::pair<double,double>> dd = d.getData();
     for(auto it = dd.begin(); it!=dd.end(); ++it){
         std::cout<<it->first<<" "<<it->second<<std::endl;
@@ -65,7 +65,7 @@ int main(){
         std::cout<<*itr<<" ";
     }
 
-    std::cout<<std::endl<<std::endl<<l.getTitolo()<<std::endl;
+    std::cout<<std::endl<<std::endl<<l.getTitolo()<<std::endl; // LINEA
     std::vector<std::pair<double,double>> dl = l.getData();
     for(auto itl = dl.begin(); itl!=dl.end(); ++itl){
         std::cout<<itl->first<<" "<<itl->second<<std::endl;
@@ -73,14 +73,7 @@ int main(){
     l.setNomeAssi("AsseXl","AsseYl");
     std::cout<<l.getNomeAsseX()<<" "<<l.getNomeAsseY()<<std::endl;
 
-    std::cout<<std::endl<<b.getTitolo()<<std::endl;
-    /*std::vector<std::pair<std::string,graficoSemplice>> db = b.getData();
-    for(auto itb = db.begin(); itb!=db.end(); ++itb){
-        std::cout<<itb->first<<" ";
-        std::vector<std::pair<std::string,double>> g = itb->second.getData();
-        std::cout<<g.data()->first<<" "<<g.data()->second<<std::endl;
-        std::cout<<itb->second.getData().data()->first<<" "<<itb->second.getData().data()->second<<std::endl;
-    }*/
+    std::cout<<std::endl<<b.getTitolo()<<std::endl; // BARRE
     std::vector<std::tuple<std::string,std::string,double>> db = b.getData();
     for(auto itb = db.begin(); itb!=db.end(); ++itb){
         std::cout<<std::get<0>(*itb)<<" ";
@@ -91,10 +84,20 @@ int main(){
     std::cout<<b.getNomeAsseX()<<" "<<b.getNomeAsseY()<<std::endl;
 
     graficoCreator gc;
-    torta* tt = gc.createTorta();
+    graficoSemplice* tt = gc.createIstogramma();
 
-    std::vector<std::pair<std::string,double>> vv = (*tt).getData();
-    std::cout<<vv.data()->first<<vv.data()->second<<std::endl;
+    grafico* gp = gc.createTorta();
+    dynamic_cast<graficoSemplice*>(gp)->setData(m);
 
-    return 0;
+    std::vector<std::pair<std::string,double>> vv = (*tt).getData(); // VALORI DEFAULT
+    std::cout<<"Prova valori default: "<<vv.data()->first<<vv.data()->second<<std::endl;
+
+    tt->setData(m);
+    tt->modifyData(2,"Modifica",24);
+    std::vector<std::pair<std::string,double>> dtt = (*tt).getData(); // MODIFICA DATI
+    for(auto it = dtt.begin(); it!=dtt.end(); ++it){
+        std::cout<<it->first<<" "<<it->second<<std::endl;
+    }
+
+    return 0;*/
 }

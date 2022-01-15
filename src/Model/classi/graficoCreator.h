@@ -9,11 +9,11 @@
 
 class graficoCreator{
     public:
-        barre* createBarre() const;
-        istogramma* createIstogramma() const;
-        linea* createLinea() const;
-        dispersione* createDispersione() const;
-        torta* createTorta() const;
+        //barre* createBarre() const;
+        istogramma* createIstogramma(std::string = "Titolo",std::vector<std::string> = {""},std::vector<double> = {0.00}, std::string dd ="", std::string ds= "") const;
+        //linea* createLinea() const;
+        //dispersione* createDispersione() const;
+        torta* createTorta(std::string = "Titolo",std::vector<std::string> = {""},std::vector<double> = {0.00}) const;
 };
 
 #endif

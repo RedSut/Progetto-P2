@@ -1,21 +1,22 @@
 #include "graficoCreator.h"
 
-barre* graficoCreator::createBarre()const{
+/*barre* graficoCreator::createBarre()const{
     return new barre();
+}*/
+
+istogramma* graficoCreator::createIstogramma(std::string t,std::vector<std::string> l,std::vector<double> d, std::string dd, std::string ds)const{
+    return new istogramma(t,l,d,dd,ds);
 }
 
-istogramma* graficoCreator::createIstogramma()const{
-    return new istogramma();
+torta* graficoCreator::createTorta(std::string t,std::vector<std::string> l,std::vector<double> d)const{
+    return new torta(t,l,d);
 }
 
-torta* graficoCreator::createTorta()const{
-    return new torta();
-}
-
-dispersione* graficoCreator::createDispersione()const{
+/*dispersione* graficoCreator::createDispersione()const{
     return new dispersione();
 }
 
 linea* graficoCreator::createLinea()const{
     return new linea();
 }
+*/
