@@ -3,19 +3,16 @@
 
 #include <string>
 #include <vector>
-#include <tuple>
-#include "grafico.h"
+#include "graficoSemplice.h"
 
-class graficoComplesso: public grafico{
+class graficoComplesso: public graficoSemplice{
     private:
-        //std::vector<std::pair<std::string,std::pair<std::string,double>>> c;
-        std::vector<std::tuple<std::string,std::string,double>> c;
+        std::vector<std::string> categorie;
     public:
-        //graficoComplesso(std::vector<std::pair<std::string,std::pair<std::string,double>>>);
-        //std::vector<std::pair<std::string,std::pair<std::string,double>>> getData()const;
-        graficoComplesso();
-        graficoComplesso(std::vector<std::tuple<std::string,std::string,double>>);
-        std::vector<std::tuple<std::string,std::string,double>> getData()const;
+        graficoComplesso(std::string,std::vector<std::string>,std::vector<double>,std::vector<std::string>);
+        std::vector<std::string> getCategorie()const;
+        void setCategorie(std::vector<std::string>);
+        
 };
 
 #endif

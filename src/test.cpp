@@ -23,12 +23,14 @@ int main(){
     torta* t2 = dynamic_cast<torta*>(g2);
 
     if(t1){
-        std::cout<<t1->getInfo().at("titolo")<<std::endl;
+        //std::cout<<t1->getInfo().at("titolo")<<std::endl;
+        std::cout<<t1->getTitolo()<<std::endl;
         std::cout<<t1->getLegenda().at(0)<<std::endl;
         std::cout<<t1->getValori().at(0)<<std::endl;
     }
     if(t2){
-        std::cout<<t2->getInfo().at("titolo")<<std::endl;
+        //std::cout<<t2->getInfo().at("titolo")<<std::endl;
+        std::cout<<t2->getTitolo()<<std::endl;
         std::cout<<t2->getLegenda().at(0)<<std::endl;
         std::cout<<t2->getValori().at(0)<<std::endl;
     }

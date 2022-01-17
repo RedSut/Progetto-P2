@@ -8,10 +8,9 @@
 class torta : public graficoSemplice{
     public:
         torta(std::string,std::vector<std::string>,std::vector<double>);
-        //torta(std::vector<std::pair<std::string,double>>);
         
-        //std::vector<std::pair<std::string,double>> getDataInPercentage() const;
-        //bool checkNegative() const;
+        std::vector<double> getValoriInPercentage() const;
+        bool checkNegative() const;
 };
 
 #endif

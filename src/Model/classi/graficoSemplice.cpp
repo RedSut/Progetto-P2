@@ -16,41 +16,34 @@ std::string graficoSemplice::getTitolo()const{
     return titolo;
 };
 
-std::map<std::string,std::string> graficoSemplice::getInfo()const{ // NON SO SE VA BENE
+void graficoSemplice::setTitolo(std::string t){
+    titolo = t;
+};
+
+/*std::map<std::string,std::string> graficoSemplice::getInfo()const{ // NON SO SE PUO' SERVIRE
     std::map<std::string,std::string> m;
     m.insert({"titolo",titolo});
     return m;
-};
+};*/
 
 std::vector<std::string> graficoSemplice::getLegenda()const{
     return legenda;
 }
 
+void graficoSemplice::setLegenda(std::vector<std::string> l){
+    legenda = l;
+};
+
 std::vector<double> graficoSemplice::getValori()const{
     return valori;
 }
 
+void graficoSemplice::setValori(std::vector<double> v){
+    valori = v;
+}
+
 //METODI
-
-/*std::vector<std::pair<std::string,double>> graficoSemplice::getData() const {
-    return s;
-};
-
-Dato* graficoSemplice::getData()const{
-    return data;
-}
-
-void graficoSemplice::modifyData(unsigned int indice, std::string str, double d){ // Modifica i dati di una specifica coppia all'interno del vettore
-    if(indice < s.size()){
-        s.at(indice) = {str,d};
-    }
-    return;
-}
-
-void graficoSemplice::setData(std::vector<std::pair<std::string,double>> data){
-    s = data;
-    return;
-}*/
+/*
 
 /*void graficoSemplice::loadDataFromJSON(const QJsonObject& jsonOBJ){
     QJsonValue t = jsonOBJ["titolo"];
