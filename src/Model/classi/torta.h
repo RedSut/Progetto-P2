@@ -1,8 +1,6 @@
 #ifndef TORTA_H
 #define TORTA_H
 
-#include <vector>
-#include <string>
 #include "graficoSemplice.h"
 
 class torta : public graficoSemplice{

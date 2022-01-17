@@ -2,8 +2,6 @@
 #define GRAFICO_SEMPLICE_H
 
 #include <vector>
-#include <list>
-#include <string>
 #include "grafico.h"
 
 class graficoSemplice : public grafico{

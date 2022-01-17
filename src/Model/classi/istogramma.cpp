@@ -1,5 +1,3 @@
-#include <string>
-#include <vector>
 #include "istogramma.h"
 
 istogramma::istogramma(std::string t,std::vector<std::string> l,std::vector<double> v, std::string dd, std::string ds) : graficoSemplice(t,l,v), nomeDati(dd), nomeLegenda(ds){};

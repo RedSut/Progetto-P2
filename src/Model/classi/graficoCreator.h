@@ -9,10 +9,10 @@
 
 class graficoCreator{
     public:
-        //barre* createBarre() const;
+        barre* createBarre(std::string = "Titolo",std::vector<std::string> = {""},std::vector<double> = {0.00},std::vector<std::string> = {""}, std::string = "", std::string = "") const;
         istogramma* createIstogramma(std::string = "Titolo",std::vector<std::string> = {""},std::vector<double> = {0.00}, std::string dd ="", std::string ds= "") const;
-        //linea* createLinea() const;
-        //dispersione* createDispersione() const;
+        linea* createLinea(std::string = "Titolo",std::vector<std::pair<double,double>> = {{0.00,0.00}},std::string = "",std::string = "") const;
+        dispersione* createDispersione(std::string = "Titolo",std::vector<std::pair<double,double>> = {{0.00,0.00}},std::string = "",std::string = "") const;
         torta* createTorta(std::string = "Titolo",std::vector<std::string> = {""},std::vector<double> = {0.00}) const;
 };
 

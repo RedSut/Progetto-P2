@@ -1,7 +1,7 @@
 #ifndef GRAFICO_H
 #define GRAFICO_H
+
 #include <string>
-#include <vector>
 #include <map>
 #include <QJsonObject>
 #include <QJsonArray>

@@ -1,22 +1,21 @@
 #include "graficoCreator.h"
 
-/*barre* graficoCreator::createBarre()const{
-    return new barre();
-}*/
+torta* graficoCreator::createTorta(std::string t,std::vector<std::string> l,std::vector<double> d)const{
+    return new torta(t,l,d);
+}
 
 istogramma* graficoCreator::createIstogramma(std::string t,std::vector<std::string> l,std::vector<double> d, std::string dd, std::string ds)const{
     return new istogramma(t,l,d,dd,ds);
 }
 
-torta* graficoCreator::createTorta(std::string t,std::vector<std::string> l,std::vector<double> d)const{
-    return new torta(t,l,d);
+barre* graficoCreator::createBarre(std::string t,std::vector<std::string> l,std::vector<double> d,std::vector<std::string> c, std::string nx, std::string ny)const{
+    return new barre(t,l,d,c,nx,ny);
 }
 
-/*dispersione* graficoCreator::createDispersione()const{
-    return new dispersione();
+dispersione* graficoCreator::createDispersione(std::string t,std::vector<std::pair<double,double>> p,std::string nx,std::string ny)const{
+    return new dispersione(t,p,nx,ny);
 }
 
-linea* graficoCreator::createLinea()const{
-    return new linea();
+linea* graficoCreator::createLinea(std::string t,std::vector<std::pair<double,double>> p,std::string nx,std::string ny)const{
+    return new linea(t,p,nx,ny);
 }
-*/

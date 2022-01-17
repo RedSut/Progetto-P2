@@ -1,8 +1,6 @@
 #ifndef GRAFICO_COMPLESSO
 #define GRAFICO_COMPLESSO
 
-#include <string>
-#include <vector>
 #include "graficoSemplice.h"
 
 class graficoComplesso: public graficoSemplice{

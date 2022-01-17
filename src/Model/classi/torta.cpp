@@ -1,5 +1,3 @@
-#include <map>
-#include <string>
 #include "torta.h"
 
 torta::torta(std::string t,std::vector<std::string> l,std::vector<double> v): graficoSemplice(t,l,v){};

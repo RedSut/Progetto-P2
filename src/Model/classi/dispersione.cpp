@@ -1,16 +1,11 @@
-#include <string>
-#include <vector>
 #include <math.h>
 #include "dispersione.h"
 
-dispersione::dispersione(std::vector<std::pair<double,double>> input): graficoPianoCartesiano(input){};
-
-dispersione::dispersione(): graficoPianoCartesiano(){};
-
+dispersione::dispersione(std::string t,std::vector<std::pair<double,double>> p,std::string nx,std::string ny): graficoPianoCartesiano(t,p,nx,ny){};
 
 std::vector<double> dispersione::regressioneLineare(){
     std::vector<double> X, Y;
-    std::vector<std::pair<double,double>> pc1 = graficoPianoCartesiano::getData();
+    std::vector<std::pair<double,double>> pc1 = graficoPianoCartesiano::getPunti();
     for(auto it = pc1.begin(); it != pc1.end(); ++it){
         X.push_back(it->first);
         Y.push_back(it->second);

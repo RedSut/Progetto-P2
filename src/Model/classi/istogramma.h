@@ -1,8 +1,6 @@
 #ifndef ISTOGRAMMA_H
 #define ISTOGRAMMA_H
 
-#include <string>
-#include <vector>
 #include "graficoSemplice.h"
 
 class istogramma : public graficoSemplice{

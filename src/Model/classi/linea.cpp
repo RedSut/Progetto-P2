@@ -1,6 +1,3 @@
-#include <vector>
 #include "linea.h"
 
-linea::linea(std::vector<std::pair<double,double>> input): graficoPianoCartesiano(input){};
-
-linea::linea():graficoPianoCartesiano(){};
+linea::linea(std::string t,std::vector<std::pair<double,double>> p,std::string nx,std::string ny):graficoPianoCartesiano(t,p,nx,ny){};
