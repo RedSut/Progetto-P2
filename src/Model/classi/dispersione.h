@@ -1,6 +1,7 @@
 #ifndef DISPERSIONE_H
 #define DISPERSIONE_H
 
+#include <math.h>
 #include "graficoPianoCartesiano.h"
 
 class dispersione: public graficoPianoCartesiano{

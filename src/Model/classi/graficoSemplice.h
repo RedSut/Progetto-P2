@@ -15,17 +15,11 @@ class graficoSemplice : public grafico{
         virtual std::string getTitolo()const override;
         virtual void setTitolo(std::string) override;
 
-        //virtual std::map<std::string,std::string> getInfo()const override;
-
         std::vector<std::string> getLegenda()const;
         void setLegenda(std::vector<std::string>);
 
         std::vector<double> getValori()const;
         void setValori(std::vector<double>);
-
-
-        //void loadDataFromJSON(const QJsonObject&); // JSON input
-        //void saveDataToJSON(QJsonObject&) const; // JSON output
 };
 
 #endif

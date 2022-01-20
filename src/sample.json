@@ -1,0 +1,21 @@
+{
+    "titolo": "Grafico",
+    "legenda": [
+        "Maschi",
+        "Femmine"
+    ],
+    "categorie": [
+        "Gennaio",
+        "Febbraio"
+    ],
+    "valori": [
+        24,
+        25,
+        26,
+        27
+    ],
+    "nome_legenda": "Legenda",
+    "nome_valori": "Valori",
+    "asse_x": "Asse X",
+    "asse_y": "Asse Y"
+}

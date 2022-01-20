@@ -1,14 +1,14 @@
 #include "istogramma.h"
 
-istogramma::istogramma(std::string t,std::vector<std::string> l,std::vector<double> v, std::string dd, std::string ds) : graficoSemplice(t,l,v), nomeDati(dd), nomeLegenda(ds){};
+istogramma::istogramma(std::string t,std::vector<std::string> l,std::vector<double> v, std::string dd, std::string ds) : graficoSemplice(t,l,v), nomeValori(dd), nomeLegenda(ds){};
 
 
-std::string istogramma::getNomeDati() const{
-    return nomeDati;
+std::string istogramma::getNomeValori() const{
+    return nomeValori;
 };
 
-void istogramma::setNomeDati(std::string nd){
-    nomeDati = nd;
+void istogramma::setNomeValori(std::string nd){
+    nomeValori = nd;
 };
 
 std::string istogramma::getNomeLegenda() const{
