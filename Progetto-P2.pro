@@ -12,6 +12,7 @@ HEADERS += src/Model/classi/barre.h \
            src/Model/classi/grafico.h \
            src/Model/classi/graficoComplesso.h \
            src/Model/classi/graficoCreator.h \
+           src/Model/classi/graficoException.h \
            src/Model/classi/graficoJSON.h \
            src/Model/classi/graficoPianoCartesiano.h \
            src/Model/classi/graficoSemplice.h \
@@ -25,6 +26,7 @@ SOURCES += src/prova_JSON.cpp \
            src/Model/classi/grafico.cpp \
            src/Model/classi/graficoComplesso.cpp \
            src/Model/classi/graficoCreator.cpp \
+           src/Model/classi/graficoException.cpp \
            src/Model/classi/graficoJSON.cpp \
            src/Model/classi/graficoPianoCartesiano.cpp \
            src/Model/classi/graficoSemplice.cpp \

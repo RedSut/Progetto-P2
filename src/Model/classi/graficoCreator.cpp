@@ -1,7 +1,12 @@
 #include "graficoCreator.h"
 
 torta* graficoCreator::createTorta(std::string t,std::vector<std::string> l,std::vector<double> d)const{
-    return new torta(t,l,d);
+    try{
+        return new torta(t,l,d);
+    }
+    catch(graficoException& e){
+        throw e;
+    }
 }
 
 istogramma* graficoCreator::createIstogramma(std::string t,std::vector<std::string> l,std::vector<double> d, std::string dd, std::string ds)const{

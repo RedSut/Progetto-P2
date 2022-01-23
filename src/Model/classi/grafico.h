@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 
+#include "graficoException.h"
+
 class grafico{ //classe base astratta
     public:
         //grafico();

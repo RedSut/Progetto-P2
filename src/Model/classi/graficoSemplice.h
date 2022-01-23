@@ -19,7 +19,9 @@ class graficoSemplice : public grafico{
         void setLegenda(std::vector<std::string>);
 
         std::vector<double> getValori()const;
-        void setValori(std::vector<double>);
+        virtual void setValori(std::vector<double>);
+
+        virtual void checkSize()const;
 };
 
 #endif

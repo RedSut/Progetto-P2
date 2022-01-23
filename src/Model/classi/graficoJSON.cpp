@@ -9,6 +9,7 @@ const QString graficoJSON::JSON_asse_x = "asse_x";
 const QString graficoJSON::JSON_asse_y = "asse_y";
 const QString graficoJSON::JSON_nome_leg = "nome_legenda";
 const QString graficoJSON::JSON_nome_val = "nome_valori";
+const QString graficoJSON::JSON_tipologia = "tipologia";
 
 
 graficoJSON::graficoJSON(Model* m){
@@ -20,104 +21,203 @@ void graficoJSON::setModel(Model* m){
 }
 
 void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
+    QJsonValue tp = jsonOBJ[JSON_tipologia];
+    if(!tp.isUndefined()){
+        if(tp.isString()){
+            if(tp.toString().toStdString() == "barre"){
+                M->createGrafico(Model::barre);
+            }else if(tp.toString().toStdString() == "torta"){
+                M->createGrafico(Model::torta);
+            }else if(tp.toString().toStdString() == "istogramma"){
+                M->createGrafico(Model::istogramma);
+            }else if(tp.toString().toStdString() == "linea"){
+                M->createGrafico(Model::linea);
+            }else if(tp.toString().toStdString() == "dispersione"){
+                M->createGrafico(Model::dispersione);
+            }else{
+                throw graficoException("La tipologia deve essere una delle seguenti stringhe: 'torta', 'istogramma', 'barre', 'linea', 'dispersione'",graficoException::INVALID_FORMAT);
+            }
+        }else{
+            throw graficoException("La tipologia deve essere una delle seguenti stringhe: 'torta', 'istogramma', 'barre', 'linea', 'dispersione'",graficoException::INVALID_FORMAT);
+        }
+    }
     grafico* g = M->getGrafico();
     QJsonValue t = jsonOBJ[JSON_titolo];
-    if(!t.isUndefined() && t.isString()){
-        g->setTitolo(t.toString().toStdString());
+    if(!t.isUndefined()){
+        if(t.isString()){
+            g->setTitolo(t.toString().toStdString());
+        }else{
+            throw graficoException("Il titolo deve essere una stringa", graficoException::WRONG_DATA_TYPE);
+        }
     }
     graficoSemplice* gs = dynamic_cast<graficoSemplice*>(g);
     if(gs){
         QJsonValue l = jsonOBJ[JSON_legenda];
-        if(!l.isUndefined() && l.isArray()){
-            std::vector<std::string> leg;
-            QJsonArray l1 = l.toArray();
-            for(int i = 0; i < l1.size(); ++i){
-                leg.push_back(l1.at(i).toString().toStdString());
+        if(!l.isUndefined()){
+            if(l.isArray()){
+                std::vector<std::string> leg;
+                QJsonArray l1 = l.toArray();
+                for(int i = 0; i < l1.size(); ++i){
+                    if(l1.at(i).isString()){
+                        leg.push_back(l1.at(i).toString().toStdString());
+                    }else{
+                        std::string s = "L'elemento dell'array legenda in posizione " + std::to_string(i);
+                        s += " deve essere una stringa";
+                        throw graficoException(s,graficoException::WRONG_DATA_TYPE);
+                    }
+                }
+                if(l1.isEmpty()){
+                    leg.push_back("");
+                }
+                gs->setLegenda(leg);
+            }else{
+                throw graficoException("La legenda deve essere un array di stringhe",graficoException::INVALID_FORMAT);
             }
-            gs->setLegenda(leg);
         }
         QJsonValue v = jsonOBJ[JSON_valori];
-        if(!v.isUndefined() && v.isArray()){
-            std::vector<double> val;
-            QJsonArray v1 = v.toArray();
-            for(int i = 0; i < v1.size(); ++i){
-                val.push_back(v1.at(i).toDouble());
+        //torta* gt = dynamic_cast<torta*>(g);
+        if(!v.isUndefined()){
+            if(v.isArray()){
+                std::vector<double> val;
+                QJsonArray v1 = v.toArray();
+                for(int i = 0; i < v1.size(); ++i){
+                    if(v1.at(i).isDouble()){
+                        val.push_back(v1.at(i).toDouble());
+                    }else{
+                        std::string s = "L'elemento dell'array valori in posizione " + std::to_string(i);
+                        s += " deve essere un numero";
+                        throw graficoException(s,graficoException::WRONG_DATA_TYPE);
+                    }
+                }
+                if(v1.isEmpty()){
+                    val.push_back(0);
+                }
+                gs->setValori(val);
+            }else{
+                throw graficoException("I valori devono essere inseriri in un array",graficoException::INVALID_FORMAT);
             }
-            gs->setValori(val);
         }
         istogramma* gi = dynamic_cast<istogramma*>(g);
         if(gi){
             QJsonValue nl = jsonOBJ[JSON_nome_leg];
-            if(!nl.isUndefined() && nl.isString()){
-                gi->setNomeLegenda(nl.toString().toStdString());
+            if(!nl.isUndefined()){
+                if(nl.isString()){
+                    gi->setNomeLegenda(nl.toString().toStdString());
+                }else{
+                    throw graficoException("Il nome per la categoria legenda deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                }
             }
             QJsonValue nv = jsonOBJ[JSON_nome_val];
-            if(!nv.isUndefined() && nv.isString()){
-                gi->setNomeValori(nv.toString().toStdString());
+            if(!nv.isUndefined()){
+                if(nv.isString()){
+                    gi->setNomeValori(nv.toString().toStdString());
+                }else{
+                    throw graficoException("Il nome per la categoria valori deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                }
             }
         }
         graficoComplesso* gc = dynamic_cast<graficoComplesso*>(g);
         if(gc){
             QJsonValue c = jsonOBJ[JSON_categorie];
-            if(!c.isUndefined() && c.isArray()){
-                QJsonArray c1 = c.toArray();
-                std::vector<std::string> cat;
-                for(int i = 0; i<c1.size();++i){
-                    cat.push_back(c1.at(i).toString().toStdString());
+            if(!c.isUndefined()){
+                if(c.isArray()){
+                    QJsonArray c1 = c.toArray();
+                    std::vector<std::string> cat;
+                    for(int i = 0; i<c1.size();++i){
+                        if(c1.at(i).isString()){
+                            cat.push_back(c1.at(i).toString().toStdString());
+                        }else{
+                            std::string s = "L'elemento dell'array categorie in posizione " + std::to_string(i);
+                            s += " deve essere una stringa";
+                            throw graficoException(s,graficoException::WRONG_DATA_TYPE);
+                        }
+                    }
+                    if(c1.isEmpty()){
+                        cat.push_back("");
+                    }
+                    gc->setCategorie(cat);
+                }else{
+                    throw graficoException("Le categorie devono essere inserite in un array",graficoException::INVALID_FORMAT);
                 }
-                gc->setCategorie(cat);
             }
             barre* gb = dynamic_cast<barre*>(g);
             if(gb){
                 QJsonValue x = jsonOBJ[JSON_asse_x];
-                if(!x.isUndefined() && x.isString()){
-                    gb->setNomeAsseX(x.toString().toStdString());
+                if(!x.isUndefined()){
+                    if(x.isString()){
+                        gb->setNomeAsseX(x.toString().toStdString());
+                    }else{
+                        throw graficoException("Il nome dell'asse x deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                    }
                 }
                 QJsonValue y = jsonOBJ[JSON_asse_y];
-                if(!y.isUndefined() && y.isString()){
-                    gb->setNomeAsseY(y.toString().toStdString());
+                if(!y.isUndefined()){
+                    if(y.isString()){
+                        gb->setNomeAsseY(y.toString().toStdString());
+                    }else{
+                        throw graficoException("Il nome dell'asse y deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                    }
                 }
             }
         }
+        gs->checkSize(); // Controlla se le dimensioni dei vettori sono corrette
     }else{
         graficoPianoCartesiano* gp = dynamic_cast<graficoPianoCartesiano*>(g);
         if(gp){
             QJsonValue d = jsonOBJ[JSON_punti];
-            if(!d.isUndefined() && d.isArray()){
-                std::vector<std::pair<double,double>> pc;
-                QJsonArray dt = d.toArray();
-                /*for(int i=0; i<dt.size(); i+=2){ // VERSIONE PUNTI IN UN UNICO ARRAY
-                    double d1;
-                    double d2;
-                    if(!dt.at(i).isUndefined() && dt.at(i).isDouble()){
-                        d1 = dt.at(i).toDouble();
-                    }
-                    if(!dt.at(i+1).isUndefined() && dt.at(i+1).isDouble()){
-                        d2 = dt.at(i+1).toDouble();
-                    }
-                    pc.push_back({d1,d2});
-                }*/
-                for(int i=0;i<dt.size();++i){
-                    double d1;
-                    double d2;
-                    if(dt.at(i).isArray()){
-                        QJsonArray dtt = dt.at(i).toArray();
-                        if(dtt.at(0).isDouble() && dtt.at(1).isDouble()){
-                            d1 = dtt.at(0).toDouble();
-                            d2 = dtt.at(1).toDouble();
-                            pc.push_back({d1,d2});
+            if(!d.isUndefined()){
+                if(d.isArray()){
+                    std::vector<std::pair<double,double>> pc;
+                    QJsonArray dt = d.toArray();
+                    for(int i=0;i<dt.size();++i){
+                        double d1;
+                        double d2;
+                        if(dt.at(i).isArray()){
+                            QJsonArray dtt = dt.at(i).toArray();
+                            if(dtt.at(0).isUndefined() || dtt.at(1).isUndefined() || !dtt.at(2).isUndefined()){
+                                std::string s = "Il punto definito dalla coppia in posizione ";
+                                s += std::to_string(i);
+                                s += " deve avere esattamente due valori";
+                                throw graficoException(s,graficoException::INVALID_FORMAT);
+                            }
+                            if(dtt.at(0).isDouble() && dtt.at(1).isDouble()){
+                                d1 = dtt.at(0).toDouble();
+                                d2 = dtt.at(1).toDouble();
+                                pc.push_back({d1,d2});
+                            }else{
+                                std::string s = "Il punto definito dalla coppia in posizione ";
+                                s += std::to_string(i);
+                                s += " deve avere valori numerici";
+                                throw graficoException(s,graficoException::WRONG_DATA_TYPE);
+                            }
+                        }else{
+                            throw graficoException("I punti devono essere coppie di valori: [x1,y1],[x2,y2],ecc",graficoException::INVALID_FORMAT);
                         }
                     }
+                    if(dt.isEmpty()){
+                        pc.push_back({0,0});
+                    }
+                    gp->setPunti(pc);
+                }else{
+                    throw graficoException("I punti devono essere inseriti in un array",graficoException::INVALID_FORMAT);
                 }
-                gp->setPunti(pc);
             }
+                
             QJsonValue nx = jsonOBJ[JSON_asse_x];
-            if(!nx.isUndefined() && nx.isString()){
-                gp->setNomeAsseX(nx.toString().toStdString());
+            if(!nx.isUndefined()){
+                if(nx.isString()){
+                    gp->setNomeAsseX(nx.toString().toStdString());
+                }else{
+                    throw graficoException("Il nome dell'asse x deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                }
             }
             QJsonValue ny = jsonOBJ[JSON_asse_y];
-            if(!ny.isUndefined() && ny.isString()){
-                gp->setNomeAsseY(ny.toString().toStdString());
+            if(!ny.isUndefined()){
+                if(ny.isString()){
+                    gp->setNomeAsseY(ny.toString().toStdString());
+                }else{
+                    throw graficoException("Il nome dell'asse y deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                }
             }
         }
     }

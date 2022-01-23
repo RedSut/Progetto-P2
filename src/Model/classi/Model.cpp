@@ -1,9 +1,9 @@
 #include "Model.h"
 
 Model::Model(){
-    createGraficoTorta(); // default
+    createGrafico(Model::torta); // default
 }
-
+/*
 void Model::createGraficoTorta(){
     graficoCreator* gc;
     G = gc->createTorta();
@@ -27,7 +27,19 @@ void Model::createGraficoLinea(){
 void Model::createGraficoDispersione(){
     graficoCreator* gc;
     G = gc->createDispersione();
-};
+};*/
+
+void Model::createGrafico(int t){
+    graficoCreator* gc;
+    switch(t){
+        case 0: G = gc->createTorta(); break;
+        case 1: G = gc->createIstogramma(); break;
+        case 2: G = gc->createBarre(); break;
+        case 3: G = gc->createLinea(); break;
+        case 4: G = gc->createDispersione(); break;
+        default: G = gc->createTorta();
+    }
+}
 
 grafico* Model::getGrafico()const{
     return G;

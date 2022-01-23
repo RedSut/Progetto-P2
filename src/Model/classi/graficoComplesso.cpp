@@ -10,3 +10,8 @@ void graficoComplesso::setCategorie(std::vector<std::string> cat){
     categorie = cat;
 };
 
+void graficoComplesso::checkSize()const{
+    if(graficoComplesso::getValori().size() != (graficoComplesso::getCategorie().size() * graficoComplesso::getLegenda().size())){
+        throw graficoException("Il numero di elementi nell'array valori deve essere il prodotto tra il numero di elementi nell'array categorie e il numero di elementi nell'array legenda",graficoException::WRONG_SIZE);
+    }
+}

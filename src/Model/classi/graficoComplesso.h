@@ -10,6 +10,8 @@ class graficoComplesso: public graficoSemplice{
         graficoComplesso(std::string,std::vector<std::string>,std::vector<double>,std::vector<std::string>);
         std::vector<std::string> getCategorie()const;
         void setCategorie(std::vector<std::string>);
+
+        void checkSize()const;
         
 };
 

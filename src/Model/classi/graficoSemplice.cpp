@@ -16,12 +16,6 @@ void graficoSemplice::setTitolo(std::string t){
     titolo = t;
 };
 
-/*std::map<std::string,std::string> graficoSemplice::getInfo()const{ // NON SO SE PUO' SERVIRE
-    std::map<std::string,std::string> m;
-    m.insert({"titolo",titolo});
-    return m;
-};*/
-
 std::vector<std::string> graficoSemplice::getLegenda()const{
     return legenda;
 }
@@ -36,4 +30,10 @@ std::vector<double> graficoSemplice::getValori()const{
 
 void graficoSemplice::setValori(std::vector<double> v){
     valori = v;
+}
+
+void graficoSemplice::checkSize()const{
+    if(graficoSemplice::getLegenda().size() != graficoSemplice::getValori().size()){
+        throw graficoException("Il numero di elementi nell'array legenda e nell'array valori deve essere uguale!",graficoException::WRONG_SIZE);
+    }
 }

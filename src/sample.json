@@ -1,4 +1,5 @@
 {
+    "tipologia": "barre",
     "titolo": "Grafico",
     "legenda": [
         "Maschi",
@@ -13,6 +14,10 @@
         25,
         26,
         27
+    ],
+    "punti": [
+        [24, 25],
+        [26]
     ],
     "nome_legenda": "Legenda",
     "nome_valori": "Valori",

@@ -8,7 +8,7 @@
 
 int main(){
     Model* m = new Model();
-    m->createGraficoBarre();
+    //m->createGraficoBarre();
     graficoJSON* j = new graficoJSON(m);
     /*std::ifstream file_std("sample.json");
     if(file_std.is_open()){

@@ -25,6 +25,7 @@ class graficoJSON{
         static const QString JSON_asse_y;
         static const QString JSON_nome_leg;
         static const QString JSON_nome_val;
+        static const QString JSON_tipologia;
 
     public:
         graficoJSON(Model* = nullptr);
