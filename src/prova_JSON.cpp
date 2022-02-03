@@ -14,6 +14,8 @@ int main(){
     if(file_std.is_open()){
         std::cout<<"GG";
     }*/
+    //graficoCreator GC;
+    //m->setGrafico(GC.createBarre("Titolo",{"Prova"},{24},{"Cat"},"Ax","Ay")); // FUNZIONA
 
     QString val;
     QFile file("C:/Users/david/OneDrive/Documenti/GitHub/Progetto-P2/src/sample.json");
@@ -23,7 +25,13 @@ int main(){
         QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
         QJsonObject o = d.object();
 
-        j->loadDataFromJSON(o);
+        try{
+            j->loadDataFromJSON(o);
+        }
+        catch(graficoException& e){
+            std::cerr<<"ERRORE DI INPUT JSON"<<std::endl;
+            std::cerr<<e.what()<<std::endl;
+        }
     }else{
         std::cout<<"Questo file non esiste!";
     }

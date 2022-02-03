@@ -41,6 +41,10 @@ void Model::createGrafico(int t){
     }
 }
 
+void Model::setGrafico(grafico& g){
+    G = &g;
+}
+
 grafico* Model::getGrafico()const{
     return G;
 }

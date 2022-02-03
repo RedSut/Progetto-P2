@@ -24,6 +24,7 @@ class Model{
         void createGraficoDispersione();*/
         void createGrafico(int);
 
+        void setGrafico(grafico&);
         grafico* getGrafico()const;
 };
 

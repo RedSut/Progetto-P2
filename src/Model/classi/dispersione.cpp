@@ -9,8 +9,8 @@ std::vector<double> dispersione::regressioneLineare(){
         X.push_back(it->first);
         Y.push_back(it->second);
     }
-    if (X.size() != Y.size()) throw("NotSameSizeException");
-    if (X.empty() || Y.empty()) throw("EmptyException");
+    if (X.size() != Y.size()) throw graficoException("Errore Inaspettato: i punti hanno valori di x non associati a valori di y",graficoException::WRONG_SIZE);
+    if (X.empty() || Y.empty()) throw graficoException("Non ci sono punti presenti nel grafico",graficoException::EMPTY_ARGUMENT);
     std::vector<double> regres;
     int n = X.size();
     double sumX, sumY;

@@ -28,8 +28,8 @@ class graficoJSON{
         static const QString JSON_tipologia;
 
     public:
-        graficoJSON(Model* = nullptr);
-        void setModel(Model*);
+        graficoJSON(Model* = new Model());
+        void setModel(Model&);
         void loadDataFromJSON(const QJsonObject&); // JSON input
         void saveDataToJSON(QJsonObject&) const; // JSON output
 };

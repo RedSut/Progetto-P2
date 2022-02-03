@@ -9,6 +9,8 @@
 class grafico{ //classe base astratta
     public:
         //grafico();
+        virtual ~grafico();
+
         virtual std::string getTitolo() const=0;
         virtual void setTitolo(std::string)=0;
 };

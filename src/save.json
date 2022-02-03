@@ -9,6 +9,7 @@
         "Maschi",
         "Femmine"
     ],
+    "tipologia": "barre",
     "titolo": "Grafico",
     "valori": [
         24,

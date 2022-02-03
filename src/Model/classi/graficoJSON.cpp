@@ -13,11 +13,11 @@ const QString graficoJSON::JSON_tipologia = "tipologia";
 
 
 graficoJSON::graficoJSON(Model* m){
-    setModel(m);
+    setModel(*m);
 }
 
-void graficoJSON::setModel(Model* m){
-    M = m;
+void graficoJSON::setModel(Model& m){
+    M = &m;
 }
 
 void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
@@ -240,8 +240,13 @@ void graficoJSON::saveDataToJSON(QJsonObject& jsonOBJ) const{
             b.push_back(*it);
         }
         jsonOBJ[JSON_valori] = b;
+        torta* gt = dynamic_cast<torta*>(g);
+        if(gt){    
+            jsonOBJ[JSON_tipologia] = QString::fromStdString("torta");
+        }
         istogramma* gi = dynamic_cast<istogramma*>(g);
         if(gi){
+            jsonOBJ[JSON_tipologia] = QString::fromStdString("istogramma");
             jsonOBJ[JSON_nome_leg] = QString::fromStdString(gi->getNomeLegenda());
             jsonOBJ[JSON_nome_val] = QString::fromStdString(gi->getNomeValori());
         }
@@ -255,6 +260,7 @@ void graficoJSON::saveDataToJSON(QJsonObject& jsonOBJ) const{
             jsonOBJ[JSON_categorie] = v;
             barre* gb = dynamic_cast<barre*>(g);
             if(gb){
+                jsonOBJ[JSON_tipologia] = QString::fromStdString("barre");
                 jsonOBJ[JSON_asse_x] = QString::fromStdString(gb->getNomeAsseX());
                 jsonOBJ[JSON_asse_y] = QString::fromStdString(gb->getNomeAsseY());
             }
@@ -273,6 +279,11 @@ void graficoJSON::saveDataToJSON(QJsonObject& jsonOBJ) const{
             jsonOBJ[JSON_punti] = pc;
             jsonOBJ[JSON_asse_x] = QString::fromStdString(gp->getNomeAsseX());
             jsonOBJ[JSON_asse_y] = QString::fromStdString(gp->getNomeAsseY());
+            if(dynamic_cast<linea*>(g)){
+                jsonOBJ[JSON_tipologia] = QString::fromStdString("linea");
+            }else{
+                jsonOBJ[JSON_tipologia] = QString::fromStdString("dispersione");
+            }
         }
     }
     return;
