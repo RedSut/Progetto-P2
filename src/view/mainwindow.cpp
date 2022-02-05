@@ -38,11 +38,11 @@ QHBoxLayout* MainWindow::AddButtons()
     QPushButton* lineChart= new QPushButton("Piano cartesiano");
     QPushButton* dispersionChart= new QPushButton("Grafico a dispersione");
 
-    pieChart->setStyleSheet("background-image: url(piechart.gif); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;" );
-    histogram->setStyleSheet("background-image: url(histogram.png); background-repeat: norepeat; background-position: central; width: 200px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px;");
-    barChart->setStyleSheet("background-image: url(barchart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
-    lineChart->setStyleSheet("background-image: url(linechart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
-    dispersionChart->setStyleSheet("background-image: url(chart.png); width: 200px; font-size: 20px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
+    pieChart->setStyleSheet("background-image: url(img/piechart.gif); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;" );
+    histogram->setStyleSheet("background-image: url(img/histogram.png); background-repeat: norepeat; background-position: central; width: 200px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px;");
+    barChart->setStyleSheet("background-image: url(img/barchart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
+    lineChart->setStyleSheet("background-image: url(img/linechart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
+    dispersionChart->setStyleSheet("background-image: url(img/chart.png); width: 200px; font-size: 20px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
     buttonLayout->addWidget(pieChart);
     buttonLayout->addWidget(histogram);
     buttonLayout->addWidget(barChart);
