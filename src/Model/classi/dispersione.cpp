@@ -31,5 +31,5 @@ std::vector<double> dispersione::regressioneLineare(){
     for (int k=0 ; k<n; k++){
         regres.push_back(m * X[k] + q);
     }  
-    return regres; // ritorna un vettore con le Y della retta di regressione (le X sono da 1 a n)
+    return regres; // ritorna un vettore con le Y della retta di regressione
 }
