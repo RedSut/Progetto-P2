@@ -35,7 +35,7 @@ QHBoxLayout* MainWindow::addMainButtons()
     QHBoxLayout* buttonLayout = new QHBoxLayout;
 
 
-    QPushButton* pieChart= new QPushButton("Grafico a torta");
+    pieChart= new QPushButton("Grafico a torta");
     QPushButton* histogram= new QPushButton("Istogramma");
     QPushButton* barChart= new QPushButton("Grafico a barre");
     QPushButton* lineChart= new QPushButton("Piano cartesiano");
@@ -54,7 +54,6 @@ QHBoxLayout* MainWindow::addMainButtons()
     buttonLayout->setSpacing(50);
     buttonLayout->setContentsMargins(50, 20, 50, 20);
     buttonLayout->setAlignment(Qt::AlignCenter);
-    connect(pieChart, SIGNAL(clicked()), this, SLOT(goToGrafico()));
     return buttonLayout;
 }
 
@@ -77,19 +76,19 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     grafico* gu = gc->createDispersione("Update",punti,"Asse X","Asse Y");
     //
     QWidget* pulsanti = new QWidget(pagine); 
-    QHBoxLayout* buttons = addMainButtons();
+    buttons = addMainButtons();
     pulsanti->setLayout(buttons);
     pagine->addWidget(pulsanti);
     QWidget* b = new QWidget(pagine);   
-    graficoView* gw = new graficoView();
+    graficoWidget = new graficoView();
     tableView* tv = new tableView();
     QHBoxLayout* paginaGrafico = new QHBoxLayout;
     paginaGrafico->addWidget(tv);
-    paginaGrafico->addWidget(gw);
+    paginaGrafico->addWidget(graficoWidget);
     b->setLayout(paginaGrafico);
     //
-    gw->showGrafico(gu);
-    tv->populateTable(gu);
+    //gw->showGrafico(gu);
+    //tv->populateTable(gu);
     //
     pagine->addWidget(b);
     mainLayout->addWidget(pagine);
@@ -101,12 +100,13 @@ MainWindow::~MainWindow()
 {
    // delete ui;
 }
-void MainWindow::goToGrafico(){
+
+void MainWindow::goToSecondPage(){
     pagine->setCurrentIndex(1);
 }
 
-graficoView* MainWindow::setGrafico()const{
-    
+void MainWindow::setGrafico(grafico* G){
+    graficoWidget->showGrafico(G);
 };
 
 /*
@@ -117,9 +117,8 @@ void MainWindow::creaPieChart(){
     graficoWindow->showGrafico(G);
     graficoWindow->show();
 }*/
-/*
-void MainWindow::setController(Controller* c){
-    C = c;
 
-    
-}*/
+void MainWindow::setController(Controller* c){
+    controller = c;
+    connect(pieChart, SIGNAL(clicked()), controller, SLOT(createTorta()));
+}

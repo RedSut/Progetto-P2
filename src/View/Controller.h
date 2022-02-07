@@ -12,12 +12,12 @@ class Controller : public QObject{
         Model* model;
 
     public:
-        Controller();
+        explicit Controller(QObject* = nullptr);
         void setModel(Model*);
 	    void setView(MainWindow*);
 
-    public solts:
-        void createTorta()const;
+    public slots:
+        void createTorta() const;
 };
 
 #endif

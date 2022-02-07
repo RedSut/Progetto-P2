@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QObject>
 #include <QHBoxLayout>
 #include <QMenu>
 #include <QMenuBar>
@@ -27,24 +27,25 @@ class MainWindow :public QWidget
     Q_OBJECT
     //SecondaryWindow *secondary;
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    //void setController(Controller *c);
-    graficoView* getGraficoView()const;
+    void setController(Controller *c);
+    void goToSecondPage();
+    void setGrafico(grafico*);
 private:
-    graficoView* graficoWindow;
+    graficoView* graficoWidget;
     //Ui::MainWindow *ui;
     QMenuBar* menuBar;
-    //QHBoxLayout* buttonLayout;
+    Controller* controller;
+    QHBoxLayout* buttons;
     QStackedWidget* pagine;
+    QPushButton* pieChart;
 
     //Controller* C;
 
     void addMenuBar();
     QHBoxLayout* addMainButtons();
-public slots:
-    void goToGrafico();
 
 };
 #endif // MAINWINDOW_H

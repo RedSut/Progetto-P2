@@ -2,7 +2,7 @@
 #include "View/MainWindow.h"
 //#include "View/tableView.h"
 //#include "View/gestorePagine.h"
-//#include "View/Controller.h"
+#include "View/Controller.h"
 #include "Model/classi/Model.h"
 
 #include <QApplication>
@@ -11,7 +11,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
         //QMainWindow* mw = new QMainWindow();
-		//Controller c;
+        Model* m = new Model();
+        Controller* c = new Controller();
         /*grafico* G = m->getGrafico();
 
         torta* t = dynamic_cast<torta*>(G);
@@ -33,6 +34,9 @@ int main(int argc, char *argv[])
         //m->setGrafico(*g);
 
         MainWindow* mw = new MainWindow();
+        mw->setController(c);
+        c->setModel(m);
+        c->setView(mw);
 
         //tableView* tv = new tableView();
 

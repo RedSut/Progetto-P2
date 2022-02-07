@@ -1,6 +1,6 @@
 #include "Controller.h"
 
-Controller::Controller(){
+Controller::Controller(QObject* parent): QObject(parent){
 
 };
 
@@ -9,12 +9,12 @@ void Controller::setModel(Model* M){
 }
 
 void Controller::setView(MainWindow* W){
-    mainWindow = W;
+    mainWin= W;
 }
 
-void Controller::createTorta()const{
+void Controller::createTorta() const{
     graficoCreator* gc = new graficoCreator();
     grafico* G = gc->createTorta();
     model->setGrafico(*G);
-    mainWin
+    mainWin->setGrafico(G);
 }

@@ -18,7 +18,7 @@ class tableView: public QWidget{
         QVBoxLayout* mainLayout;
         QPushButton* aggiornaButton;
     public:
-        tableView(QWidget* = nullptr);
+        explicit tableView(QWidget* = nullptr);
         void populateTable(grafico*);
 };
 

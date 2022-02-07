@@ -8,6 +8,7 @@ INCLUDEPATH += $$PWD
 
 # Input
 HEADERS += src/View/graficoView.h \
+           src/View/Controller.h \
            src/View/MainWindow.h \
            src/View/tableView.h \
            src/Model/classi/barre.h \
@@ -24,6 +25,7 @@ HEADERS += src/View/graficoView.h \
            src/Model/classi/Model.h \
            src/Model/classi/torta.h
 SOURCES += src/main.cpp \
+            src/View/Controller.cpp \
            src/View/MainWindow.cpp \
            src/View/tableView.cpp \
            src/View/graficoView.cpp \

@@ -28,7 +28,7 @@ class graficoView: public QWidget{
         QChartView* chartView;
         QVBoxLayout* mainLayout;
     public:
-        graficoView(QWidget* = nullptr);
+        explicit graficoView(QWidget* = nullptr);
         void showGrafico(grafico*);
         void updateGrafico(grafico*);
         void updateTheme(int);
