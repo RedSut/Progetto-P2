@@ -3,6 +3,9 @@
 Model::Model(){
     createGrafico(Model::torta); // default
 }
+Model::~Model(){
+    delete G;
+}
 /*
 void Model::createGraficoTorta(){
     graficoCreator* gc;

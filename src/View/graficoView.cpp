@@ -7,9 +7,9 @@ graficoView::graficoView(QWidget* parent) : QWidget(parent){
     chart  = new QChart;
     chartView = new QChartView(chart);
     mainLayout->addWidget(chartView);
-
+    mainLayout->setMargin(0);
     setLayout(mainLayout);
-    resize(QSize(1024, 720));
+    //resize(QSize(1024, 720));
 };
 
 void graficoView::showGrafico(grafico* G){
@@ -189,4 +189,8 @@ void graficoView::updateTheme(int t){
             chart->setTheme(QChart::ChartThemeDark);
     };
     setPalette(pal);
+}
+
+void graficoView::crea(){
+    this->show();
 }

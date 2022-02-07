@@ -1,4 +1,4 @@
-    #ifndef GRAFICO_VIEW_H
+#ifndef GRAFICO_VIEW_H
 #define GRAFICO_VIEW_H
 
 #include <QWidget>
@@ -18,7 +18,8 @@
 #include "../Model/classi/torta.h"
 #include "../Model/classi/linea.h"
 
-#include "../Model/classi/Model.h"
+//#include "../Model/classi/Model.h"
+//#include "mainwindow.h"
 
 class graficoView: public QWidget{
     Q_OBJECT
@@ -31,7 +32,8 @@ class graficoView: public QWidget{
         void showGrafico(grafico*);
         void updateGrafico(grafico*);
         void updateTheme(int);
-
+    public slots:
+        void crea();
 };
 
 #endif

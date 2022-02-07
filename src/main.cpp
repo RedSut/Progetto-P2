@@ -1,4 +1,7 @@
-#include "View/graficoView.h"
+//#include "View/graficoView.h"
+#include "View/MainWindow.h"
+//#include "View/tableView.h"
+//#include "View/gestorePagine.h"
 //#include "View/Controller.h"
 #include "Model/classi/Model.h"
 
@@ -29,14 +32,23 @@ int main(int argc, char *argv[])
         //Model* m = new Model();
         //m->setGrafico(*g);
 
-        graficoView* gw = new graficoView();
-        //gw->setModel(m);
-        gw->updateTheme(1);
-        gw->showGrafico(g);
-        gw->updateGrafico(gu);
-        
+        MainWindow* mw = new MainWindow();
 
-        gw->show();
+        //tableView* tv = new tableView();
+
+        //graficoView* gw = new graficoView(mw);
+        //gw->setModel(m);
+        //gw->updateTheme(1);
+        //gw->showGrafico(g);
+        //gw->updateGrafico(gu);
+
+        //tv->populateTable(gu);
+
+
+        mw->show();
+        //gw->show();
+        //tv->show();
+
 
 		//c.setModel(&m);
 		//c.setView(&gw);

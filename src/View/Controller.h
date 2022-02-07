@@ -3,21 +3,21 @@
 #include <QObject>
 
 #include "../Model/classi/Model.h"
-
-class graficoMenu; // Vista iniziale DA TOGLIERE
+#include "MainWindow.h"
 
 class Controller : public QObject{
     Q_OBJECT
     private:
-        graficoMenu* menu;
+        MainWindow* mainWin;
         Model* model;
 
     public:
-        void setModel(Model* m);
-	    void setView(graficoMenu* gm);
+        Controller();
+        void setModel(Model*);
+	    void setView(MainWindow*);
 
     public solts:
-        void prova()const;
+        void createTorta()const;
 };
 
 #endif

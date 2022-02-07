@@ -1,10 +1,13 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "MainWindow.h"
+//#include "ui_mainwindow.h"
 
+#include "../Model/classi/grafico.h"
+#include "../Model/classi/graficoCreator.h"
+#include <QSize>
 
-QMenuBar * MainWindow::AddMenuBar()
+void MainWindow::addMenuBar()
 {
-    QMenuBar* menuBar= new QMenuBar(this);
+    menuBar= new QMenuBar(this);
     QMenu* file= new QMenu("File",menuBar);
     menuBar->addMenu(file);
     file->addAction(new QAction("Nuovo",file));
@@ -24,10 +27,10 @@ QMenuBar * MainWindow::AddMenuBar()
     modifica->addAction(new QAction("Importa",modifica));
     menuBar->setStyleSheet("background-color: White");// color: black");
     menuBar->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
-    return menuBar;
+    return;
 }
 
-QHBoxLayout* MainWindow::AddButtons()
+QHBoxLayout* MainWindow::addMainButtons()
 {
     QHBoxLayout* buttonLayout = new QHBoxLayout;
 
@@ -38,11 +41,11 @@ QHBoxLayout* MainWindow::AddButtons()
     QPushButton* lineChart= new QPushButton("Piano cartesiano");
     QPushButton* dispersionChart= new QPushButton("Grafico a dispersione");
 
-    pieChart->setStyleSheet("background-image: url(img/piechart.gif); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;" );
-    histogram->setStyleSheet("background-image: url(img/histogram.png); background-repeat: norepeat; background-position: central; width: 200px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px;");
-    barChart->setStyleSheet("background-image: url(img/barchart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
-    lineChart->setStyleSheet("background-image: url(img/linechart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
-    dispersionChart->setStyleSheet("background-image: url(img/chart.png); width: 200px; font-size: 20px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
+    //pieChart->setStyleSheet("background-image: url(src/View/img/piechart.gif); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;" );
+    //histogram->setStyleSheet("background-image: url(img/histogram.png); background-repeat: norepeat; background-position: central; width: 200px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px;");
+    //barChart->setStyleSheet("background-image: url(img/barchart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
+    //lineChart->setStyleSheet("background-image: url(img/linechart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
+    //dispersionChart->setStyleSheet("background-image: url(img/chart.png); width: 200px; font-size: 20px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
     buttonLayout->addWidget(pieChart);
     buttonLayout->addWidget(histogram);
     buttonLayout->addWidget(barChart);
@@ -51,27 +54,72 @@ QHBoxLayout* MainWindow::AddButtons()
     buttonLayout->setSpacing(50);
     buttonLayout->setContentsMargins(50, 20, 50, 20);
     buttonLayout->setAlignment(Qt::AlignCenter);
-    //connect(pieChart, SIGNAL(clicked()), secondary, SLOT(crea()));
+    connect(pieChart, SIGNAL(clicked()), this, SLOT(goToGrafico()));
     return buttonLayout;
 }
 
 MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     QVBoxLayout* mainLayout = new QVBoxLayout;
 
-    QMenuBar* menuBar = AddMenuBar();
+    pagine = new QStackedWidget(this);
 
-    setStyleSheet("background-color: MediumPurple;");
+    addMenuBar();
+
+    setStyleSheet("background-color: Orange;");
     mainLayout->addWidget(menuBar);
 
-
-    QHBoxLayout* buttonLayout=AddButtons();
-    mainLayout->addLayout(buttonLayout);
+    //
+    graficoCreator* gc = new graficoCreator();
+    std::vector<std::string> leg = {"Prova","Prova2"};
+    std::vector<double> val = {24,12,25,13};
+    std::vector<std::pair<double,double>> punti = {{24,12},{25,13},{22,12},{21,13},{25,15},{27,12},{30,15},{32,18},{27,14}};
+    std::vector<std::string> cat = {"Maschi","Femmine"};
+    grafico* gu = gc->createDispersione("Update",punti,"Asse X","Asse Y");
+    //
+    QWidget* pulsanti = new QWidget(pagine); 
+    QHBoxLayout* buttons = addMainButtons();
+    pulsanti->setLayout(buttons);
+    pagine->addWidget(pulsanti);
+    QWidget* b = new QWidget(pagine);   
+    graficoView* gw = new graficoView();
+    tableView* tv = new tableView();
+    QHBoxLayout* paginaGrafico = new QHBoxLayout;
+    paginaGrafico->addWidget(tv);
+    paginaGrafico->addWidget(gw);
+    b->setLayout(paginaGrafico);
+    //
+    gw->showGrafico(gu);
+    tv->populateTable(gu);
+    //
+    pagine->addWidget(b);
+    mainLayout->addWidget(pagine);
     setLayout(mainLayout);
     resize(QSize(1024, 720));
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+   // delete ui;
+}
+void MainWindow::goToGrafico(){
+    pagine->setCurrentIndex(1);
 }
 
+graficoView* MainWindow::setGrafico()const{
+    
+};
+
+/*
+void MainWindow::creaPieChart(){
+    graficoWindow = new graficoView(this);
+    graficoCreator* gc;
+    grafico* G = gc->createTorta();
+    graficoWindow->showGrafico(G);
+    graficoWindow->show();
+}*/
+/*
+void MainWindow::setController(Controller* c){
+    C = c;
+
+    
+}*/

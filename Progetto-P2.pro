@@ -4,10 +4,12 @@
 QT       += core gui widgets charts
 TEMPLATE = app
 TARGET = Progetto-P2
-INCLUDEPATH += .
+INCLUDEPATH += $$PWD
 
 # Input
 HEADERS += src/View/graficoView.h \
+           src/View/MainWindow.h \
+           src/View/tableView.h \
            src/Model/classi/barre.h \
            src/Model/classi/dispersione.h \
            src/Model/classi/grafico.h \
@@ -22,6 +24,8 @@ HEADERS += src/View/graficoView.h \
            src/Model/classi/Model.h \
            src/Model/classi/torta.h
 SOURCES += src/main.cpp \
+           src/View/MainWindow.cpp \
+           src/View/tableView.cpp \
            src/View/graficoView.cpp \
            src/Model/classi/barre.cpp \
            src/Model/classi/dispersione.cpp \
