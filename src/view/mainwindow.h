@@ -41,7 +41,7 @@ private:
     QHBoxLayout* buttons;
     QStackedWidget* pagine;
     QPushButton* pieChart;
-
+    QMenu* file;
     //Controller* C;
 
     void addMenuBar();

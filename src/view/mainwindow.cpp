@@ -8,7 +8,7 @@
 void MainWindow::addMenuBar()
 {
     menuBar= new QMenuBar(this);
-    QMenu* file= new QMenu("File",menuBar);
+    file= new QMenu("File",menuBar);
     menuBar->addMenu(file);
 
     QAction* nuovo = new QAction("Nuovo", file);
@@ -123,4 +123,7 @@ void MainWindow::creaPieChart(){
 void MainWindow::setController(Controller* c){
     controller = c;
     connect(pieChart, SIGNAL(clicked()), controller, SLOT(createTorta()));
+
+
+    connect(file->actions()[4], SIGNAL(triggered()), this, SLOT(close()));
 }
