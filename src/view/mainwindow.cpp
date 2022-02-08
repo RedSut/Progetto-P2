@@ -29,6 +29,10 @@ void MainWindow::addMenuBar()
     file->addAction(new QAction(chiudi));
     menuBar->setStyleSheet("background-color: White");// color: black");
     menuBar->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
+
+    connect(chiudi, SIGNAL(triggered()), this, SLOT(close()));
+
+
     return;
 }
 
@@ -124,6 +128,8 @@ void MainWindow::setController(Controller* c){
     controller = c;
     connect(pieChart, SIGNAL(clicked()), controller, SLOT(createTorta()));
 
-
-    connect(file->actions()[4], SIGNAL(triggered()), this, SLOT(close()));
+    connect(nuovo, SIGNAL(triggered()), controller, SLOT(nuovo()));
+    connect(apri, SIGNAL(triggered()), controller, SLOT(open()));
+    connect(save, SIGNAL(triggered()), controller, SLOT(save()));
+    connect(saveAs, SIGNAL(triggered()), controller, SLOT(saveAs()));
 }

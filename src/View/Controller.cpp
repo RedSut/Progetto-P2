@@ -18,3 +18,17 @@ void Controller::createTorta() const{
     model->setGrafico(*G);
     mainWin->setGrafico(G);
 }
+
+
+void Controller::nuovo() const{
+    
+}
+void Controller::open() const{
+
+}
+void Controller::save() const{
+
+}
+void Controller::saveAs() const{
+
+}

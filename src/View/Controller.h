@@ -18,6 +18,11 @@ class Controller : public QObject{
 
     public slots:
         void createTorta() const;
+
+        void nuovo() const;
+        void open() const;
+        void save() const;
+        void saveAs() const;
 };
 
 #endif
