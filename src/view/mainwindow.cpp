@@ -10,21 +10,23 @@ void MainWindow::addMenuBar()
     menuBar= new QMenuBar(this);
     QMenu* file= new QMenu("File",menuBar);
     menuBar->addMenu(file);
-    file->addAction(new QAction("Nuovo",file));
-    file->addAction(new QAction("Apri",file));
-    file->addAction(new QAction("Chiudi",file));
-    file->addAction(new QAction("Salva",file));
-    file->addAction(new QAction("Salva come...",file));
-    file->addAction(new QAction("Stampa",file));
-    QMenu* modifica= new QMenu("Modifica",menuBar);
-    menuBar->addMenu(modifica);
-    modifica->addAction(new QAction("Annulla",modifica));
-    modifica->addAction(new QAction("Ripeti",modifica));
-    modifica->addAction(new QAction("Taglia",modifica));
-    modifica->addAction(new QAction("Copia",modifica));
-    modifica->addAction(new QAction("Incolla",modifica));
-    modifica->addAction(new QAction("Aggiorna dati",modifica));
-    modifica->addAction(new QAction("Importa",modifica));
+
+    QAction* nuovo = new QAction("Nuovo", file);
+    nuovo->setShortcut(Qt::CTRL | Qt::Key_N);
+    QAction* apri = new QAction("Carica",file);
+    apri->setShortcut(Qt::CTRL | Qt::Key_O);
+    QAction* save = new QAction("Salva",file);
+    apri->setShortcut(Qt::CTRL | Qt::Key_S);
+    QAction* saveAs = new QAction("Salva con nome",file);
+    apri->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_S);
+    QAction* chiudi = new QAction("Chiudi",file);
+    apri->setShortcut(Qt::CTRL | Qt::Key_W);
+    
+    file->addAction(new QAction(nuovo));
+    file->addAction(new QAction(apri));
+    file->addAction(new QAction(save));
+    file->addAction(new QAction(saveAs));
+    file->addAction(new QAction(chiudi));
     menuBar->setStyleSheet("background-color: White");// color: black");
     menuBar->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
     return;
