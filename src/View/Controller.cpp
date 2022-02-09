@@ -24,7 +24,13 @@ void Controller::nuovo() const{
     
 }
 void Controller::open() const{
+    QString fileName = QFileDialog::getOpenFileName(
+                                this, tr("Apri il file"), "", tr("File JSON (*.json)"));
 
+	if (fileName == "")
+		throw std::runtime_error("Nessun file scelto");
+
+	return fileName;
 }
 void Controller::save() const{
 
