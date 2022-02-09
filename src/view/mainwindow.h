@@ -33,14 +33,24 @@ public:
     void setController(Controller *c);
     void goToSecondPage();
     void setGrafico(grafico*);
+    void updateGrafico(grafico*);
+
+    void aggiungiRigaTabella(grafico*);
+    void aggiungiColonnaTabella(grafico*);
 private:
     graficoView* graficoWidget;
+    tableView* graficoTabella;
     //Ui::MainWindow *ui;
     QMenuBar* menuBar;
     Controller* controller;
     QHBoxLayout* buttons;
     QStackedWidget* pagine;
+
     QPushButton* pieChart;
+    QPushButton* histogram;
+    QPushButton* barChart;
+    QPushButton* lineChart;
+    QPushButton* dispersionChart;
 
     //Controller* C;
 

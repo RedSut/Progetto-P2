@@ -3,6 +3,7 @@
 
 #include "../Model/classi/grafico.h"
 #include "../Model/classi/graficoCreator.h"
+#include "Controller.h"
 #include <QSize>
 
 void MainWindow::addMenuBar()
@@ -36,10 +37,10 @@ QHBoxLayout* MainWindow::addMainButtons()
 
 
     pieChart= new QPushButton("Grafico a torta");
-    QPushButton* histogram= new QPushButton("Istogramma");
-    QPushButton* barChart= new QPushButton("Grafico a barre");
-    QPushButton* lineChart= new QPushButton("Piano cartesiano");
-    QPushButton* dispersionChart= new QPushButton("Grafico a dispersione");
+    histogram= new QPushButton("Istogramma");
+    barChart= new QPushButton("Grafico a barre");
+    lineChart= new QPushButton("Piano cartesiano");
+    dispersionChart= new QPushButton("Grafico a dispersione");
 
     //pieChart->setStyleSheet("background-image: url(src/View/img/piechart.gif); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;" );
     //histogram->setStyleSheet("background-image: url(img/histogram.png); background-repeat: norepeat; background-position: central; width: 200px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px;");
@@ -67,33 +68,23 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     setStyleSheet("background-color: Orange;");
     mainLayout->addWidget(menuBar);
 
-    //
-    graficoCreator* gc = new graficoCreator();
-    std::vector<std::string> leg = {"Prova","Prova2"};
-    std::vector<double> val = {24,12,25,13};
-    std::vector<std::pair<double,double>> punti = {{24,12},{25,13},{22,12},{21,13},{25,15},{27,12},{30,15},{32,18},{27,14}};
-    std::vector<std::string> cat = {"Maschi","Femmine"};
-    grafico* gu = gc->createDispersione("Update",punti,"Asse X","Asse Y");
-    //
+    
     QWidget* pulsanti = new QWidget(pagine); 
     buttons = addMainButtons();
     pulsanti->setLayout(buttons);
     pagine->addWidget(pulsanti);
     QWidget* b = new QWidget(pagine);   
     graficoWidget = new graficoView();
-    tableView* tv = new tableView();
+    graficoTabella = new tableView();
     QHBoxLayout* paginaGrafico = new QHBoxLayout;
-    paginaGrafico->addWidget(tv);
+    paginaGrafico->addWidget(graficoTabella);
     paginaGrafico->addWidget(graficoWidget);
     b->setLayout(paginaGrafico);
-    //
-    //gw->showGrafico(gu);
-    //tv->populateTable(gu);
-    //
+    
     pagine->addWidget(b);
     mainLayout->addWidget(pagine);
     setLayout(mainLayout);
-    resize(QSize(1024, 720));
+    resize(QSize(1280, 775));
 }
 
 MainWindow::~MainWindow()
@@ -106,19 +97,30 @@ void MainWindow::goToSecondPage(){
 }
 
 void MainWindow::setGrafico(grafico* G){
+    graficoTabella->populateTable(G);
     graficoWidget->showGrafico(G);
 };
 
-/*
-void MainWindow::creaPieChart(){
-    graficoWindow = new graficoView(this);
-    graficoCreator* gc;
-    grafico* G = gc->createTorta();
-    graficoWindow->showGrafico(G);
-    graficoWindow->show();
-}*/
+void MainWindow::updateGrafico(grafico* G){
+    graficoTabella->extractTable(G);
+    graficoWidget->updateGrafico(G);
+    graficoTabella->populateTable(G);
+};
+
+void MainWindow::aggiungiRigaTabella(grafico* G){
+    graficoTabella->aggiungiRiga(G);
+}
+
+void MainWindow::aggiungiColonnaTabella(grafico* G){
+    graficoTabella->aggiungiColonna(G);
+}
 
 void MainWindow::setController(Controller* c){
+    graficoTabella->setController(c);
     controller = c;
     connect(pieChart, SIGNAL(clicked()), controller, SLOT(createTorta()));
+    connect(histogram, SIGNAL(clicked()), controller, SLOT(createIstogramma()));
+    connect(barChart, SIGNAL(clicked()), controller, SLOT(createBarre()));
+    connect(lineChart, SIGNAL(clicked()), controller, SLOT(createLinea()));
+    connect(dispersionChart, SIGNAL(clicked()), controller, SLOT(createDispersione()));
 }

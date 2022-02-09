@@ -12,14 +12,26 @@
 #include "../Model/classi/torta.h"
 #include "../Model/classi/linea.h"
 
+class Controller;
+
 class tableView: public QWidget{
     private:
         QTableWidget* tabella;
         QVBoxLayout* mainLayout;
         QPushButton* aggiornaButton;
+        QPushButton* aggiungiRigaButton;
+        QPushButton* aggiungiColonnaButton;
+
+        Controller* C;
+
     public:
         explicit tableView(QWidget* = nullptr);
         void populateTable(grafico*);
+        void extractTable(grafico*);
+        void setController(Controller*);
+        void aggiungiRiga(grafico*);
+        void aggiungiColonna(grafico*);
+        void rimuoviRighe(QList<int>);
 };
 
 #endif

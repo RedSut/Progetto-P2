@@ -13,7 +13,7 @@ std::vector<double> dispersione::regressioneLineare(){
     if (X.empty() || Y.empty()) throw graficoException("Non ci sono punti presenti nel grafico",graficoException::EMPTY_ARGUMENT);
     std::vector<double> regres;
     int n = X.size();
-    double sumX, sumY;
+    double sumX=0, sumY=0;
     for(int i=0; i<n; i++){
         sumX += X[i];
         sumY += Y[i];

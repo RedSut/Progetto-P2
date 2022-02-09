@@ -38,7 +38,7 @@ void graficoView::showGrafico(grafico* G){
         std::vector<double> valori = gi->getValori();
         std::vector<std::string> legenda = gi->getLegenda();
         QBarSeries* series = new QBarSeries();
-        double maxVal = valori.at(0);
+        double maxVal = 1;
         double minVal = 0;
         QBarSet* barSet = new QBarSet("Valori");
         for(auto it = valori.begin(); it != valori.end(); ++it){

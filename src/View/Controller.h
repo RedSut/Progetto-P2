@@ -18,6 +18,13 @@ class Controller : public QObject{
 
     public slots:
         void createTorta() const;
+        void createIstogramma() const;
+        void createBarre() const;
+        void createLinea() const;
+        void createDispersione() const;
+        void aggiornaGrafico();
+        void aggiungiRigaTabella();
+        void aggiungiColonnaTabella(); 
 };
 
 #endif
