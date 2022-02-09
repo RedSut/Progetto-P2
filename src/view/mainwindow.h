@@ -52,6 +52,7 @@ private:
     QPushButton* lineChart;
     QPushButton* dispersionChart;
 
+    QMenu* file;
     //Controller* C;
 
     void addMenuBar();

@@ -25,6 +25,11 @@ class Controller : public QObject{
         void aggiornaGrafico();
         void aggiungiRigaTabella();
         void aggiungiColonnaTabella(); 
+
+        void nuovo() const;
+        void open() const;
+        void save() const;
+        void saveAs() const;
 };
 
 #endif

@@ -9,25 +9,27 @@
 void MainWindow::addMenuBar()
 {
     menuBar= new QMenuBar(this);
-    QMenu* file= new QMenu("File",menuBar);
+    file= new QMenu("File",menuBar);
     menuBar->addMenu(file);
     file->addAction(new QAction("Nuovo",file));
     file->addAction(new QAction("Apri",file));
-    file->addAction(new QAction("Chiudi",file));
     file->addAction(new QAction("Salva",file));
-    file->addAction(new QAction("Salva come...",file));
-    file->addAction(new QAction("Stampa",file));
-    QMenu* modifica= new QMenu("Modifica",menuBar);
-    menuBar->addMenu(modifica);
-    modifica->addAction(new QAction("Annulla",modifica));
-    modifica->addAction(new QAction("Ripeti",modifica));
-    modifica->addAction(new QAction("Taglia",modifica));
-    modifica->addAction(new QAction("Copia",modifica));
-    modifica->addAction(new QAction("Incolla",modifica));
-    modifica->addAction(new QAction("Aggiorna dati",modifica));
-    modifica->addAction(new QAction("Importa",modifica));
+    file->addAction(new QAction("Salva con nome",file));
+    file->addAction(new QAction("Chiudi", file));
+
+    file->actions()[0]->setShortcut(Qt::CTRL | Qt::Key_N);
+    file->actions()[1]->setShortcut(Qt::CTRL | Qt::Key_O);
+    file->actions()[2]->setShortcut(Qt::CTRL | Qt::Key_S);
+    file->actions()[3]->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_S);
+    file->actions()[4]->setShortcut(Qt::CTRL | Qt::Key_W);
+
+
     menuBar->setStyleSheet("background-color: White");// color: black");
     menuBar->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
+
+    connect(file->actions()[4], SIGNAL(triggered()), this, SLOT(close()));
+
+
     return;
 }
 
@@ -123,4 +125,9 @@ void MainWindow::setController(Controller* c){
     connect(barChart, SIGNAL(clicked()), controller, SLOT(createBarre()));
     connect(lineChart, SIGNAL(clicked()), controller, SLOT(createLinea()));
     connect(dispersionChart, SIGNAL(clicked()), controller, SLOT(createDispersione()));
+
+    connect(file->actions()[0], SIGNAL(triggered()), controller, SLOT(nuovo()));
+    connect(file->actions()[1], SIGNAL(triggered()), controller, SLOT(open()));
+    connect(file->actions()[2], SIGNAL(triggered()), controller, SLOT(save()));
+    connect(file->actions()[3], SIGNAL(triggered()), controller, SLOT(saveAs()));
 }
