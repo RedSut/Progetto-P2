@@ -11,6 +11,7 @@
 #include <QFrame>
 #include <QString>
 #include <QStackedWidget>
+#include <QMessageBox>
 //#include<secondarywindow.h>
 #include "graficoView.h"
 #include "tableView.h"

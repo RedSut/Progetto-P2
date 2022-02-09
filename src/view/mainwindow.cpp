@@ -21,7 +21,7 @@ void MainWindow::addMenuBar()
     file->actions()[1]->setShortcut(Qt::CTRL | Qt::Key_O);
     file->actions()[2]->setShortcut(Qt::CTRL | Qt::Key_S);
     file->actions()[3]->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_S);
-    file->actions()[4]->setShortcut(Qt::CTRL | Qt::Key_W);
+    file->actions()[4]->setShortcut(Qt::ALT | Qt::Key_F4);
 
 
     menuBar->setStyleSheet("background-color: White");// color: black");

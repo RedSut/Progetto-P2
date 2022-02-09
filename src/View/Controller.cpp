@@ -73,7 +73,7 @@ void Controller::open() const{
                                 this, tr("Apri il file"), "", tr("File JSON (*.json)"));
 
 	if (fileName == "")
-		throw std::runtime_error("Nessun file scelto");
+		QMessageBox::warning(this,"Attenzione!","File scelto non valido");
 
 	return fileName;
 }
