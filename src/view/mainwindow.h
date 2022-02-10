@@ -37,6 +37,10 @@ public:
 
     void aggiungiRigaTabella(grafico*);
     void aggiungiColonnaTabella(grafico*);
+    void rimuoviRigaTabella();
+    void rimuoviColonnaTabella();
+    void modificaSezioneVTabella(int,grafico*);
+    void modificaSezioneHTabella(int,grafico*);
 private:
     graficoView* graficoWidget;
     tableView* graficoTabella;

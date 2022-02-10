@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QInputDialog>
 
 #include "../Model/classi/barre.h"
 #include "../Model/classi/dispersione.h"
@@ -21,6 +22,8 @@ class tableView: public QWidget{
         QPushButton* aggiornaButton;
         QPushButton* aggiungiRigaButton;
         QPushButton* aggiungiColonnaButton;
+        QPushButton* rimuoviRigaButton;
+        QPushButton* rimuoviColonnaButton;
 
         Controller* C;
 
@@ -31,7 +34,13 @@ class tableView: public QWidget{
         void setController(Controller*);
         void aggiungiRiga(grafico*);
         void aggiungiColonna(grafico*);
-        void rimuoviRighe(QList<int>);
+        void rimuoviRiga();
+        void rimuoviColonna();
+        void resizeColonne();
+        void modificaSezioneV(int,grafico*);
+        void modificaSezioneH(int, grafico*);
+
+
 };
 
 #endif

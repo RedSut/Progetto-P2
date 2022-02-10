@@ -28,7 +28,9 @@ std::vector<double> torta::getValoriInPercentage() const{
         somma+=*it;
     }
     for(auto it = d1.begin(); it != d1.end(); ++it){
-        (*it) = ((*it)/somma)*100;
+        if(somma>0){
+            (*it) = ((*it)/somma)*100;
+        }
     }
     return d1;
 };

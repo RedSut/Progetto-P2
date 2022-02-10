@@ -5,6 +5,8 @@
 #include "../Model/classi/graficoCreator.h"
 #include "Controller.h"
 #include <QSize>
+#include <iostream>
+
 
 void MainWindow::addMenuBar()
 {
@@ -37,26 +39,26 @@ QHBoxLayout* MainWindow::addMainButtons()
 {
     QHBoxLayout* buttonLayout = new QHBoxLayout;
 
-
     pieChart= new QPushButton("Grafico a torta");
     histogram= new QPushButton("Istogramma");
     barChart= new QPushButton("Grafico a barre");
-    lineChart= new QPushButton("Piano cartesiano");
+    lineChart= new QPushButton("Grafico a linea");
     dispersionChart= new QPushButton("Grafico a dispersione");
 
-    //pieChart->setStyleSheet("background-image: url(src/View/img/piechart.gif); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;" );
-    //histogram->setStyleSheet("background-image: url(img/histogram.png); background-repeat: norepeat; background-position: central; width: 200px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px;");
-    //barChart->setStyleSheet("background-image: url(img/barchart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
-    //lineChart->setStyleSheet("background-image: url(img/linechart.png); width: 200px; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
-    //dispersionChart->setStyleSheet("background-image: url(img/chart.png); width: 200px; font-size: 20px; border-radius: 1.5em; height: 200px; border: 2px solid black;");
+
+    pieChart->setStyleSheet("background-image: url(:/img/torta); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
+    histogram->setStyleSheet("background-image: url(:/img/istogramma); background-repeat: norepeat; background-position: central; width: 220px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
+    barChart->setStyleSheet("background-image: url(:/img/barre); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
+    lineChart->setStyleSheet("background-image: url(:/img/linea); width: 220px; background-repeat: norepeat; background-position: central; font-size: 23px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
+    dispersionChart->setStyleSheet("background-image: url(:/img/dispersione); background-repeat: norepeat; background-position: central; width: 220px; font-size: 18px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
     buttonLayout->addWidget(pieChart);
     buttonLayout->addWidget(histogram);
     buttonLayout->addWidget(barChart);
     buttonLayout->addWidget(lineChart);
     buttonLayout->addWidget(dispersionChart);
     buttonLayout->setSpacing(50);
-    buttonLayout->setContentsMargins(50, 20, 50, 20);
-    buttonLayout->setAlignment(Qt::AlignCenter);
+    buttonLayout->setAlignment(Qt::AlignTop);
+    buttonLayout->setContentsMargins(50, 50, 50, 50);
     return buttonLayout;
 }
 
@@ -70,11 +72,25 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     setStyleSheet("background-color: Orange;");
     mainLayout->addWidget(menuBar);
 
-    
-    QWidget* pulsanti = new QWidget(pagine); 
+    QWidget* home = new QWidget(pagine);
+    QWidget* pulsanti = new QWidget(home);
     buttons = addMainButtons();
+    //buttons->setMargin(100);
     pulsanti->setLayout(buttons);
-    pagine->addWidget(pulsanti);
+
+    QVBoxLayout* homeLayout = new QVBoxLayout;
+    QLabel* testo = new QLabel;
+    testo->setText("Crea un nuovo grafico");
+    testo->setStyleSheet("color: black; font-weight: bold; font-size: 40px;");
+    testo->setAlignment(Qt::AlignCenter);
+    testo->setMaximumHeight(200);
+    testo->setContentsMargins(50,100,50,50);
+    homeLayout->addWidget(testo);
+    homeLayout->addWidget(pulsanti);
+    homeLayout->setMargin(0);
+    home->setLayout(homeLayout);
+
+    pagine->addWidget(home);
     QWidget* b = new QWidget(pagine);   
     graficoWidget = new graficoView();
     graficoTabella = new tableView();
@@ -104,9 +120,13 @@ void MainWindow::setGrafico(grafico* G){
 };
 
 void MainWindow::updateGrafico(grafico* G){
-    graficoTabella->extractTable(G);
-    graficoWidget->updateGrafico(G);
-    graficoTabella->populateTable(G);
+    try{
+        graficoTabella->extractTable(G);
+        graficoWidget->updateGrafico(G);
+        graficoTabella->populateTable(G);
+    }catch(graficoException& e){
+        QMessageBox::information(this, tr("ERRORE IN INPUT"), tr(e.what()));
+    }
 };
 
 void MainWindow::aggiungiRigaTabella(grafico* G){
@@ -115,6 +135,21 @@ void MainWindow::aggiungiRigaTabella(grafico* G){
 
 void MainWindow::aggiungiColonnaTabella(grafico* G){
     graficoTabella->aggiungiColonna(G);
+}
+
+void MainWindow::rimuoviRigaTabella(){
+    graficoTabella->rimuoviRiga();
+}
+void MainWindow::rimuoviColonnaTabella(){
+    graficoTabella->rimuoviColonna();
+}
+
+void MainWindow::modificaSezioneVTabella(int i, grafico* G){
+    graficoTabella->modificaSezioneV(i,G);
+}
+
+void MainWindow::modificaSezioneHTabella(int i, grafico* G){
+    graficoTabella->modificaSezioneH(i,G);
 }
 
 void MainWindow::setController(Controller* c){

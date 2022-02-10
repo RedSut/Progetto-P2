@@ -4,7 +4,8 @@
 QT       += core gui widgets charts
 TEMPLATE = app
 TARGET = Progetto-P2
-INCLUDEPATH += $$PWD
+INCLUDEPATH += .
+RESOURCES     = resources.qrc
 
 # Input
 HEADERS += src/View/graficoView.h \
@@ -25,7 +26,7 @@ HEADERS += src/View/graficoView.h \
            src/Model/classi/Model.h \
            src/Model/classi/torta.h
 SOURCES += src/main.cpp \
-            src/View/Controller.cpp \
+           src/View/Controller.cpp \
            src/View/MainWindow.cpp \
            src/View/tableView.cpp \
            src/View/graficoView.cpp \

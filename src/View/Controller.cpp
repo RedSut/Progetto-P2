@@ -64,18 +64,35 @@ void Controller::aggiungiColonnaTabella(){
     mainWin->aggiungiColonnaTabella(G);
 }
 
+void Controller::rimuoviRigaTabella(){
+   mainWin->rimuoviRigaTabella();
+}
+
+void Controller::rimuoviColonnaTabella(){
+   mainWin->rimuoviColonnaTabella();
+}
+
+void Controller::modificaSezioneVTabella(int i){
+    grafico* G = model->getGrafico();
+    mainWin->modificaSezioneVTabella(i,G);
+}
+
+void Controller::modificaSezioneHTabella(int i){
+    grafico* G = model->getGrafico();
+    mainWin->modificaSezioneHTabella(i,G);
+}
 
 void Controller::nuovo() const{
     
 }
 void Controller::open() const{
-    QString fileName = QFileDialog::getOpenFileName(
+    /*QString fileName = QFileDialog::getOpenFileName(
                                 this, tr("Apri il file"), "", tr("File JSON (*.json)"));
 
 	if (fileName == "")
 		throw std::runtime_error("Nessun file scelto");
 
-	return fileName;
+    return fileName;*/
 }
 void Controller::save() const{
 

@@ -1,5 +1,6 @@
 #include "graficoView.h"
 #include "../Model/classi/graficoCreator.h"
+#include <iostream>
 
 graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout = new QVBoxLayout();
@@ -20,6 +21,8 @@ void graficoView::showGrafico(grafico* G){
     linea* gl = dynamic_cast<linea*>(G);
     dispersione* gd = dynamic_cast<dispersione*>(G);
 
+    chart->setAnimationOptions(QChart::AllAnimations);
+    chartView->setRenderHint(QPainter::Antialiasing);
     if(gt){
         QPieSeries* series = new QPieSeries();
         std::vector<double> valori = gt->getValoriInPercentage();
@@ -32,6 +35,7 @@ void graficoView::showGrafico(grafico* G){
             series->append(slice);
             ++it2;
         }
+
         chart->addSeries(series);
         chart->setTitle(QString::fromStdString(gt->getTitolo()));
     }else if(gi){
@@ -101,6 +105,11 @@ void graficoView::showGrafico(grafico* G){
         gl->ordinaPunti();
         std::vector<std::pair<double,double>> punti = gl->getPunti();
         QLineSeries* series = new QLineSeries();
+        series->setColor("red");
+        series->setPointsVisible();
+        QPen pen = series->pen();
+        pen.setWidth(4);
+        series->setPen(pen);
         double xMax = 0, yMax = 0, xMin = punti.at(0).first, yMin = punti.at(0).second;
         for(auto it = punti.begin(); it!=punti.end(); ++it){
             series->append(it->first,it->second);
@@ -127,6 +136,11 @@ void graficoView::showGrafico(grafico* G){
         std::vector<std::pair<double,double>> punti = gd->getPunti();
         std::vector<double> reg = gd->regressioneLineare();
         QScatterSeries* series = new QScatterSeries();
+        series->setColor("red");
+        QPen pen = series->pen();
+        pen.setWidth(2);
+        pen.setBrush(QBrush("red"));
+        series->setPen(pen);
         double xMax = 0, yMax = 0, xMin = punti.at(0).first, yMin = punti.at(0).second;
         for(auto it = punti.begin(); it!=punti.end(); ++it){
             series->append(it->first,it->second);
@@ -142,6 +156,12 @@ void graficoView::showGrafico(grafico* G){
             }
         }
         QLineSeries* regSer = new QLineSeries();
+        regSer->setColor("green");
+        QPen pen2 = regSer->pen();
+        pen2.setWidth(2);
+        pen2.setStyle(Qt::DashLine);
+        //pen.setBrush(QBrush("green"));
+        regSer->setPen(pen2);
         auto it3 = punti.begin();
         for(auto it2 = reg.begin(); it2!=reg.end(); ++it2){
             regSer->append(it3->first,*it2);

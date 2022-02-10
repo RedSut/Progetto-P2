@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/"/>
+    <qresource prefix="/img">
+        <file alias="dispersione">src/View/img/dispersione.jpg</file>
+        <file alias="torta">src/View/img/torta.jpg</file>
+        <file alias="linea">src/View/img/linea.jpg</file>
+        <file alias="barre">src/View/img/barre.jpg</file>
+        <file alias="istogramma">src/View/img/istogramma.jpg</file>
+    </qresource>
+</RCC>

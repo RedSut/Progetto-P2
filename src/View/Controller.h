@@ -25,6 +25,10 @@ class Controller : public QObject{
         void aggiornaGrafico();
         void aggiungiRigaTabella();
         void aggiungiColonnaTabella(); 
+        void rimuoviRigaTabella();
+        void rimuoviColonnaTabella();
+        void modificaSezioneVTabella(int);
+        void modificaSezioneHTabella(int);
 
         void nuovo() const;
         void open() const;
