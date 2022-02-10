@@ -74,12 +74,18 @@ void Controller::open() const{
 
 	if (fileName == "")
 		QMessageBox::warning(this,"Attenzione!","File scelto non valido");
-
-	return fileName;
 }
+
+
 void Controller::save() const{
-
+    
 }
-void Controller::saveAs() const{
 
+
+void Controller::saveAs() const{
+    QString fileName = QFileDialog::getSaveFileName(
+                                this, tr("Salva il file"), "", tr("File JSON (*.json)"));
+
+	if (fileName == "")
+		QMessageBox::warning(this,"Attenzione!","File scelto non valido");
 }
