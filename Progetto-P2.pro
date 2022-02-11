@@ -5,7 +5,7 @@ QT       += core gui widgets charts
 TEMPLATE = app
 TARGET = Progetto-P2
 INCLUDEPATH += .
-RESOURCES     = resources.qrc
+RESOURCES = resources.qrc
 
 # Input
 HEADERS += src/View/graficoView.h \

@@ -1,26 +1,10 @@
 {
-    "tipologia": "dispersione",
-    "titolo": "Grafico",
     "legenda": [
-        "Maschi",
-        "Femmine"
+        ""
     ],
-    "categorie": [
-        "Gennaio",
-        "Febbraio"
-    ],
+    "tipologia": "torta",
+    "titolo": "Titolo",
     "valori": [
-        24,
-        25,
-        26,
-        27
-    ],
-    "punti": [
-        [24, 25],
-        [26, 27]
-    ],
-    "nome_legenda": "Legenda",
-    "nome_valori": "Valori",
-    "asse_x": "Asse X",
-    "asse_y": "Asse Y"
+        0
+    ]
 }
