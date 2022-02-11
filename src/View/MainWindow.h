@@ -69,6 +69,7 @@ private:
     QMenu* file,*modifica;
 
     QString nomeFileAperto;
+    QLabel* displayFileName;
 
     void addMenuBar();
     QHBoxLayout* addMainButtons();
