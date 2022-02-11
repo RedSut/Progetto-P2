@@ -30,6 +30,7 @@ class graficoJSON{
     public:
         graficoJSON(Model* = new Model());
         void setModel(Model&);
+        grafico* getGrafico() const;
         void loadDataFromJSON(const QJsonObject&); // JSON input
         void saveDataToJSON(QJsonObject&) const; // JSON output
 };

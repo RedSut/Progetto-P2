@@ -12,9 +12,11 @@
 #include <QString>
 #include <QStackedWidget>
 #include <QMessageBox>
+#include <QFileDialog>
 //#include<secondarywindow.h>
 #include "graficoView.h"
 #include "tableView.h"
+#include "../Model/classi/graficoJSON.h"
 //#include "Controller.h"
 
 class Controller;
@@ -42,6 +44,10 @@ public:
     void rimuoviColonnaTabella();
     void modificaSezioneVTabella(int,grafico*);
     void modificaSezioneHTabella(int,grafico*);
+
+    void openFile(graficoJSON*);
+    void saveFile(graficoJSON*);
+
 private:
     graficoView* graficoWidget;
     tableView* graficoTabella;

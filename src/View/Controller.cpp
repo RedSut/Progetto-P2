@@ -86,11 +86,8 @@ void Controller::nuovo() const{
     
 }
 void Controller::open() const{
-    QString fileName = QFileDialog::getOpenFileName(
-                                this, tr("Apri il file"), "", tr("File JSON (*.json)"));
-
-	if (fileName == "")
-		QMessageBox::warning(this,"Attenzione!","File scelto non valido");
+    graficoJSON* GJson = new graficoJSON(model);
+    mainWin->openFile(GJson);
 }
 
 
@@ -100,9 +97,9 @@ void Controller::save() const{
 
 
 void Controller::saveAs() const{
-    QString fileName = QFileDialog::getSaveFileName(
+    /*QString fileName = QFileDialog::getSaveFileName(
                                 this, tr("Salva il file"), "", tr("File JSON (*.json)"));
 
 	if (fileName == "")
-		QMessageBox::warning(this,"Attenzione!","File scelto non valido");
+        QMessageBox::warning(this,"Attenzione!","File scelto non valido");*/
 }

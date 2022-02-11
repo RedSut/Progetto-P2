@@ -1,8 +1,6 @@
 #include "MainWindow.h"
 //#include "ui_mainwindow.h"
 
-#include "../Model/classi/grafico.h"
-#include "../Model/classi/graficoCreator.h"
 #include "Controller.h"
 #include <QSize>
 #include <iostream>
@@ -26,8 +24,11 @@ void MainWindow::addMenuBar()
     file->actions()[4]->setShortcut(Qt::ALT | Qt::Key_F4);
 
 
-    menuBar->setStyleSheet("background-color: White");// color: black");
+    menuBar->setStyleSheet("QMenuBar {background-color: #FFA62B; color:black;}\n"
+                           "QMenu {background-color: #FFA62B; color:black;}\n"
+                           "QMenu::item:selected {color: white}");
     menuBar->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
+
 
     connect(file->actions()[4], SIGNAL(triggered()), this, SLOT(close()));
 
@@ -46,11 +47,11 @@ QHBoxLayout* MainWindow::addMainButtons()
     dispersionChart= new QPushButton("Grafico a dispersione");
 
 
-    pieChart->setStyleSheet("background-image: url(:/img/torta); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
-    histogram->setStyleSheet("background-image: url(:/img/istogramma); background-repeat: norepeat; background-position: central; width: 220px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
-    barChart->setStyleSheet("background-image: url(:/img/barre); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
-    lineChart->setStyleSheet("background-image: url(:/img/linea); width: 220px; background-repeat: norepeat; background-position: central; font-size: 23px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
-    dispersionChart->setStyleSheet("background-image: url(:/img/dispersione); background-repeat: norepeat; background-position: central; width: 220px; font-size: 18px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px");
+    pieChart->setStyleSheet("background-image: url(:/img/torta); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black");
+    histogram->setStyleSheet("background-image: url(:/img/istogramma); background-repeat: norepeat; background-position: central; width: 220px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black;");
+    barChart->setStyleSheet("background-image: url(:/img/barre); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black;");
+    lineChart->setStyleSheet("background-image: url(:/img/linea); width: 220px; background-repeat: norepeat; background-position: central; font-size: 23px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black;");
+    dispersionChart->setStyleSheet("background-image: url(:/img/dispersione); background-repeat: norepeat; background-position: central; width: 220px; font-size: 18px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black;");
     buttonLayout->addWidget(pieChart);
     buttonLayout->addWidget(histogram);
     buttonLayout->addWidget(barChart);
@@ -69,7 +70,8 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
     addMenuBar();
 
-    setStyleSheet("background-color: Orange;");
+    setStyleSheet("QWidget{background-color: #0A2342; color:white;}\n"
+                  "QPushButton{background-color: #FFA62B; color: black;}\n"); //#FE5F00 #0A2342 #FE621D
     mainLayout->addWidget(menuBar);
 
     QWidget* home = new QWidget(pagine);
@@ -81,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     QVBoxLayout* homeLayout = new QVBoxLayout;
     QLabel* testo = new QLabel;
     testo->setText("Crea un nuovo grafico");
-    testo->setStyleSheet("color: black; font-weight: bold; font-size: 40px;");
+    testo->setStyleSheet("color: white; font-weight: bold; font-size: 40px;");
     testo->setAlignment(Qt::AlignCenter);
     testo->setMaximumHeight(200);
     testo->setContentsMargins(50,100,50,50);
@@ -101,6 +103,7 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     
     pagine->addWidget(b);
     mainLayout->addWidget(pagine);
+    mainLayout->setMargin(0);
     setLayout(mainLayout);
     resize(QSize(1280, 775));
 }
@@ -165,4 +168,36 @@ void MainWindow::setController(Controller* c){
     connect(file->actions()[1], SIGNAL(triggered()), controller, SLOT(open()));
     connect(file->actions()[2], SIGNAL(triggered()), controller, SLOT(save()));
     connect(file->actions()[3], SIGNAL(triggered()), controller, SLOT(saveAs()));
+}
+
+void MainWindow::openFile(graficoJSON* GJson){
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Apri il file"), "", tr("File JSON (*.json)"));
+
+    if (fileName == ""){
+        QMessageBox::warning(this,"Attenzione!","File scelto non valido");
+    }else{
+        QFile file(fileName);
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
+             QString val = file.readAll();
+             file.close();
+             QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+             QJsonObject o = d.object();
+
+             try{
+                 GJson->loadDataFromJSON(o);
+                 goToSecondPage();
+                 setGrafico(GJson->getGrafico());
+             }
+             catch(graficoException& e){
+                 QMessageBox::information(this, tr("ERRORE IN INPUT FILE JSON"), tr(e.what()));
+             }
+        }else{
+            QMessageBox::information(this, tr("ERRORE"), tr("Impossibile aprire il file!"));
+        }
+    }
+
+}
+
+void MainWindow::saveFile(graficoJSON* GJson){
+
 }

@@ -15,10 +15,18 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     aggiungiColonnaButton = new QPushButton("Aggiungi Colonna");
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
 
+    aggiornaButton->setStyleSheet("background-color: #FFA62B; color: black;");
+    aggiungiRigaButton->setStyleSheet("background-color: #FFA62B; color: black;");
+    rimuoviRigaButton->setStyleSheet("background-color: #FFA62B; color: black;");
+    aggiungiColonnaButton->setStyleSheet("background-color: #FFA62B; color: black;");
+    rimuoviColonnaButton->setStyleSheet("background-color: #FFA62B; color: black;");
+
     tabella->horizontalHeader()->setDefaultSectionSize(120);
-    tabella->setStyleSheet("border: 1px solid black");
-    tabella->horizontalHeader()->setStyleSheet("border: 0px;");
-    tabella->verticalHeader()->setStyleSheet("border: 0px");
+    tabella->verticalHeader()->setDefaultSectionSize(30);
+    tabella->setStyleSheet("QWidget {border: 0px; background-color: #82ADC4; color: black;\n}" //#7DCFB6 #628395 #86BBD8
+                           "QTableCornerButton::section {background-color: #F06543}");
+    tabella->horizontalHeader()->setStyleSheet("QHeaderView::section {background-color: #F06543; color: white;}");
+    tabella->verticalHeader()->setStyleSheet("QHeaderView::section {background-color: #F06543; color: white;}");
     tabella->setSortingEnabled(true);
 
     mainLayout->addWidget(tabella);
@@ -342,6 +350,7 @@ void tableView::modificaSezioneH(int i, grafico* G){
 void tableView::modificaSezioneV(int i, grafico* G){
     if(dynamic_cast<barre*>(G)){
         QInputDialog* inputDialog = new QInputDialog;
+        inputDialog->setStyleSheet("color:white");
         bool ok;
         QString text = inputDialog->getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
         if(ok && !text.isEmpty()){

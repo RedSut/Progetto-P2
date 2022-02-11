@@ -1,5 +1,5 @@
 {
-    "tipologia": "barre",
+    "tipologia": "dispersione",
     "titolo": "Grafico",
     "legenda": [
         "Maschi",
@@ -17,7 +17,7 @@
     ],
     "punti": [
         [24, 25],
-        [26]
+        [26, 27]
     ],
     "nome_legenda": "Legenda",
     "nome_valori": "Valori",

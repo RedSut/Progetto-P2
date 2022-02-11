@@ -1,15 +1,18 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 #include <QObject>
+#include <QFileDialog>
+#include <QMessageBox>
 
 #include "../Model/classi/Model.h"
+#include "../Model/classi/graficoJSON.h"
 #include "MainWindow.h"
 
 class Controller : public QObject{
     Q_OBJECT
     private:
         MainWindow* mainWin;
-        Model* model;
+        Model* model; 
 
     public:
         explicit Controller(QObject* = nullptr);

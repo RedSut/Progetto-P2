@@ -20,6 +20,10 @@ void graficoJSON::setModel(Model& m){
     M = &m;
 }
 
+grafico* graficoJSON::getGrafico()const{
+    return M->getGrafico();
+}
+
 void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
     QJsonValue tp = jsonOBJ[JSON_tipologia];
     if(!tp.isUndefined()){
