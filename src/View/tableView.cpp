@@ -322,6 +322,9 @@ void tableView::rimuoviRiga(){
     if(row>0){
         tabella->removeRow(row);
     }
+    else{
+        QMessageBox::warning(this, "Attenzione", "Non si può eliminare l'ultima riga!");
+    }
 }
 
 void tableView::aggiungiColonna(grafico* G){
@@ -347,6 +350,9 @@ void tableView::rimuoviColonna(){
     if(col>0){
         tabella->removeColumn(col);
         resizeColonne();
+    }
+    else{
+        QMessageBox::warning(this, "Attenzione", "Non si può eliminare l'ultima colonna!");
     }
 }
 
