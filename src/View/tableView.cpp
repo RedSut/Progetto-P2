@@ -1,10 +1,6 @@
 #include "tableView.h"
 #include "Controller.h"
 
-#include<iostream>
-#include <QHeaderView>
-#include<QAbstractItemView>
-
 tableView::tableView(QWidget* parent): QWidget(parent){
     mainLayout = new QVBoxLayout;
     tabella = new QTableWidget;
@@ -35,6 +31,11 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
     setLayout(mainLayout);
+}
+
+tableView::~tableView(){
+    delete tabella;
+    delete mainLayout;
 }
 
 void tableView::populateTable(grafico* G){

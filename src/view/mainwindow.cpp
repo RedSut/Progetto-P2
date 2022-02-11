@@ -1,9 +1,5 @@
 #include "MainWindow.h"
-
 #include "Controller.h"
-#include <QSize>
-#include <iostream>
-
 
 void MainWindow::addMenuBar()
 {

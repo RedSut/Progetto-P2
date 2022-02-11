@@ -30,20 +30,25 @@ class tableView: public QWidget{
 
     public:
         explicit tableView(QWidget* = nullptr);
+        ~tableView();
+
+        void setController(Controller*);
+
         void populateTable(grafico*);
         void extractTable(grafico*);
         void resetButtons();
         void resetTabella();
-        void setController(Controller*);
+
         void aggiungiRiga(grafico*);
         void aggiungiColonna(grafico*);
         void rimuoviRiga();
         void rimuoviColonna();
         void resizeColonne();
+
         void modificaSezioneV(int,grafico*);
         void modificaSezioneH(int, grafico*);
-        void updateRegLin();
 
+        void updateRegLin();
 };
 
 #endif

@@ -1,6 +1,4 @@
 #include "graficoView.h"
-#include "../Model/classi/graficoCreator.h"
-#include <iostream>
 
 graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout = new QVBoxLayout();
@@ -10,6 +8,12 @@ graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout->addWidget(chartView);
     mainLayout->setMargin(0);
     setLayout(mainLayout);
+};
+
+graficoView::~graficoView(){
+    delete chart;
+    delete chartView;
+    delete mainLayout;
 };
 
 void graficoView::showGrafico(grafico* G){
