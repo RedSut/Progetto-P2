@@ -226,7 +226,7 @@ void MainWindow::removeColonne(grafico* G){
         }
     }
     else{
-        QMessageBox::warning(this,"Attenzione!","Al grafico corrente non possono essere aggiunte colonne!");
+        QMessageBox::warning(this,"Attenzione!","Al grafico corrente non possono essere rimosse colonne!");
     }
 }
 
