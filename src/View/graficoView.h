@@ -18,9 +18,6 @@
 #include "../Model/classi/torta.h"
 #include "../Model/classi/linea.h"
 
-//#include "../Model/classi/Model.h"
-//#include "mainwindow.h"
-
 class graficoView: public QWidget{
     Q_OBJECT
     private:
@@ -32,8 +29,7 @@ class graficoView: public QWidget{
         void showGrafico(grafico*);
         void updateGrafico(grafico*);
         void updateTheme(int);
-    public slots:
-        void crea();
+        void updateRegLin();
 };
 
 #endif

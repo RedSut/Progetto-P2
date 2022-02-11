@@ -14,12 +14,7 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     rimuoviRigaButton = new QPushButton("Rimuovi Ultima Riga");
     aggiungiColonnaButton = new QPushButton("Aggiungi Colonna");
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
-
-    aggiornaButton->setStyleSheet("background-color: #FFA62B; color: black;");
-    aggiungiRigaButton->setStyleSheet("background-color: #FFA62B; color: black;");
-    rimuoviRigaButton->setStyleSheet("background-color: #FFA62B; color: black;");
-    aggiungiColonnaButton->setStyleSheet("background-color: #FFA62B; color: black;");
-    rimuoviColonnaButton->setStyleSheet("background-color: #FFA62B; color: black;");
+    regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
 
     tabella->horizontalHeader()->setDefaultSectionSize(120);
     tabella->verticalHeader()->setDefaultSectionSize(30);
@@ -35,12 +30,17 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     mainLayout->addWidget(rimuoviRigaButton);
     mainLayout->addWidget(aggiungiColonnaButton);
     mainLayout->addWidget(rimuoviColonnaButton);
+    mainLayout->addWidget(regressioneLineareButton);
     aggiungiColonnaButton->hide();
     rimuoviColonnaButton->hide();
+    regressioneLineareButton->hide();
     setLayout(mainLayout);
 }
 
 void tableView::populateTable(grafico* G){
+    resetButtons();
+    resetTabella();
+
     torta* gt = dynamic_cast<torta*>(G);
     istogramma* gi = dynamic_cast<istogramma*>(G);
     barre* gb = dynamic_cast<barre*>(G);
@@ -53,7 +53,8 @@ void tableView::populateTable(grafico* G){
         std::vector<double> valPer = gt->getValoriInPercentage();
         tabella->setRowCount(val.size());
         tabella->setColumnCount(3);
-        setMaximumWidth(450);
+        setMaximumWidth(410);
+        setMinimumWidth(410);
         QStringList headerLabels;
         headerLabels << "Legenda" <<"Valori" <<"Valori %";
         tabella->setHorizontalHeaderLabels(headerLabels);
@@ -78,6 +79,7 @@ void tableView::populateTable(grafico* G){
         tabella->setRowCount(val.size());
         tabella->setColumnCount(2);
         setMaximumWidth(300);
+        setMinimumWidth(300);
         QStringList headerLabels;
         headerLabels << QString::fromStdString(gi->getNomeLegenda()) << QString::fromStdString(gi->getNomeValori());
         tabella->setHorizontalHeaderLabels(headerLabels);
@@ -98,19 +100,14 @@ void tableView::populateTable(grafico* G){
         tabella->setRowCount(leg.size());
         tabella->setColumnCount(cat.size());
         resizeColonne();
-        /*QTableWidgetItem* itemNotEditable = new QTableWidgetItem;
-        itemNotEditable->setFlags(Qt::ItemIsEnabled|Qt::ItemIsSelectable);
-        tabella->setItem(0,0,itemNotEditable);*/
         for(int i = 0; i<cat.size(); i++){
             QTableWidgetItem* headerItem = new QTableWidgetItem;
             headerItem->setText(QString::fromStdString(cat.at(i)));
-            //tabella->setItem(0,i+1,headerItem);
             tabella->setHorizontalHeaderItem(i,headerItem);
         }
         for(int j = 0; j<leg.size(); j++){
             QTableWidgetItem* headerItem = new QTableWidgetItem;
             headerItem->setText(QString::fromStdString(leg.at(j)));
-            //tabella->setItem(j+1,0,headerItem);
             tabella->setVerticalHeaderItem(j,headerItem);
         }
 
@@ -128,6 +125,7 @@ void tableView::populateTable(grafico* G){
         tabella->setRowCount(punti.size());
         tabella->setColumnCount(2);
         setMaximumWidth(300);
+        setMinimumWidth(300);
         QStringList headerLabels;
         headerLabels << QString::fromStdString(gl->getNomeAsseX()) << QString::fromStdString(gl->getNomeAsseY());
         tabella->setHorizontalHeaderLabels(headerLabels);
@@ -140,11 +138,13 @@ void tableView::populateTable(grafico* G){
             tabella->setItem(i,1,itemY);
         }
     }else if(gd){
+        regressioneLineareButton->show();
         std::vector<std::pair<double,double>> punti = gd->getPunti();
         std::vector<double> reg = gd->regressioneLineare();
         tabella->setRowCount(punti.size());
         tabella->setColumnCount(3);
         setMaximumWidth(450);
+        setMinimumWidth(450);
         tabella->setColumnWidth(2,150);
         QStringList headerLabels;
         headerLabels << QString::fromStdString(gd->getNomeAsseX()) << QString::fromStdString(gd->getNomeAsseY()) << "Regressione Lineare";
@@ -237,6 +237,25 @@ void tableView::extractTable(grafico* G){
     }
 }
 
+void tableView::resetButtons(){
+    aggiungiColonnaButton->hide();
+    rimuoviColonnaButton->hide();
+    regressioneLineareButton->hide();
+}
+
+void tableView::resetTabella(){
+    tabella->reset();
+    QStringList HLabels, VLabels;
+    for(int i=0; i<tabella->columnCount(); i++){
+        HLabels.append(QString::number(i+1));
+    }
+    tabella->setHorizontalHeaderLabels(HLabels);
+    for(int j=0; j<tabella->rowCount(); j++){
+        VLabels.append(QString::number(j+1));
+    }
+    tabella->setVerticalHeaderLabels(VLabels);
+}
+
 void tableView::setController(Controller* contr){
     C = contr;
     connect(aggiornaButton,SIGNAL(clicked()),C,SLOT(aggiornaGrafico()));
@@ -246,6 +265,8 @@ void tableView::setController(Controller* contr){
 
     connect(rimuoviRigaButton,SIGNAL(clicked()),C,SLOT(rimuoviRigaTabella()));
     connect(rimuoviColonnaButton,SIGNAL(clicked()),C,SLOT(rimuoviColonnaTabella()));
+
+    connect(regressioneLineareButton,SIGNAL(clicked()),C,SLOT(updateRegressioneLineare()));
 
     connect(tabella->horizontalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneHTabella);
     connect(tabella->verticalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneVTabella);
@@ -337,6 +358,11 @@ void tableView::resizeColonne(){
 
 void tableView::modificaSezioneH(int i, grafico* G){
     if(!dynamic_cast<torta*>(G)){
+        if(dynamic_cast<dispersione*>(G)){
+            if(i>=2){
+                return;
+            }
+        }
         QInputDialog* inputDialog = new QInputDialog;
         bool ok;
         QString text = inputDialog->getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
@@ -357,5 +383,17 @@ void tableView::modificaSezioneV(int i, grafico* G){
             QTableWidgetItem* item = tabella->verticalHeaderItem(i);
             item->setText(text);
         }
+    }
+}
+
+void tableView::updateRegLin(){
+    if(tabella->isColumnHidden(2)){
+        tabella->showColumn(2);
+        setMaximumWidth(450);
+        setMinimumWidth(450);
+    }else{
+        tabella->hideColumn(2);
+        setMaximumWidth(300);
+        setMinimumWidth(300);
     }
 }

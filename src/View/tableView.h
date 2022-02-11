@@ -24,6 +24,7 @@ class tableView: public QWidget{
         QPushButton* aggiungiColonnaButton;
         QPushButton* rimuoviRigaButton;
         QPushButton* rimuoviColonnaButton;
+        QPushButton* regressioneLineareButton;
 
         Controller* C;
 
@@ -31,6 +32,8 @@ class tableView: public QWidget{
         explicit tableView(QWidget* = nullptr);
         void populateTable(grafico*);
         void extractTable(grafico*);
+        void resetButtons();
+        void resetTabella();
         void setController(Controller*);
         void aggiungiRiga(grafico*);
         void aggiungiColonna(grafico*);
@@ -39,7 +42,7 @@ class tableView: public QWidget{
         void resizeColonne();
         void modificaSezioneV(int,grafico*);
         void modificaSezioneH(int, grafico*);
-
+        void updateRegLin();
 
 };
 

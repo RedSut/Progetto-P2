@@ -13,30 +13,25 @@
 #include <QStackedWidget>
 #include <QMessageBox>
 #include <QFileDialog>
-//#include<secondarywindow.h>
 #include "graficoView.h"
 #include "tableView.h"
 #include "../Model/classi/graficoJSON.h"
-//#include "Controller.h"
 
 class Controller;
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
 
 class MainWindow :public QWidget
 {
     Q_OBJECT
-    //SecondaryWindow *secondary;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     void setController(Controller *c);
-    void goToSecondPage();
     void setGrafico(grafico*);
-    void updateGrafico(grafico*);
+    void updateGraficoFromTable(grafico*);
+
+    void goToSecondPage();
+    void goToFirstPage();
 
     void aggiungiRigaTabella(grafico*);
     void aggiungiColonnaTabella(grafico*);
@@ -44,15 +39,17 @@ public:
     void rimuoviColonnaTabella();
     void modificaSezioneVTabella(int,grafico*);
     void modificaSezioneHTabella(int,grafico*);
+    void updateRegressioneLineare();
 
     void openFile(graficoJSON*);
+    void saveFileAs(graficoJSON*);
     void saveFile(graficoJSON*);
 
 private:
     graficoView* graficoWidget;
     tableView* graficoTabella;
     //Ui::MainWindow *ui;
-    QMenuBar* menuBar;
+
     Controller* controller;
     QHBoxLayout* buttons;
     QStackedWidget* pagine;
@@ -63,8 +60,10 @@ private:
     QPushButton* lineChart;
     QPushButton* dispersionChart;
 
+    QMenuBar* menuBar;
     QMenu* file;
-    //Controller* C;
+
+    QString nomeFileAperto;
 
     void addMenuBar();
     QHBoxLayout* addMainButtons();

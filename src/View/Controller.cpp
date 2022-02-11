@@ -9,7 +9,7 @@ void Controller::setModel(Model* M){
 }
 
 void Controller::setView(MainWindow* W){
-    mainWin= W;
+    mainWin = W;
 }
 
 void Controller::createTorta() const{
@@ -51,7 +51,7 @@ void Controller::createDispersione() const{
 
 void Controller::aggiornaGrafico(){
     grafico* G = model->getGrafico();
-    mainWin->updateGrafico(G);
+    mainWin->updateGraficoFromTable(G);
 }
 
 void Controller::aggiungiRigaTabella(){
@@ -82,9 +82,14 @@ void Controller::modificaSezioneHTabella(int i){
     mainWin->modificaSezioneHTabella(i,G);
 }
 
-void Controller::nuovo() const{
-    
+void Controller::updateRegressioneLineare(){
+    mainWin->updateRegressioneLineare();
 }
+
+void Controller::nuovo() const{
+    mainWin->goToFirstPage();
+}
+
 void Controller::open() const{
     graficoJSON* GJson = new graficoJSON(model);
     mainWin->openFile(GJson);
@@ -92,14 +97,12 @@ void Controller::open() const{
 
 
 void Controller::save() const{
-    
+    graficoJSON* GJson = new graficoJSON(model);
+    mainWin->saveFile(GJson);
 }
 
 
 void Controller::saveAs() const{
-    /*QString fileName = QFileDialog::getSaveFileName(
-                                this, tr("Salva il file"), "", tr("File JSON (*.json)"));
-
-	if (fileName == "")
-        QMessageBox::warning(this,"Attenzione!","File scelto non valido");*/
+    graficoJSON* GJson = new graficoJSON(model);
+    mainWin->saveFileAs(GJson);
 }

@@ -1,8 +1,6 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 #include <QObject>
-#include <QFileDialog>
-#include <QMessageBox>
 
 #include "../Model/classi/Model.h"
 #include "../Model/classi/graficoJSON.h"
@@ -32,6 +30,7 @@ class Controller : public QObject{
         void rimuoviColonnaTabella();
         void modificaSezioneVTabella(int);
         void modificaSezioneHTabella(int);
+        void updateRegressioneLineare();
 
         void nuovo() const;
         void open() const;

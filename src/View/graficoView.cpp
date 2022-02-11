@@ -10,7 +10,6 @@ graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout->addWidget(chartView);
     mainLayout->setMargin(0);
     setLayout(mainLayout);
-    //resize(QSize(1024, 720));
 };
 
 void graficoView::showGrafico(grafico* G){
@@ -160,7 +159,6 @@ void graficoView::showGrafico(grafico* G){
         QPen pen2 = regSer->pen();
         pen2.setWidth(2);
         pen2.setStyle(Qt::DashLine);
-        //pen.setBrush(QBrush("green"));
         regSer->setPen(pen2);
         auto it3 = punti.begin();
         for(auto it2 = reg.begin(); it2!=reg.end(); ++it2){
@@ -211,6 +209,10 @@ void graficoView::updateTheme(int t){
     setPalette(pal);
 }
 
-void graficoView::crea(){
-    this->show();
+void graficoView::updateRegLin(){
+    if(chart->series()[1]->isVisible()){
+        chart->series()[1]->hide();
+    }else{
+        chart->series()[1]->show();
+    }
 }

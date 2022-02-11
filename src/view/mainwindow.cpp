@@ -1,5 +1,4 @@
 #include "MainWindow.h"
-//#include "ui_mainwindow.h"
 
 #include "Controller.h"
 #include <QSize>
@@ -70,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
     addMenuBar();
 
+    nomeFileAperto = "untitled.json";
+
     setStyleSheet("QWidget{background-color: #0A2342; color:white;}\n"
                   "QPushButton{background-color: #FFA62B; color: black;}\n"); //#FE5F00 #0A2342 #FE621D
     mainLayout->addWidget(menuBar);
@@ -77,7 +78,6 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     QWidget* home = new QWidget(pagine);
     QWidget* pulsanti = new QWidget(home);
     buttons = addMainButtons();
-    //buttons->setMargin(100);
     pulsanti->setLayout(buttons);
 
     QVBoxLayout* homeLayout = new QVBoxLayout;
@@ -108,9 +108,20 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     resize(QSize(1280, 775));
 }
 
-MainWindow::~MainWindow()
-{
-   // delete ui;
+MainWindow::~MainWindow(){
+    delete pagine;
+    delete menuBar;
+}
+
+void MainWindow::goToFirstPage(){
+    if(pagine->currentIndex() == 1){
+        QMessageBox msgBox(QMessageBox::Warning, tr("Attenzione!"),tr("Perderai tutte le modifiche effettuate"), 0, this);
+        msgBox.addButton(tr("Continua"), QMessageBox::AcceptRole);
+        msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
+        if (msgBox.exec() == QMessageBox::AcceptRole){
+            pagine->setCurrentIndex(0);
+        }
+    }
 }
 
 void MainWindow::goToSecondPage(){
@@ -119,10 +130,10 @@ void MainWindow::goToSecondPage(){
 
 void MainWindow::setGrafico(grafico* G){
     graficoTabella->populateTable(G);
-    graficoWidget->showGrafico(G);
+    graficoWidget->updateGrafico(G);
 };
 
-void MainWindow::updateGrafico(grafico* G){
+void MainWindow::updateGraficoFromTable(grafico* G){
     try{
         graficoTabella->extractTable(G);
         graficoWidget->updateGrafico(G);
@@ -155,6 +166,11 @@ void MainWindow::modificaSezioneHTabella(int i, grafico* G){
     graficoTabella->modificaSezioneH(i,G);
 }
 
+void MainWindow::updateRegressioneLineare(){
+    graficoTabella->updateRegLin();
+    graficoWidget->updateRegLin();
+}
+
 void MainWindow::setController(Controller* c){
     graficoTabella->setController(c);
     controller = c;
@@ -171,18 +187,16 @@ void MainWindow::setController(Controller* c){
 }
 
 void MainWindow::openFile(graficoJSON* GJson){
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Apri il file"), "", tr("File JSON (*.json)"));
-
-    if (fileName == ""){
+    nomeFileAperto = QFileDialog::getOpenFileName(this, tr("Apri il file"), "", tr("File JSON (*.json)"));
+    if (nomeFileAperto == ""){
         QMessageBox::warning(this,"Attenzione!","File scelto non valido");
     }else{
-        QFile file(fileName);
+        QFile file(nomeFileAperto);
         if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
              QString val = file.readAll();
              file.close();
              QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
              QJsonObject o = d.object();
-
              try{
                  GJson->loadDataFromJSON(o);
                  goToSecondPage();
@@ -195,9 +209,45 @@ void MainWindow::openFile(graficoJSON* GJson){
             QMessageBox::information(this, tr("ERRORE"), tr("Impossibile aprire il file!"));
         }
     }
+}
 
+void MainWindow::saveFileAs(graficoJSON* GJson){
+    if(pagine->currentIndex() == 1){
+        nomeFileAperto = QFileDialog::getSaveFileName(this, tr("Salva il file"), "", tr("File JSON (*.json)"));
+        if (nomeFileAperto == ""){
+            QMessageBox::warning(this,"Attenzione!","File scelto non valido");
+        }else{
+            QJsonObject o1;
+            GJson->saveDataToJSON(o1);
+            QJsonDocument d1;
+            d1.setObject(o1);
+            QFile file(nomeFileAperto);
+            if(file.open(QFile::WriteOnly | QFile::Text)){
+                file.write(d1.toJson());
+            }else{
+                QMessageBox::information(this, tr("ERRORE"), tr("Impossibile scrivere sul file!"));
+            }
+        }
+    }else{
+        QMessageBox::information(this, tr("Attenzione!"), tr("Nessun file aperto!"));
+    }
 }
 
 void MainWindow::saveFile(graficoJSON* GJson){
-
+    if(pagine->currentIndex() == 1){
+        if(nomeFileAperto != "untitled.json"){
+            QJsonObject o1;
+            GJson->saveDataToJSON(o1);
+            QJsonDocument d1;
+            d1.setObject(o1);
+            QFile file(nomeFileAperto);
+            if(file.open(QFile::WriteOnly | QFile::Text)){
+                file.write(d1.toJson());
+            }else{
+                QMessageBox::information(this, tr("ERRORE"), tr("Impossibile scrivere sul file!"));
+            }
+        }else{
+            saveFileAs(GJson);
+        }
+    }
 }
