@@ -24,10 +24,6 @@ void MainWindow::addMenuBar()
                            "QMenu::item:selected {color: white}");
     menuBar->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
 
-
-    connect(file->actions()[4], SIGNAL(triggered()), this, SLOT(close()));
-
-
     return;
 }
 
@@ -64,12 +60,19 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     pagine = new QStackedWidget(this);
 
     addMenuBar();
+    mainLayout->addWidget(menuBar);
+
+    //QVBoxLayout* fileLayout = new QVBoxLayout
 
     nomeFileAperto = "untitled.json";
-
-    setStyleSheet("QWidget{background-color: #0A2342; color:white;}\n"
-                  "QPushButton{background-color: #FFA62B; color: black;}\n"); //#FE5F00 #0A2342 #FE621D
-    mainLayout->addWidget(menuBar);
+    displayFileName = new QLabel;
+    QString f = "File aperto: ";
+    f.append(nomeFileAperto);
+    displayFileName->setText(f);
+    displayFileName->setAlignment(Qt::AlignCenter);
+    displayFileName->setStyleSheet("background-color: #EDDEA4; color: black; font-size: 15px; padding: 5px 3px;"); //#F4E9CD #7A2A29
+    mainLayout->addWidget(displayFileName);
+    displayFileName->hide();
 
     QWidget* home = new QWidget(pagine);
     QWidget* pulsanti = new QWidget(home);
@@ -89,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     home->setLayout(homeLayout);
 
     pagine->addWidget(home);
+
     QWidget* b = new QWidget(pagine);   
     graficoWidget = new graficoView();
     graficoTabella = new tableView();
@@ -96,11 +100,14 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     paginaGrafico->addWidget(graficoTabella);
     paginaGrafico->addWidget(graficoWidget);
     b->setLayout(paginaGrafico);
-    
+
     pagine->addWidget(b);
+
     mainLayout->addWidget(pagine);
     mainLayout->setMargin(0);
     setLayout(mainLayout);
+    setStyleSheet("QWidget{background-color: #0A2342; color:white;}\n"
+                  "QPushButton{background-color: #FFA62B; color: black;}\n"); //#FE5F00 #0A2342 #FE621D
     resize(QSize(1280, 775));
 }
 
@@ -111,18 +118,23 @@ MainWindow::~MainWindow(){
 
 void MainWindow::goToFirstPage(){
     if(pagine->currentIndex() == 1){
-        QMessageBox msgBox(QMessageBox::Warning, tr("Attenzione!"),tr("Perderai tutte le modifiche effettuate"), 0, this);
+        QMessageBox msgBox(QMessageBox::Warning, tr("Attenzione!"),tr("Perderai tutte le modifiche non salvate"), 0, this);
         msgBox.addButton(tr("Continua"), QMessageBox::AcceptRole);
         msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
         if (msgBox.exec() == QMessageBox::AcceptRole){
             nomeFileAperto = "untitled.json";
+            displayFileName->hide();
             pagine->setCurrentIndex(0);
         }
     }
 }
 
 void MainWindow::goToSecondPage(){
-    pagine->setCurrentIndex(1);
+    pagine->setCurrentIndex(1);    
+    QString f = "File aperto: ";
+    f.append(nomeFileAperto);
+    displayFileName->setText(f);
+    displayFileName->show();
 }
 
 void MainWindow::setGrafico(grafico* G){
@@ -181,31 +193,44 @@ void MainWindow::setController(Controller* c){
     connect(file->actions()[1], SIGNAL(triggered()), controller, SLOT(open()));
     connect(file->actions()[2], SIGNAL(triggered()), controller, SLOT(save()));
     connect(file->actions()[3], SIGNAL(triggered()), controller, SLOT(saveAs()));
+    connect(file->actions()[4], SIGNAL(triggered()), this, SLOT(close()));
 }
 
 void MainWindow::openFile(graficoJSON* GJson){
-    nomeFileAperto = QFileDialog::getOpenFileName(this, tr("Apri il file"), "", tr("File JSON (*.json)"));
-    if (nomeFileAperto == ""){
-        QMessageBox::warning(this,"Attenzione!","File scelto non valido");
-    }else{
-        QFile file(nomeFileAperto);
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
-             QString val = file.readAll();
-             file.close();
-             QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
-             QJsonObject o = d.object();
-             try{
-                 GJson->loadDataFromJSON(o);
-                 goToSecondPage();
-                 setGrafico(GJson->getGrafico());
-             }
-             catch(graficoException& e){
-                 QMessageBox::information(this, tr("ERRORE IN INPUT FILE JSON"), tr(e.what()));
-             }
-        }else{
-            QMessageBox::information(this, tr("ERRORE"), tr("Impossibile aprire il file!"));
+    /*bool flag = true;
+    if(pagine->currentIndex() == 1){
+        QMessageBox msgBox(QMessageBox::Warning, tr("Attenzione!"),tr("Perderai tutte le modifiche non salvate"), 0, this);
+        msgBox.addButton(tr("Continua"), QMessageBox::AcceptRole);
+        msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
+        if (msgBox.exec() == QMessageBox::RejectRole){
+            flag = false;
         }
     }
+    if(pagine->currentIndex() == 0 || flag){*/
+        nomeFileAperto = QFileDialog::getOpenFileName(this, tr("Apri il file"), "", tr("File JSON (*.json)"));
+        if (nomeFileAperto == ""){
+            QMessageBox::warning(this,"Attenzione!","File scelto non valido");
+            nomeFileAperto = "untitled.json";
+        }else{
+            QFile file(nomeFileAperto);
+            if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
+                 QString val = file.readAll();
+                 file.close();
+                 QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+                 QJsonObject o = d.object();
+                 try{
+                     GJson->loadDataFromJSON(o);
+                     goToSecondPage();
+                     setGrafico(GJson->getGrafico());
+                 }
+                 catch(graficoException& e){
+                     QMessageBox::information(this, tr("ERRORE IN INPUT FILE JSON"), tr(e.what()));
+                 }
+            }else{
+                QMessageBox::information(this, tr("ERRORE"), tr("Impossibile aprire il file!"));
+            }
+        }
+    //}
 }
 
 void MainWindow::saveFileAs(graficoJSON* GJson){
