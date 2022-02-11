@@ -101,12 +101,12 @@ void tableView::populateTable(grafico* G){
         tabella->setRowCount(leg.size());
         tabella->setColumnCount(cat.size());
         resizeColonne();
-        for(int i = 0; i<cat.size(); i++){
+        for(unsigned int i = 0; i<cat.size(); i++){
             QTableWidgetItem* headerItem = new QTableWidgetItem;
             headerItem->setText(QString::fromStdString(cat.at(i)));
             tabella->setHorizontalHeaderItem(i,headerItem);
         }
-        for(int j = 0; j<leg.size(); j++){
+        for(unsigned int j = 0; j<leg.size(); j++){
             QTableWidgetItem* headerItem = new QTableWidgetItem;
             headerItem->setText(QString::fromStdString(leg.at(j)));
             tabella->setVerticalHeaderItem(j,headerItem);

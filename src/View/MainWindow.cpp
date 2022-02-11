@@ -18,6 +18,13 @@ void MainWindow::addMenuBar()
     file->actions()[3]->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_S);
     file->actions()[4]->setShortcut(Qt::ALT | Qt::Key_F4);
 
+    modifica= new QMenu("Modifica",menuBar);
+    menuBar->addMenu(modifica);
+    modifica->addAction(new QAction("Aggiungi righe",modifica));
+    modifica->addAction(new QAction("Rimuovi righe",modifica));
+    modifica->addAction(new QAction("Aggiungi colonne",modifica));
+    modifica->addAction(new QAction("Rimuovi colonne",modifica));
+    modifica->addAction(new QAction("Rinomina", modifica));
 
     menuBar->setStyleSheet("QMenuBar {background-color: #FFA62B; color:black;}\n"
                            "QMenu {background-color: #FFA62B; color:black;}\n"
@@ -144,15 +151,71 @@ void MainWindow::aggiungiRigaTabella(grafico* G){
     graficoTabella->aggiungiRiga(G);
 }
 
+void MainWindow::addRighe(grafico* G){
+    if(pagine->currentIndex() == 1){
+        int n = QInputDialog::getInt(this, tr("Aggiungere righe"),tr("Numero di righe da aggiungere"));
+        for(int i=0;i<n;i++){
+            aggiungiRigaTabella(G);
+        }
+    }
+    else{
+        QMessageBox::warning(this,"Attenzione!","Nessun grafico selezionato! \n Scegli prima un grafico!");
+    }
+}
+
 void MainWindow::aggiungiColonnaTabella(grafico* G){
     graficoTabella->aggiungiColonna(G);
+}
+
+
+void MainWindow::addColonne(grafico* G){
+    if(pagine->currentIndex() == 0){
+        QMessageBox::warning(this,"Attenzione!","Nessun grafico selezionato! \n Scegli prima un grafico!");
+    }
+    else if(dynamic_cast<barre*>(G)){
+        int n = QInputDialog::getInt(this, tr("Aggiungere colonne"),tr("Numero di colonne da aggiungere"));
+        for(int i=0;i<n;i++){
+            aggiungiColonnaTabella(G);
+        }
+    }
+    else{
+        QMessageBox::warning(this,"Attenzione!","Al grafico corrente non possono essere aggiunte colonne!");
+    }
 }
 
 void MainWindow::rimuoviRigaTabella(){
     graficoTabella->rimuoviRiga();
 }
+
+void MainWindow::removeRighe(){
+    if(pagine->currentIndex() == 1){
+        int n = QInputDialog::getInt(this, tr("Rimuovore righe"),tr("Numero di righe da rimuovere"));
+        for(int i=0;i<n;i++){
+            rimuoviRigaTabella();
+        }
+    }
+    else{
+        QMessageBox::warning(this,"Attenzione!","Nessun grafico selezionato! \n Scegli prima un grafico!");
+    }
+}
+
 void MainWindow::rimuoviColonnaTabella(){
     graficoTabella->rimuoviColonna();
+}
+
+void MainWindow::removeColonne(grafico* G){
+    if(pagine->currentIndex() == 0){
+        QMessageBox::warning(this,"Attenzione!","Nessun grafico selezionato! \n Scegli prima un grafico!");
+    }
+    else if(dynamic_cast<barre*>(G)){
+        int n = QInputDialog::getInt(this, tr("Aggiungere colonne"),tr("Numero di colonne da aggiungere"));
+        for(int i=0;i<n;i++){
+            rimuoviColonnaTabella();
+        }
+    }
+    else{
+        QMessageBox::warning(this,"Attenzione!","Al grafico corrente non possono essere aggiunte colonne!");
+    }
 }
 
 void MainWindow::modificaSezioneVTabella(int i, grafico* G){
@@ -181,6 +244,14 @@ void MainWindow::setController(Controller* c){
     connect(file->actions()[1], SIGNAL(triggered()), controller, SLOT(open()));
     connect(file->actions()[2], SIGNAL(triggered()), controller, SLOT(save()));
     connect(file->actions()[3], SIGNAL(triggered()), controller, SLOT(saveAs()));
+
+    connect(modifica->actions()[0], SIGNAL(triggered()), controller, SLOT(addNumeroRighe()));
+    connect(modifica->actions()[1], SIGNAL(triggered()), controller, SLOT(removeNumeroRighe()));
+    connect(modifica->actions()[2], SIGNAL(triggered()), controller, SLOT(addNumeroColonne()));
+    connect(modifica->actions()[3], SIGNAL(triggered()), controller, SLOT(removeNumeroColonne()));
+    connect(modifica->actions()[4], SIGNAL(triggered()), controller, SLOT(rinomina()));
+
+
 }
 
 void MainWindow::openFile(graficoJSON* GJson){
@@ -212,7 +283,7 @@ void MainWindow::saveFileAs(graficoJSON* GJson){
     if(pagine->currentIndex() == 1){
         nomeFileAperto = QFileDialog::getSaveFileName(this, tr("Salva il file"), "", tr("File JSON (*.json)"));
         if (nomeFileAperto == ""){
-            QMessageBox::warning(this,"Attenzione!","File scelto non valido");
+            QMessageBox::warning(this,"Attenzione!","File non salvato!");
         }else{
             QJsonObject o1;
             GJson->saveDataToJSON(o1);

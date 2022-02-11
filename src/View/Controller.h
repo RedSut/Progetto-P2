@@ -36,6 +36,12 @@ class Controller : public QObject{
         void open() const;
         void save() const;
         void saveAs() const;
+
+        void addNumeroRighe() const;
+        void removeNumeroRighe() const;
+        void addNumeroColonne() const;
+        void removeNumeroColonne() const;
+        void rinomina() const;
 };
 
 #endif

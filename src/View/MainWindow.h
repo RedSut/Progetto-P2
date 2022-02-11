@@ -41,6 +41,11 @@ public:
     void modificaSezioneHTabella(int,grafico*);
     void updateRegressioneLineare();
 
+    void addRighe(grafico*);
+    void removeRighe();
+    void addColonne(grafico*);
+    void removeColonne(grafico*);
+
     void openFile(graficoJSON*);
     void saveFileAs(graficoJSON*);
     void saveFile(graficoJSON*);
@@ -61,7 +66,7 @@ private:
     QPushButton* dispersionChart;
 
     QMenuBar* menuBar;
-    QMenu* file;
+    QMenu* file,*modifica;
 
     QString nomeFileAperto;
 

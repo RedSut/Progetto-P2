@@ -106,3 +106,27 @@ void Controller::saveAs() const{
     graficoJSON* GJson = new graficoJSON(model);
     mainWin->saveFileAs(GJson);
 }
+
+
+void Controller::addNumeroRighe() const{
+    grafico* G = model->getGrafico();
+    mainWin->addRighe(G);
+}
+
+void Controller::removeNumeroRighe() const{
+    mainWin->removeRighe();
+}
+
+void Controller::addNumeroColonne() const{
+    grafico* G = model->getGrafico();
+    mainWin->addColonne(G);
+}
+
+void Controller::removeNumeroColonne() const{
+    grafico* G = model->getGrafico();
+    mainWin->removeColonne(G);
+}
+
+void Controller::rinomina() const{
+
+}
