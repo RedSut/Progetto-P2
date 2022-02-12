@@ -5,11 +5,7 @@
 #include <QPushButton>
 #include <QMenu>
 #include <QVBoxLayout>
-/*#include <QLegend>
-#include <QChartView>
-#include <QBarSeries>
-#include <QBarSet>
-#include <QBarCategoryAxis>*/
+
 #include <QtCharts>
 
 #include "../Model/classi/barre.h"

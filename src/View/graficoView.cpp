@@ -80,7 +80,7 @@ void graficoView::showGrafico(grafico* G){
         double minVal = 0;
         for(int i=0; i<nCat; ++i){
             QBarSet* barSet = new QBarSet(QString::fromStdString(categorie.at(i)));
-            for(int j=i; j<=valori.size()-nCat+i; j+=nCat){
+            for(unsigned int j=i; j<=valori.size()-nCat+i; j+=nCat){
                 barSet->append(valori.at(j));
                 if(valori.at(j)<minVal){
                     minVal = valori.at(j);
@@ -214,9 +214,9 @@ void graficoView::updateTheme(int t){
 }
 
 void graficoView::updateRegLin(){
-    if(chart->series()[1]->isVisible()){
-        chart->series()[1]->hide();
+    if(chart->series().at(1)->isVisible()){
+        chart->series().at(1)->hide();
     }else{
-        chart->series()[1]->show();
+        chart->series().at(1)->show();
     }
 }

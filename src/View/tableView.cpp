@@ -14,7 +14,7 @@ tableView::tableView(QWidget* parent): QWidget(parent){
 
     tabella->horizontalHeader()->setDefaultSectionSize(120);
     tabella->verticalHeader()->setDefaultSectionSize(30);
-    tabella->setStyleSheet("QWidget {border: 0px; background-color: #82ADC4; color: black;\n}" //#7DCFB6 #628395 #86BBD8
+    tabella->setStyleSheet("QWidget {border: 0px; background-color: #82ADC4; color: black;\n}"
                            "QTableCornerButton::section {background-color: #F06543}");
     tabella->horizontalHeader()->setStyleSheet("QHeaderView::section {background-color: #F06543; color: white;}");
     tabella->verticalHeader()->setStyleSheet("QHeaderView::section {background-color: #F06543; color: white;}");
@@ -176,7 +176,6 @@ void tableView::extractTable(grafico* G){
     if(gt || gi){
         std::vector<std::string> leg;
         std::vector<double> val;
-        QList<int> righeDaRimuovere;
         int nRows = tabella->rowCount();
         for(int i=0; i<nRows; i++){
             QTableWidgetItem* item1 = tabella->item(i,0);
@@ -370,9 +369,8 @@ void tableView::modificaSezioneH(int i, grafico* G){
                 return;
             }
         }
-        QInputDialog* inputDialog = new QInputDialog;
         bool ok;
-        QString text = inputDialog->getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
+        QString text = QInputDialog::getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
         if(ok && !text.isEmpty()){
             QTableWidgetItem* item = tabella->horizontalHeaderItem(i);
             item->setText(text);
@@ -382,10 +380,8 @@ void tableView::modificaSezioneH(int i, grafico* G){
 
 void tableView::modificaSezioneV(int i, grafico* G){
     if(dynamic_cast<barre*>(G)){
-        QInputDialog* inputDialog = new QInputDialog;
-        inputDialog->setStyleSheet("color:white");
         bool ok;
-        QString text = inputDialog->getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
+        QString text = QInputDialog::getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
         if(ok && !text.isEmpty()){
             QTableWidgetItem* item = tabella->verticalHeaderItem(i);
             item->setText(text);

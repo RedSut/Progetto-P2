@@ -13,38 +13,33 @@ void Controller::setView(MainWindow* W){
 }
 
 void Controller::createTorta() const{
-    graficoCreator* gc = new graficoCreator();
-    grafico* G = gc->createTorta();
-    model->setGrafico(*G);
+    model->createGrafico(0);
+    grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 
 void Controller::createIstogramma() const{
-    graficoCreator* gc = new graficoCreator();
-    grafico* G = gc->createIstogramma();
-    model->setGrafico(*G);
+    model->createGrafico(1);
+    grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 void Controller::createBarre() const{
-    graficoCreator* gc = new graficoCreator();
-    grafico* G = gc->createBarre();
-    model->setGrafico(*G);
+    model->createGrafico(2);
+    grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 void Controller::createLinea() const{
-    graficoCreator* gc = new graficoCreator();
-    grafico* G = gc->createLinea();
-    model->setGrafico(*G);
+    model->createGrafico(3);
+    grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 void Controller::createDispersione() const{
-    graficoCreator* gc = new graficoCreator();
-    grafico* G = gc->createDispersione();
-    model->setGrafico(*G);
+    model->createGrafico(4);
+    grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
