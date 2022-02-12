@@ -1,7 +1,5 @@
 #include "graficoSemplice.h"
 
-//COSTRUTTORI
-
 graficoSemplice::graficoSemplice(std::string tit,std::vector<std::string> leg,std::vector<double> val){
     titolo = tit;
     legenda = leg;

@@ -11,10 +11,12 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     aggiungiColonnaButton = new QPushButton("Aggiungi Colonna");
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
     regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
+    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico dei Punti");
+    ordinaPunti = true;
 
     tabella->horizontalHeader()->setDefaultSectionSize(120);
     tabella->verticalHeader()->setDefaultSectionSize(30);
-    tabella->setStyleSheet("QWidget {border: 0px; background-color: #82ADC4; color: black;\n}" //#7DCFB6 #628395 #86BBD8
+    tabella->setStyleSheet("QWidget {border: 0px; background-color: #82ADC4; color: black;\n}"
                            "QTableCornerButton::section {background-color: #F06543}");
     tabella->horizontalHeader()->setStyleSheet("QHeaderView::section {background-color: #F06543; color: white;}");
     tabella->verticalHeader()->setStyleSheet("QHeaderView::section {background-color: #F06543; color: white;}");
@@ -27,9 +29,11 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     mainLayout->addWidget(aggiungiColonnaButton);
     mainLayout->addWidget(rimuoviColonnaButton);
     mainLayout->addWidget(regressioneLineareButton);
+    mainLayout->addWidget(ordinaPuntiButton);
     aggiungiColonnaButton->hide();
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
+    ordinaPuntiButton->hide();
     setLayout(mainLayout);
 }
 
@@ -121,7 +125,10 @@ void tableView::populateTable(grafico* G){
             }
         }
     }else if(gl){
-        gl->ordinaPunti();
+        ordinaPuntiButton->show();
+        if(ordinaPunti){
+            gl->ordinaPunti();
+        }
         std::vector<std::pair<double,double>> punti = gl->getPunti();
         tabella->setRowCount(punti.size());
         tabella->setColumnCount(2);
@@ -176,7 +183,6 @@ void tableView::extractTable(grafico* G){
     if(gt || gi){
         std::vector<std::string> leg;
         std::vector<double> val;
-        QList<int> righeDaRimuovere;
         int nRows = tabella->rowCount();
         for(int i=0; i<nRows; i++){
             QTableWidgetItem* item1 = tabella->item(i,0);
@@ -242,6 +248,7 @@ void tableView::resetButtons(){
     aggiungiColonnaButton->hide();
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
+    ordinaPuntiButton->hide();
 }
 
 void tableView::resetTabella(){
@@ -268,6 +275,8 @@ void tableView::setController(Controller* contr){
     connect(rimuoviColonnaButton,SIGNAL(clicked()),C,SLOT(rimuoviColonnaTabella()));
 
     connect(regressioneLineareButton,SIGNAL(clicked()),C,SLOT(updateRegressioneLineare()));
+
+    connect(ordinaPuntiButton,SIGNAL(clicked()),C,SLOT(updateOrdinaPuntiFlag()));
 
     connect(tabella->horizontalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneHTabella);
     connect(tabella->verticalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneVTabella);
@@ -397,9 +406,8 @@ void tableView::modificaSezioneH(int i, grafico* G){
                 return;
             }
         }
-        QInputDialog* inputDialog = new QInputDialog;
         bool ok;
-        QString text = inputDialog->getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
+        QString text = QInputDialog::getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
         if(ok && !text.isEmpty()){
             QTableWidgetItem* item = tabella->horizontalHeaderItem(i);
             item->setText(text);
@@ -409,10 +417,8 @@ void tableView::modificaSezioneH(int i, grafico* G){
 
 void tableView::modificaSezioneV(int i, grafico* G){
     if(dynamic_cast<barre*>(G)){
-        QInputDialog* inputDialog = new QInputDialog;
-        inputDialog->setStyleSheet("color:white");
         bool ok;
-        QString text = inputDialog->getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
+        QString text = QInputDialog::getText(this, "Modifica", "Rinomina sezione:", QLineEdit::Normal, "", &ok);
         if(ok && !text.isEmpty()){
             QTableWidgetItem* item = tabella->verticalHeaderItem(i);
             item->setText(text);
@@ -429,5 +435,15 @@ void tableView::updateRegLin(){
         tabella->hideColumn(2);
         setMaximumWidth(300);
         setMinimumWidth(300);
+    }
+}
+
+void tableView::updateOrdinaPuntiFlag(){
+    if(ordinaPunti){
+        ordinaPunti = false;
+        ordinaPuntiButton->setText("Abilita Ordinamento Automatico dei Punti");
+    }else{
+        ordinaPunti = true;
+        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico dei Punti");
     }
 }

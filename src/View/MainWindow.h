@@ -40,6 +40,7 @@ public:
     void modificaSezioneVTabella(int,grafico*);
     void modificaSezioneHTabella(int,grafico*);
     void updateRegressioneLineare();
+    void updateOrdinaPuntiTabella();
 
     void addRighe(grafico*);
     void removeRighe();

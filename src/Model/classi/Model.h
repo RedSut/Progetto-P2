@@ -17,11 +17,7 @@ class Model{
         };
         Model();
         ~Model();
-        /*void createGraficoTorta();
-        void createGraficoIstogramma();
-        void createGraficoBarre();
-        void createGraficoLinea();
-        void createGraficoDispersione();*/
+
         void createGrafico(int);
 
         void setGrafico(grafico&);

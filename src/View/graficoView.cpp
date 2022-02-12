@@ -105,7 +105,7 @@ void graficoView::showGrafico(grafico* G){
         chart->setTitle(QString::fromStdString(gb->getTitolo()));
 
     }else if(gl){
-        gl->ordinaPunti();
+        //gl->ordinaPunti();
         std::vector<std::pair<double,double>> punti = gl->getPunti();
         QLineSeries* series = new QLineSeries();
         series->setColor("red");
@@ -214,9 +214,9 @@ void graficoView::updateTheme(int t){
 }
 
 void graficoView::updateRegLin(){
-    if(chart->series()[1]->isVisible()){
-        chart->series()[1]->hide();
+    if(chart->series().at(1)->isVisible()){
+        chart->series().at(1)->hide();
     }else{
-        chart->series()[1]->show();
+        chart->series().at(1)->show();
     }
 }

@@ -12,11 +12,11 @@ void MainWindow::addMenuBar()
     file->addAction(new QAction("Salva con nome",file));
     file->addAction(new QAction("Chiudi", file));
 
-    file->actions()[0]->setShortcut(Qt::CTRL | Qt::Key_N);
-    file->actions()[1]->setShortcut(Qt::CTRL | Qt::Key_O);
-    file->actions()[2]->setShortcut(Qt::CTRL | Qt::Key_S);
-    file->actions()[3]->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_S);
-    file->actions()[4]->setShortcut(Qt::ALT | Qt::Key_F4);
+    file->actions().at(0)->setShortcut(Qt::CTRL | Qt::Key_N);
+    file->actions().at(1)->setShortcut(Qt::CTRL | Qt::Key_O);
+    file->actions().at(2)->setShortcut(Qt::CTRL | Qt::Key_S);
+    file->actions().at(3)->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_S);
+    file->actions().at(4)->setShortcut(Qt::ALT | Qt::Key_F4);
 
     modifica= new QMenu("Modifica",menuBar);
     menuBar->addMenu(modifica);
@@ -68,15 +68,13 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     addMenuBar();
     mainLayout->addWidget(menuBar);
 
-    //QVBoxLayout* fileLayout = new QVBoxLayout
-
     nomeFileAperto = "untitled.json";
     displayFileName = new QLabel;
     QString f = "File aperto: ";
     f.append(nomeFileAperto);
     displayFileName->setText(f);
     displayFileName->setAlignment(Qt::AlignCenter);
-    displayFileName->setStyleSheet("background-color: #EDDEA4; color: black; font-size: 15px; padding: 5px 3px;"); //#F4E9CD #7A2A29
+    displayFileName->setStyleSheet("background-color: #EDDEA4; color: black; font-size: 15px; padding: 5px 3px;");
     mainLayout->addWidget(displayFileName);
     displayFileName->hide();
 
@@ -151,8 +149,8 @@ void MainWindow::setGrafico(grafico* G){
 void MainWindow::updateGraficoFromTable(grafico* G){
     try{
         graficoTabella->extractTable(G);
-        graficoWidget->updateGrafico(G);
         graficoTabella->populateTable(G);
+        graficoWidget->updateGrafico(G);
     }catch(graficoException& e){
         QMessageBox::information(this, tr("ERRORE IN INPUT"), tr(e.what()));
     }
@@ -249,6 +247,10 @@ void MainWindow::updateRegressioneLineare(){
     graficoWidget->updateRegLin();
 }
 
+void MainWindow::updateOrdinaPuntiTabella(){
+    graficoTabella->updateOrdinaPuntiFlag();
+}
+
 void MainWindow::setController(Controller* c){
     graficoTabella->setController(c);
     controller = c;
@@ -258,31 +260,22 @@ void MainWindow::setController(Controller* c){
     connect(lineChart, SIGNAL(clicked()), controller, SLOT(createLinea()));
     connect(dispersionChart, SIGNAL(clicked()), controller, SLOT(createDispersione()));
 
-    connect(file->actions()[0], SIGNAL(triggered()), controller, SLOT(nuovo()));
-    connect(file->actions()[1], SIGNAL(triggered()), controller, SLOT(open()));
-    connect(file->actions()[2], SIGNAL(triggered()), controller, SLOT(save()));
-    connect(file->actions()[3], SIGNAL(triggered()), controller, SLOT(saveAs()));
+    connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(nuovo()));
+    connect(file->actions().at(1), SIGNAL(triggered()), controller, SLOT(open()));
+    connect(file->actions().at(2), SIGNAL(triggered()), controller, SLOT(save()));
+    connect(file->actions().at(3), SIGNAL(triggered()), controller, SLOT(saveAs()));
+    connect(file->actions().at(4), SIGNAL(triggered()), this, SLOT(close()));
 
-    connect(modifica->actions()[0], SIGNAL(triggered()), controller, SLOT(addNumeroRighe()));
-    connect(modifica->actions()[1], SIGNAL(triggered()), controller, SLOT(removeNumeroRighe()));
-    connect(modifica->actions()[2], SIGNAL(triggered()), controller, SLOT(addNumeroColonne()));
-    connect(modifica->actions()[3], SIGNAL(triggered()), controller, SLOT(removeNumeroColonne()));
-    connect(modifica->actions()[4], SIGNAL(triggered()), controller, SLOT(rinomina()));
+    connect(modifica->actions().at(0), SIGNAL(triggered()), controller, SLOT(addNumeroRighe()));
+    connect(modifica->actions().at(1), SIGNAL(triggered()), controller, SLOT(removeNumeroRighe()));
+    connect(modifica->actions().at(2), SIGNAL(triggered()), controller, SLOT(addNumeroColonne()));
+    connect(modifica->actions().at(3), SIGNAL(triggered()), controller, SLOT(removeNumeroColonne()));
+    connect(modifica->actions().at(4), SIGNAL(triggered()), controller, SLOT(rinomina()));
 
 
 }
 
 void MainWindow::openFile(graficoJSON* GJson){
-    /*bool flag = true;
-    if(pagine->currentIndex() == 1){
-        QMessageBox msgBox(QMessageBox::Warning, tr("Attenzione!"),tr("Perderai tutte le modifiche non salvate"), 0, this);
-        msgBox.addButton(tr("Continua"), QMessageBox::AcceptRole);
-        msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
-        if (msgBox.exec() == QMessageBox::RejectRole){
-            flag = false;
-        }
-    }
-    if(pagine->currentIndex() == 0 || flag){*/
         nomeFileAperto = QFileDialog::getOpenFileName(this, tr("Apri il file"), "", tr("File JSON (*.json)"));
         if (nomeFileAperto == ""){
             QMessageBox::warning(this,"Attenzione!","File scelto non valido");
@@ -294,6 +287,17 @@ void MainWindow::openFile(graficoJSON* GJson){
                  file.close();
                  QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
                  QJsonObject o = d.object();
+                 QJsonValue tip = o["tipologia"];
+                 if(!tip.isUndefined() && !tip.isNull() && pagine->currentIndex() == 1){
+                     QMessageBox msgBox(QMessageBox::Warning, tr("Attenzione!"),tr("Il file json scelto ha settato il valore 'tipologia', perderai tutte le modifiche non salvate!"), 0, this);
+                     msgBox.addButton(tr("Continua"), QMessageBox::AcceptRole);
+                     msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
+                     if (msgBox.exec() == QMessageBox::RejectRole){
+                         return;
+                     }
+                 }else{
+                     o["tipologia"]=tip.Undefined;
+                 }
                  try{
                      GJson->loadDataFromJSON(o);
                      goToSecondPage();
@@ -306,7 +310,6 @@ void MainWindow::openFile(graficoJSON* GJson){
                 QMessageBox::information(this, tr("ERRORE"), tr("Impossibile aprire il file!"));
             }
         }
-    //}
 }
 
 void MainWindow::saveFileAs(graficoJSON* GJson){
@@ -315,6 +318,9 @@ void MainWindow::saveFileAs(graficoJSON* GJson){
         if (nomeFileAperto == ""){
             QMessageBox::warning(this,"Attenzione!","File non salvato!");
         }else{
+            QString str = "File aperto: ";
+            str.append(nomeFileAperto);
+            displayFileName->setText(str);
             QJsonObject o1;
             GJson->saveDataToJSON(o1);
             QJsonDocument d1;
