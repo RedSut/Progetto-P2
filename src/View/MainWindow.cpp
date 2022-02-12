@@ -24,7 +24,7 @@ void MainWindow::addMenuBar()
     modifica->addAction(new QAction("Rimuovi righe",modifica));
     modifica->addAction(new QAction("Aggiungi colonne",modifica));
     modifica->addAction(new QAction("Rimuovi colonne",modifica));
-    modifica->addAction(new QAction("Rinomina", modifica));
+    modifica->addAction(new QAction("Modifica titolo del grafico", modifica));
 
     menuBar->setStyleSheet("QMenuBar {background-color: #FFA62B; color:black;}\n"
                            "QMenu {background-color: #FFA62B; color:black;}\n"
@@ -111,7 +111,8 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     mainLayout->setMargin(0);
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color: #0A2342; color:white;}\n"
-                  "QPushButton{background-color: #FFA62B; color: black;}\n"); //#FE5F00 #0A2342 #FE621D
+                  "QPushButton{background-color: #FFA62B; color: black;}\n");
+    resize(QSize(1280, 775));
     showMaximized();
 }
 
@@ -229,8 +230,12 @@ void MainWindow::rename(grafico * G)
         QMessageBox::warning(this,"Attenzione!","Nessun grafico selezionato! \n Scegli prima un grafico!");
     }
     else{
-        QString s = QInputDialog::getText(this,"Rinomina","Assegnare titolo al grafico");
-        G->setTitolo(s.toStdString());
+        bool ok;
+        QString s = QInputDialog::getText(this,"Rinomina","Assegnare titolo al grafico", QLineEdit::Normal, "", &ok);
+        if(ok){
+            G->setTitolo(s.toStdString());
+            graficoWidget->updateGrafico(G);
+        }
     }
 }
 
@@ -264,7 +269,7 @@ void MainWindow::setController(Controller* c){
     connect(file->actions().at(1), SIGNAL(triggered()), controller, SLOT(open()));
     connect(file->actions().at(2), SIGNAL(triggered()), controller, SLOT(save()));
     connect(file->actions().at(3), SIGNAL(triggered()), controller, SLOT(saveAs()));
-    connect(file->actions().at(4), SIGNAL(triggered()), this, SLOT(close()));
+    connect(file->actions().at(4), SIGNAL(triggered()), controller, SLOT(close()));
 
     connect(modifica->actions().at(0), SIGNAL(triggered()), controller, SLOT(addNumeroRighe()));
     connect(modifica->actions().at(1), SIGNAL(triggered()), controller, SLOT(removeNumeroRighe()));
@@ -355,5 +360,18 @@ void MainWindow::saveFile(graficoJSON* GJson){
         }
     }else{
         QMessageBox::information(this, tr("Attenzione!"), tr("Nessun file aperto!"));
+    }
+}
+
+void MainWindow::closeApp(){
+    if(pagine->currentIndex() == 1){
+        QMessageBox msgBox(QMessageBox::Warning, tr("Attenzione!"),tr("Perderai tutte le modifiche non salvate!"), 0, this);
+        msgBox.addButton(tr("Continua"), QMessageBox::AcceptRole);
+        msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
+        if (msgBox.exec() == QMessageBox::AcceptRole){
+            close();
+        }
+    }else{
+        close();
     }
 }

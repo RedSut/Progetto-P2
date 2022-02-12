@@ -106,6 +106,10 @@ void Controller::saveAs() const{
     mainWin->saveFileAs(GJson);
 }
 
+void Controller::close() const{
+    mainWin->closeApp();
+}
+
 
 void Controller::addNumeroRighe() const{
     grafico* G = model->getGrafico();

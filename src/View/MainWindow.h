@@ -51,6 +51,7 @@ public:
     void openFile(graficoJSON*);
     void saveFileAs(graficoJSON*);
     void saveFile(graficoJSON*);
+    void closeApp();
 
 private:
     graficoView* graficoWidget;
