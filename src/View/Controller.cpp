@@ -81,6 +81,10 @@ void Controller::updateRegressioneLineare(){
     mainWin->updateRegressioneLineare();
 }
 
+void Controller::updateOrdinaPuntiFlag(){
+    mainWin->updateOrdinaPuntiTabella();
+}
+
 void Controller::nuovo() const{
     mainWin->goToFirstPage();
 }

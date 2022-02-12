@@ -25,6 +25,9 @@ class tableView: public QWidget{
         QPushButton* rimuoviRigaButton;
         QPushButton* rimuoviColonnaButton;
         QPushButton* regressioneLineareButton;
+        QPushButton* ordinaPuntiButton;
+
+        bool ordinaPunti;
 
         Controller* C;
 
@@ -49,6 +52,8 @@ class tableView: public QWidget{
         void modificaSezioneH(int, grafico*);
 
         void updateRegLin();
+
+        void updateOrdinaPuntiFlag();
 };
 
 #endif

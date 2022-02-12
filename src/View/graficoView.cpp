@@ -105,7 +105,7 @@ void graficoView::showGrafico(grafico* G){
         chart->setTitle(QString::fromStdString(gb->getTitolo()));
 
     }else if(gl){
-        gl->ordinaPunti();
+        //gl->ordinaPunti();
         std::vector<std::pair<double,double>> punti = gl->getPunti();
         QLineSeries* series = new QLineSeries();
         series->setColor("red");

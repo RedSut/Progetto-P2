@@ -11,6 +11,8 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     aggiungiColonnaButton = new QPushButton("Aggiungi Colonna");
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
     regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
+    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico dei Punti");
+    ordinaPunti = true;
 
     tabella->horizontalHeader()->setDefaultSectionSize(120);
     tabella->verticalHeader()->setDefaultSectionSize(30);
@@ -27,9 +29,11 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     mainLayout->addWidget(aggiungiColonnaButton);
     mainLayout->addWidget(rimuoviColonnaButton);
     mainLayout->addWidget(regressioneLineareButton);
+    mainLayout->addWidget(ordinaPuntiButton);
     aggiungiColonnaButton->hide();
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
+    ordinaPuntiButton->hide();
     setLayout(mainLayout);
 }
 
@@ -121,7 +125,10 @@ void tableView::populateTable(grafico* G){
             }
         }
     }else if(gl){
-        gl->ordinaPunti();
+        ordinaPuntiButton->show();
+        if(ordinaPunti){
+            gl->ordinaPunti();
+        }
         std::vector<std::pair<double,double>> punti = gl->getPunti();
         tabella->setRowCount(punti.size());
         tabella->setColumnCount(2);
@@ -241,6 +248,7 @@ void tableView::resetButtons(){
     aggiungiColonnaButton->hide();
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
+    ordinaPuntiButton->hide();
 }
 
 void tableView::resetTabella(){
@@ -267,6 +275,8 @@ void tableView::setController(Controller* contr){
     connect(rimuoviColonnaButton,SIGNAL(clicked()),C,SLOT(rimuoviColonnaTabella()));
 
     connect(regressioneLineareButton,SIGNAL(clicked()),C,SLOT(updateRegressioneLineare()));
+
+    connect(ordinaPuntiButton,SIGNAL(clicked()),C,SLOT(updateOrdinaPuntiFlag()));
 
     connect(tabella->horizontalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneHTabella);
     connect(tabella->verticalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneVTabella);
@@ -398,5 +408,15 @@ void tableView::updateRegLin(){
         tabella->hideColumn(2);
         setMaximumWidth(300);
         setMinimumWidth(300);
+    }
+}
+
+void tableView::updateOrdinaPuntiFlag(){
+    if(ordinaPunti){
+        ordinaPunti = false;
+        ordinaPuntiButton->setText("Abilita Ordinamento Automatico dei Punti");
+    }else{
+        ordinaPunti = true;
+        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico dei Punti");
     }
 }

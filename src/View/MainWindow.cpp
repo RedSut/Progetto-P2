@@ -150,8 +150,8 @@ void MainWindow::setGrafico(grafico* G){
 void MainWindow::updateGraficoFromTable(grafico* G){
     try{
         graficoTabella->extractTable(G);
-        graficoWidget->updateGrafico(G);
         graficoTabella->populateTable(G);
+        graficoWidget->updateGrafico(G);
     }catch(graficoException& e){
         QMessageBox::information(this, tr("ERRORE IN INPUT"), tr(e.what()));
     }
@@ -241,6 +241,10 @@ void MainWindow::updateRegressioneLineare(){
     graficoWidget->updateRegLin();
 }
 
+void MainWindow::updateOrdinaPuntiTabella(){
+    graficoTabella->updateOrdinaPuntiFlag();
+}
+
 void MainWindow::setController(Controller* c){
     graficoTabella->setController(c);
     controller = c;
@@ -300,7 +304,6 @@ void MainWindow::openFile(graficoJSON* GJson){
                 QMessageBox::information(this, tr("ERRORE"), tr("Impossibile aprire il file!"));
             }
         }
-    //}
 }
 
 void MainWindow::saveFileAs(graficoJSON* GJson){
@@ -309,6 +312,9 @@ void MainWindow::saveFileAs(graficoJSON* GJson){
         if (nomeFileAperto == ""){
             QMessageBox::warning(this,"Attenzione!","File non salvato!");
         }else{
+            QString str = "File aperto: ";
+            str.append(nomeFileAperto);
+            displayFileName->setText(str);
             QJsonObject o1;
             GJson->saveDataToJSON(o1);
             QJsonDocument d1;
