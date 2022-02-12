@@ -80,7 +80,7 @@ void graficoView::showGrafico(grafico* G){
         double minVal = 0;
         for(int i=0; i<nCat; ++i){
             QBarSet* barSet = new QBarSet(QString::fromStdString(categorie.at(i)));
-            for(int j=i; j<=valori.size()-nCat+i; j+=nCat){
+            for(unsigned int j=i; j<=valori.size()-nCat+i; j+=nCat){
                 barSet->append(valori.at(j));
                 if(valori.at(j)<minVal){
                     minVal = valori.at(j);

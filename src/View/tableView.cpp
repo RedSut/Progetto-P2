@@ -326,6 +326,18 @@ void tableView::rimuoviRiga(){
         QMessageBox::warning(this, "Attenzione", "Non si può eliminare l'ultima riga!");
     }
 }
+void tableView::cicloRimuoviRighe(const int& n){
+    for(int i = 0; i < n; i++){
+        int row = tabella->rowCount()-1;
+        if(row>0){
+            tabella->removeRow(row);
+        }
+        else{
+            QMessageBox::warning(this, "Attenzione", "Non si può eliminare l'ultima riga!");
+            break;
+        }
+    }
+}
 
 void tableView::aggiungiColonna(grafico* G){
     int nCols = tabella->columnCount();
@@ -353,6 +365,21 @@ void tableView::rimuoviColonna(){
     }
     else{
         QMessageBox::warning(this, "Attenzione", "Non si può eliminare l'ultima colonna!");
+    }
+}
+
+void tableView::cicloRimuoviColonne(const int& n)
+{
+    for(int i = 0; i < n; i++){
+        int col = tabella->columnCount()-1;
+        if(col>0){
+            tabella->removeColumn(col);
+            resizeColonne();
+        }
+        else{
+            QMessageBox::warning(this, "Attenzione", "Non si può eliminare l'ultima colonna!");
+            break;
+        }
     }
 }
 

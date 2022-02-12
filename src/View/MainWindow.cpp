@@ -44,7 +44,6 @@ QHBoxLayout* MainWindow::addMainButtons()
     lineChart= new QPushButton("Grafico a linea");
     dispersionChart= new QPushButton("Grafico a dispersione");
 
-
     pieChart->setStyleSheet("background-image: url(:/img/torta); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black");
     histogram->setStyleSheet("background-image: url(:/img/istogramma); background-repeat: norepeat; background-position: central; width: 220px; font-size: 25px; border: 2px solid black; border-radius: 1.5em; height: 200px; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black;");
     barChart->setStyleSheet("background-image: url(:/img/barre); width: 220px; background-repeat: norepeat; background-position: central; font-size: 25px; border-radius: 1.5em; height: 200px; border: 2px solid black; font-weight: bold; background-color: white; background-position: bottom center; text-align: top; padding-top: 20px; color:black;");
@@ -115,7 +114,7 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     setLayout(mainLayout);
     setStyleSheet("QWidget{background-color: #0A2342; color:white;}\n"
                   "QPushButton{background-color: #FFA62B; color: black;}\n"); //#FE5F00 #0A2342 #FE621D
-    resize(QSize(1280, 775));
+    showMaximized();
 }
 
 MainWindow::~MainWindow(){
@@ -202,9 +201,7 @@ void MainWindow::rimuoviRigaTabella(){
 void MainWindow::removeRighe(){
     if(pagine->currentIndex() == 1){
         int n = QInputDialog::getInt(this, tr("Rimuovore righe"),tr("Numero di righe da rimuovere"));
-        for(int i=0;i<n;i++){
-            rimuoviRigaTabella();
-        }
+        graficoTabella->cicloRimuoviRighe(n);
     }
     else{
         QMessageBox::warning(this,"Attenzione!","Nessun grafico selezionato! \n Scegli prima un grafico!");
@@ -221,12 +218,21 @@ void MainWindow::removeColonne(grafico* G){
     }
     else if(dynamic_cast<barre*>(G)){
         int n = QInputDialog::getInt(this, tr("Aggiungere colonne"),tr("Numero di colonne da aggiungere"));
-        for(int i=0;i<n;i++){
-            rimuoviColonnaTabella();
-        }
+        graficoTabella->cicloRimuoviColonne(n);
     }
     else{
         QMessageBox::warning(this,"Attenzione!","Al grafico corrente non possono essere rimosse colonne!");
+    }
+}
+
+void MainWindow::rename(grafico * G)
+{
+    if(pagine->currentIndex() == 0){
+        QMessageBox::warning(this,"Attenzione!","Nessun grafico selezionato! \n Scegli prima un grafico!");
+    }
+    else{
+        QString s = QInputDialog::getText(this,"Rinomina","Assegnare titolo al grafico");
+        G->setTitolo(s.toStdString());
     }
 }
 

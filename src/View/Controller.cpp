@@ -128,5 +128,6 @@ void Controller::removeNumeroColonne() const{
 }
 
 void Controller::rinomina() const{
-
+    grafico* G = model->getGrafico();
+    mainWin->rename(G);
 }

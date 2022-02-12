@@ -49,6 +49,8 @@ class tableView: public QWidget{
         void modificaSezioneH(int, grafico*);
 
         void updateRegLin();
+        void cicloRimuoviRighe(const int&);
+        void cicloRimuoviColonne(const int& n);
 };
 
 #endif

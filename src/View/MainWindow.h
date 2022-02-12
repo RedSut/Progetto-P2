@@ -45,6 +45,7 @@ public:
     void removeRighe();
     void addColonne(grafico*);
     void removeColonne(grafico*);
+    void rename(grafico*);
 
     void openFile(graficoJSON*);
     void saveFileAs(graficoJSON*);
