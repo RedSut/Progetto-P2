@@ -79,6 +79,7 @@ void tableView::populateTable(grafico* G){
             tabella->setItem(i,2,item3);
         }
     }else if(gi){
+        tabella->setSortingEnabled(false);
         std::vector<std::string> leg = gi->getLegenda();
         std::vector<double> val = gi->getValori();
         tabella->setRowCount(val.size());
@@ -97,6 +98,7 @@ void tableView::populateTable(grafico* G){
             tabella->setItem(i,1,item2);
         }
     }else if(gb){
+        tabella->setSortingEnabled(false);
         aggiungiColonnaButton->show();
         rimuoviColonnaButton->show();
         std::vector<std::string> leg = gb->getLegenda();
@@ -253,6 +255,7 @@ void tableView::resetButtons(){
 }
 
 void tableView::resetTabella(){
+    tabella->setSortingEnabled(true);
     tabella->reset();
     QStringList HLabels, VLabels;
     for(int i=0; i<tabella->columnCount(); i++){

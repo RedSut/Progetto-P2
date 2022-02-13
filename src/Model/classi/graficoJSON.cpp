@@ -145,7 +145,7 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
             }
             barre* gb = dynamic_cast<barre*>(g);
             if(gb){
-                QJsonValue x = jsonOBJ[JSON_asse_x];
+                QJsonValue x = jsonOBJ[JSON_nome_leg];
                 if(!x.isUndefined()){
                     if(x.isString()){
                         gb->setNomeAsseX(x.toString().toStdString());
@@ -153,7 +153,7 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
                         throw graficoException("Il nome dell'asse x deve essere una stringa",graficoException::WRONG_DATA_TYPE);
                     }
                 }
-                QJsonValue y = jsonOBJ[JSON_asse_y];
+                QJsonValue y = jsonOBJ[JSON_nome_val];
                 if(!y.isUndefined()){
                     if(y.isString()){
                         gb->setNomeAsseY(y.toString().toStdString());
@@ -264,8 +264,8 @@ void graficoJSON::saveDataToJSON(QJsonObject& jsonOBJ) const{
             barre* gb = dynamic_cast<barre*>(g);
             if(gb){
                 jsonOBJ[JSON_tipologia] = QString::fromStdString("barre");
-                jsonOBJ[JSON_asse_x] = QString::fromStdString(gb->getNomeAsseX());
-                jsonOBJ[JSON_asse_y] = QString::fromStdString(gb->getNomeAsseY());
+                jsonOBJ[JSON_nome_leg] = QString::fromStdString(gb->getNomeAsseX());
+                jsonOBJ[JSON_nome_val] = QString::fromStdString(gb->getNomeAsseY());
             }
         }
     }else{
