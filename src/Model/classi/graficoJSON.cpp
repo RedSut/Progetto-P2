@@ -107,7 +107,7 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
                 if(nl.isString()){
                     gi->setNomeLegenda(nl.toString().toStdString());
                 }else{
-                    throw graficoException("Il nome per la categoria legenda deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                    throw graficoException("Il nome per la legenda deve essere una stringa",graficoException::WRONG_DATA_TYPE);
                 }
             }
             QJsonValue nv = jsonOBJ[JSON_nome_val];
@@ -115,7 +115,7 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
                 if(nv.isString()){
                     gi->setNomeValori(nv.toString().toStdString());
                 }else{
-                    throw graficoException("Il nome per la categoria valori deve essere una stringa",graficoException::WRONG_DATA_TYPE);
+                    throw graficoException("Il nome del gruppo di valori deve essere una stringa",graficoException::WRONG_DATA_TYPE);
                 }
             }
         }
@@ -140,7 +140,7 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
                     }
                     gc->setGruppi(gru);
                 }else{
-                    throw graficoException("I gruppi di dati devono essere inserite in un array",graficoException::INVALID_FORMAT);
+                    throw graficoException("I gruppi di dati devono essere inseriti in un array",graficoException::INVALID_FORMAT);
                 }
             }
             barre* gb = dynamic_cast<barre*>(g);

@@ -124,6 +124,7 @@ void tableView::populateTable(grafico* G){
                 tabella->setItem(i,j,item);
             }
         }
+
     }else if(gl){
         ordinaPuntiButton->show();
         if(ordinaPunti){
