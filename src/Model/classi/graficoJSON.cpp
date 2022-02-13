@@ -3,7 +3,7 @@
 const QString graficoJSON::JSON_titolo = "titolo";
 const QString graficoJSON::JSON_legenda = "legenda";
 const QString graficoJSON::JSON_valori = "valori";
-const QString graficoJSON::JSON_categorie = "categorie";
+const QString graficoJSON::JSON_gruppi = "gruppi";
 const QString graficoJSON::JSON_punti = "punti";
 const QString graficoJSON::JSON_asse_x = "asse_x";
 const QString graficoJSON::JSON_asse_y = "asse_y";
@@ -79,7 +79,6 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
             }
         }
         QJsonValue v = jsonOBJ[JSON_valori];
-        //torta* gt = dynamic_cast<torta*>(g);
         if(!v.isUndefined()){
             if(v.isArray()){
                 std::vector<double> val;
@@ -122,26 +121,26 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
         }
         graficoComplesso* gc = dynamic_cast<graficoComplesso*>(g);
         if(gc){
-            QJsonValue c = jsonOBJ[JSON_categorie];
+            QJsonValue c = jsonOBJ[JSON_gruppi];
             if(!c.isUndefined()){
                 if(c.isArray()){
                     QJsonArray c1 = c.toArray();
-                    std::vector<std::string> cat;
+                    std::vector<std::string> gru;
                     for(int i = 0; i<c1.size();++i){
                         if(c1.at(i).isString()){
-                            cat.push_back(c1.at(i).toString().toStdString());
+                            gru.push_back(c1.at(i).toString().toStdString());
                         }else{
-                            std::string s = "L'elemento dell'array categorie in posizione " + std::to_string(i);
+                            std::string s = "L'elemento dell'array gruppi in posizione " + std::to_string(i);
                             s += " deve essere una stringa";
                             throw graficoException(s,graficoException::WRONG_DATA_TYPE);
                         }
                     }
                     if(c1.isEmpty()){
-                        cat.push_back("");
+                        gru.push_back("");
                     }
-                    gc->setCategorie(cat);
+                    gc->setGruppi(gru);
                 }else{
-                    throw graficoException("Le categorie devono essere inserite in un array",graficoException::INVALID_FORMAT);
+                    throw graficoException("I gruppi di dati devono essere inserite in un array",graficoException::INVALID_FORMAT);
                 }
             }
             barre* gb = dynamic_cast<barre*>(g);
@@ -257,11 +256,11 @@ void graficoJSON::saveDataToJSON(QJsonObject& jsonOBJ) const{
         graficoComplesso* gc = dynamic_cast<graficoComplesso*>(g);
         if(gc){
             QJsonArray v;
-            std::vector<std::string> c = gc->getCategorie();
+            std::vector<std::string> c = gc->getGruppi();
             for(auto it=c.begin(); it!=c.end();++it){
                 v.push_back(QString::fromStdString(*it));
             }
-            jsonOBJ[JSON_categorie] = v;
+            jsonOBJ[JSON_gruppi] = v;
             barre* gb = dynamic_cast<barre*>(g);
             if(gb){
                 jsonOBJ[JSON_tipologia] = QString::fromStdString("barre");

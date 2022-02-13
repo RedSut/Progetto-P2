@@ -73,14 +73,14 @@ void graficoView::showGrafico(grafico* G){
     }else if(gb){
         std::vector<double> valori = gb->getValori();
         std::vector<std::string> legenda = gb->getLegenda();
-        std::vector<std::string> categorie = gb->getCategorie();
+        std::vector<std::string> gruppi = gb->getGruppi();
         QBarSeries* series = new QBarSeries();
-        int nCat = categorie.size();
+        int nLeg = legenda.size();
         double maxVal = valori.at(0);
         double minVal = 0;
-        for(int i=0; i<nCat; ++i){
-            QBarSet* barSet = new QBarSet(QString::fromStdString(categorie.at(i)));
-            for(unsigned int j=i; j<=valori.size()-nCat+i; j+=nCat){
+        for(int i=0; i<nLeg; ++i){
+            QBarSet* barSet = new QBarSet(QString::fromStdString(legenda.at(i)));
+            for(unsigned int j=i; j<=valori.size()-nLeg+i; j+=nLeg){
                 barSet->append(valori.at(j));
                 if(valori.at(j)<minVal){
                     minVal = valori.at(j);
@@ -91,7 +91,7 @@ void graficoView::showGrafico(grafico* G){
             series->append(barSet);
         }
         QBarCategoryAxis* axis_x = new QBarCategoryAxis();
-        for(auto it = legenda.begin(); it!=legenda.end(); ++it){
+        for(auto it = gruppi.begin(); it!=gruppi.end(); ++it){
             axis_x->append(QString::fromStdString(*it));
         }
         chart->addSeries(series);
@@ -105,7 +105,6 @@ void graficoView::showGrafico(grafico* G){
         chart->setTitle(QString::fromStdString(gb->getTitolo()));
 
     }else if(gl){
-        //gl->ordinaPunti();
         std::vector<std::pair<double,double>> punti = gl->getPunti();
         QLineSeries* series = new QLineSeries();
         series->setColor("red");
@@ -183,7 +182,7 @@ void graficoView::showGrafico(grafico* G){
     }
 };
 
-void graficoView::updateGrafico(grafico* G){
+void graficoView::resetGrafico(){
     QChart::ChartTheme theme = chart->theme();
     delete chart;
     delete chartView;
@@ -194,23 +193,12 @@ void graficoView::updateGrafico(grafico* G){
     mainLayout->addWidget(chartView);
 
     setLayout(mainLayout);
-
-    showGrafico(G);
 }
 
-void graficoView::updateTheme(int t){
-    QPalette pal;
-    switch (t){
-        case 0:
-            pal.setColor(QPalette::Window, QRgb(0xf0f0f0));
-            pal.setColor(QPalette::WindowText, QRgb(0x404044));
-            chart->setTheme(QChart::ChartThemeLight);
-        case 1:
-            pal.setColor(QPalette::Window, QRgb(0x121218));
-            pal.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
-            chart->setTheme(QChart::ChartThemeDark);
-    };
-    setPalette(pal);
+void graficoView::updateGrafico(grafico* G){
+    resetGrafico();
+
+    showGrafico(G);
 }
 
 void graficoView::updateRegLin(){

@@ -7,7 +7,7 @@
 class graficoSemplice : public grafico{
     private:
         std::string titolo;
-        std::vector<std::string> legenda;
+        std::vector<std::string> legenda; // insieme di categorie
         std::vector<double> valori;
     public:
         graficoSemplice(std::string,std::vector<std::string>,std::vector<double>);

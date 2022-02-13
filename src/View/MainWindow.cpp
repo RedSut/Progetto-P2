@@ -128,6 +128,9 @@ void MainWindow::goToFirstPage(){
         msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
         if (msgBox.exec() == QMessageBox::AcceptRole){
             nomeFileAperto = "untitled.json";
+            graficoWidget->resetGrafico();
+            graficoTabella->resetButtons();
+            graficoTabella->resetTabella();
             displayFileName->hide();
             pagine->setCurrentIndex(0);
         }
@@ -300,7 +303,7 @@ void MainWindow::openFile(graficoJSON* GJson){
                      if (msgBox.exec() == QMessageBox::RejectRole){
                          return;
                      }
-                 }else{
+                 }else if(pagine->currentIndex() == 1){
                      o["tipologia"]=tip.Undefined;
                  }
                  try{

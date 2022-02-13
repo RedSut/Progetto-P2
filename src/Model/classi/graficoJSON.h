@@ -19,7 +19,7 @@ class graficoJSON{
         static const QString JSON_titolo;
         static const QString JSON_legenda;
         static const QString JSON_valori;
-        static const QString JSON_categorie;
+        static const QString JSON_gruppi;
         static const QString JSON_punti;
         static const QString JSON_asse_x;
         static const QString JSON_asse_y;

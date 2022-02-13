@@ -25,7 +25,7 @@ class graficoView: public QWidget{
         ~graficoView();
         void showGrafico(grafico*);
         void updateGrafico(grafico*);
-        void updateTheme(int);
+        void resetGrafico();
         void updateRegLin();
 };
 

@@ -101,25 +101,25 @@ void tableView::populateTable(grafico* G){
         rimuoviColonnaButton->show();
         std::vector<std::string> leg = gb->getLegenda();
         std::vector<double> val = gb->getValori();
-        std::vector<std::string> cat = gb->getCategorie();
-        tabella->setRowCount(leg.size());
-        tabella->setColumnCount(cat.size());
+        std::vector<std::string> gru = gb->getGruppi();
+        tabella->setRowCount(gru.size());
+        tabella->setColumnCount(leg.size());
         resizeColonne();
-        for(unsigned int i = 0; i<cat.size(); i++){
+        for(unsigned int i = 0; i<leg.size(); i++){
             QTableWidgetItem* headerItem = new QTableWidgetItem;
-            headerItem->setText(QString::fromStdString(cat.at(i)));
+            headerItem->setText(QString::fromStdString(leg.at(i)));
             tabella->setHorizontalHeaderItem(i,headerItem);
         }
-        for(unsigned int j = 0; j<leg.size(); j++){
+        for(unsigned int j = 0; j<gru.size(); j++){
             QTableWidgetItem* headerItem = new QTableWidgetItem;
-            headerItem->setText(QString::fromStdString(leg.at(j)));
+            headerItem->setText(QString::fromStdString(gru.at(j)));
             tabella->setVerticalHeaderItem(j,headerItem);
         }
 
         for(int i=0; i<tabella->rowCount(); i++){
             for(int j=0; j<tabella->columnCount(); j++){
                 QTableWidgetItem* item = new QTableWidgetItem;
-                double v = val.at(j+(i*cat.size()));
+                double v = val.at(j+(i*leg.size()));
                 item->setData(Qt::EditRole,v);
                 tabella->setItem(i,j,item);
             }
@@ -205,20 +205,20 @@ void tableView::extractTable(grafico* G){
         }
     }else if(gb){
         std::vector<std::string> leg;
-        std::vector<std::string> cat;
+        std::vector<std::string> gru;
         std::vector<double> val;
         for(int i=0; i<tabella->columnCount(); i++){
             QTableWidgetItem* item = tabella->horizontalHeaderItem(i);
             QString v = item->text();
-            cat.push_back(v.toStdString());
-        }
-        gb->setCategorie(cat);
+            leg.push_back(v.toStdString());
+        }        
+        gb->setLegenda(leg);
         for(int j=0; j<tabella->rowCount(); j++){
             QTableWidgetItem* item = tabella->verticalHeaderItem(j);
             QString v = item->text();
-            leg.push_back(v.toStdString());
+            gru.push_back(v.toStdString());
         }
-        gb->setLegenda(leg);
+        gb->setGruppi(gru);
         for(int i=0; i<tabella->rowCount(); i++){
             for(int j=0; j<tabella->columnCount(); j++){
                 QTableWidgetItem* item = tabella->item(i,j);

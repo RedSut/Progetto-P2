@@ -5,11 +5,11 @@
 
 class graficoComplesso: public graficoSemplice{
     private:
-        std::vector<std::string> categorie;
+        std::vector<std::string> gruppi;
     public:
         graficoComplesso(std::string,std::vector<std::string>,std::vector<double>,std::vector<std::string>);
-        std::vector<std::string> getCategorie()const;
-        void setCategorie(std::vector<std::string>);
+        std::vector<std::string> getGruppi()const;
+        void setGruppi(std::vector<std::string>);
 
         void checkSize()const;
         
