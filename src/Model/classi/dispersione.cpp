@@ -1,6 +1,6 @@
 #include "dispersione.h"
 
-dispersione::dispersione(std::string t,std::vector<std::pair<double,double>> p,std::string nx,std::string ny): graficoPianoCartesiano(t,p,nx,ny){};
+dispersione::dispersione(std::string t,std::vector<std::pair<double,double>> p,std::string nx,std::string ny): graficoPianoCartesiano(t,p,nx,ny){}
 
 std::vector<double> dispersione::regressioneLineare(){
     std::vector<double> X, Y;

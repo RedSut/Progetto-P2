@@ -2,7 +2,7 @@
 
 Controller::Controller(QObject* parent): QObject(parent){
 
-};
+}
 
 void Controller::setModel(Model* M){
     model = M;

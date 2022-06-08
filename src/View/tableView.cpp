@@ -11,7 +11,7 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     aggiungiColonnaButton = new QPushButton("Aggiungi Colonna");
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
     regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
-    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico dei Punti");
+    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico\n dei Punti nel grafico");
     ordinaPunti = true;
 
     tabella->horizontalHeader()->setDefaultSectionSize(120);
@@ -287,6 +287,7 @@ void tableView::setController(Controller* contr){
 }
 
 void tableView::aggiungiRiga(grafico* G){
+    tabella->setSortingEnabled(false);
     int nRows = tabella->rowCount();
     tabella->insertRow(nRows);
     if(dynamic_cast<torta*>(G) || dynamic_cast<istogramma*>(G)){
@@ -301,6 +302,7 @@ void tableView::aggiungiRiga(grafico* G){
             item3->setText("0%");
             item3->setFlags(item3->flags() ^ Qt::ItemIsEditable);
             tabella->setItem(nRows,2,item3);
+            tabella->setSortingEnabled(true);
         }
     }else if(dynamic_cast<linea*>(G) || dynamic_cast<dispersione*>(G)){
         QTableWidgetItem* item1 = new QTableWidgetItem;
@@ -315,6 +317,7 @@ void tableView::aggiungiRiga(grafico* G){
             item3->setFlags(item3->flags() ^ Qt::ItemIsEditable);
             tabella->setItem(nRows,2,item3);
         }
+        tabella->setSortingEnabled(true);
     }else if(dynamic_cast<barre*>(G)){
         QTableWidgetItem* legend = new QTableWidgetItem;
         QString leg = "Gruppo ";
@@ -445,9 +448,9 @@ void tableView::updateRegLin(){
 void tableView::updateOrdinaPuntiFlag(){
     if(ordinaPunti){
         ordinaPunti = false;
-        ordinaPuntiButton->setText("Abilita Ordinamento Automatico dei Punti");
+        ordinaPuntiButton->setText("Abilita Ordinamento Automatico\n dei Punti nel grafico");
     }else{
         ordinaPunti = true;
-        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico dei Punti");
+        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico\n dei Punti nel grafico");
     }
 }

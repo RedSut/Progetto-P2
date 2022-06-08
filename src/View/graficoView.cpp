@@ -1,4 +1,5 @@
 #include "graficoView.h"
+#include <iostream>
 
 graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout = new QVBoxLayout();
@@ -8,13 +9,13 @@ graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout->addWidget(chartView);
     mainLayout->setMargin(0);
     setLayout(mainLayout);
-};
+}
 
 graficoView::~graficoView(){
     delete chart;
     delete chartView;
     delete mainLayout;
-};
+}
 
 void graficoView::showGrafico(grafico* G){
 
@@ -45,6 +46,7 @@ void graficoView::showGrafico(grafico* G){
         std::vector<double> valori = gi->getValori();
         std::vector<std::string> legenda = gi->getLegenda();
         QBarSeries* series = new QBarSeries();
+        series->setBarWidth(1);
         double maxVal = 1;
         double minVal = 0;
         QBarSet* barSet = new QBarSet("Valori");
@@ -180,7 +182,7 @@ void graficoView::showGrafico(grafico* G){
         chart->axisY()->setRange(yMin-1, yMax+1);
         chart->setTitle(QString::fromStdString(gd->getTitolo()));
     }
-};
+}
 
 void graficoView::resetGrafico(){
     QChart::ChartTheme theme = chart->theme();

@@ -148,7 +148,7 @@ void MainWindow::goToSecondPage(){
 void MainWindow::setGrafico(grafico* G){
     graficoTabella->populateTable(G);
     graficoWidget->updateGrafico(G);
-};
+}
 
 void MainWindow::updateGraficoFromTable(grafico* G){
     try{
@@ -158,7 +158,7 @@ void MainWindow::updateGraficoFromTable(grafico* G){
     }catch(graficoException& e){
         QMessageBox::information(this, tr("ERRORE IN INPUT"), tr(e.what()));
     }
-};
+}
 
 void MainWindow::aggiungiRigaTabella(grafico* G){
     graficoTabella->aggiungiRiga(G);
