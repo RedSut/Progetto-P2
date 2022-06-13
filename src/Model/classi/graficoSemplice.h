@@ -16,7 +16,7 @@ class graficoSemplice : public grafico{
         virtual void setTitolo(std::string) override;
 
         std::vector<std::string> getLegenda()const;
-        void setLegenda(std::vector<std::string>);
+        virtual void setLegenda(std::vector<std::string>);
 
         std::vector<double> getValori()const;
         virtual void setValori(std::vector<double>);

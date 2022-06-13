@@ -13,7 +13,8 @@ class graficoException: public std::invalid_argument{
             WRONG_DATA_TYPE,
             INVALID_FORMAT,
             WRONG_SIZE,
-            EMPTY_ARGUMENT
+            EMPTY_ARGUMENT,
+            DUPLICATED
         };
 
         graficoException(const std::string&,int = 0);

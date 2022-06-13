@@ -1,5 +1,4 @@
 #include "graficoView.h"
-#include <iostream>
 
 graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout = new QVBoxLayout();
