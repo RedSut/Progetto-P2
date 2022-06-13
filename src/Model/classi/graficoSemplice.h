@@ -22,6 +22,7 @@ class graficoSemplice : public grafico{
         virtual void setValori(std::vector<double>);
 
         virtual void checkSize()const;
+        virtual void checkDuplicates() const;
 };
 
 #endif

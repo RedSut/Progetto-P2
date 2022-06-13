@@ -14,10 +14,6 @@ class istogramma : public graficoSemplice{
         std::string getNomeLegenda() const;
         void setNomeValori(std::string);
         void setNomeLegenda(std::string);
-
-        void setLegenda(std::vector<std::string>);
-
-        void checkDuplicates(std::vector<std::string>) const;
 };
 
 #endif

@@ -15,3 +15,17 @@ void graficoComplesso::checkSize()const{
         throw graficoException("Il numero di elementi nell'array valori deve essere il prodotto tra il numero di elementi nell'array gruppi e il numero di elementi nell'array legenda",graficoException::WRONG_SIZE);
     }
 }
+
+void graficoComplesso::checkDuplicates()const{
+    std::vector<std::string> g = getGruppi();
+    for(unsigned int n=0; n<g.size(); n++){
+        std::string s = g.at(n);
+        for(auto it=g.begin()+n+1;it!=g.end(); it++){
+            if(*it == s){
+                std::string err = "I gruppi non possono contenere duplicati!\nIl gruppo \"" + s + "\" è già definito!";
+                throw graficoException(err,graficoException::DUPLICATED);
+            }
+        }
+    }
+    graficoSemplice::checkDuplicates();
+}

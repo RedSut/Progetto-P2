@@ -163,7 +163,13 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
                 }
             }
         }
-        gs->checkSize(); // Controlla se le dimensioni dei vettori sono corrette
+        try{
+             gs->checkSize(); // Controlla se le dimensioni dei vettori sono corrette
+        }
+        catch(graficoException& e){
+            delete gs;
+            throw e;
+        }
     }else{
         graficoPianoCartesiano* gp = dynamic_cast<graficoPianoCartesiano*>(g);
         if(gp){

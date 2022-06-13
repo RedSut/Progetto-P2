@@ -127,14 +127,18 @@ void MainWindow::goToFirstPage(){
         msgBox.addButton(tr("Continua"), QMessageBox::AcceptRole);
         msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
         if (msgBox.exec() == QMessageBox::AcceptRole){
-            nomeFileAperto = "untitled.json";
-            graficoWidget->resetGrafico();
-            graficoTabella->resetButtons();
-            graficoTabella->resetTabella();
-            displayFileName->hide();
-            pagine->setCurrentIndex(0);
+            goToFirstPageAccept();
         }
     }
+}
+
+void MainWindow::goToFirstPageAccept(){
+    nomeFileAperto = "untitled.json";
+    graficoWidget->resetGrafico();
+    graficoTabella->resetButtons();
+    graficoTabella->resetTabella();
+    displayFileName->hide();
+    pagine->setCurrentIndex(0);
 }
 
 void MainWindow::goToSecondPage(){
@@ -308,14 +312,21 @@ void MainWindow::openFile(graficoJSON* GJson){
                  }
                  try{
                      GJson->loadDataFromJSON(o);
-                     goToSecondPage();
-                     setGrafico(GJson->getGrafico());
                  }
                  catch(graficoException& e){
                      QMessageBox::information(this, tr("ERRORE IN INPUT FILE JSON"), tr(e.what()));
+                     goToFirstPageAccept();
                  }
+                 goToSecondPage();
+                 try{
+                     setGrafico(GJson->getGrafico());
+                 }catch(graficoException& e){
+                     QMessageBox::information(this, tr("ERRORE IN INPUT"), tr(e.what()));
+                 }
+
             }else{
                 QMessageBox::information(this, tr("ERRORE"), tr("Impossibile aprire il file!"));
+                goToFirstPageAccept();
             }
         }
 }

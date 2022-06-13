@@ -32,6 +32,7 @@ public:
 
     void goToSecondPage();
     void goToFirstPage();
+    void goToFirstPageAccept();
 
     void aggiungiRigaTabella(grafico*);
     void aggiungiColonnaTabella(grafico*);

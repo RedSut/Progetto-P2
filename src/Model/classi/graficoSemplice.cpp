@@ -35,3 +35,16 @@ void graficoSemplice::checkSize()const{
         throw graficoException("Il numero di elementi nell'array legenda e nell'array valori deve essere uguale!",graficoException::WRONG_SIZE);
     }
 }
+
+void graficoSemplice::checkDuplicates() const{
+    std::vector<std::string> l = getLegenda();
+    for(unsigned int n=0; n<l.size(); n++){
+        std::string s = l.at(n);
+        for(auto it=l.begin()+n+1;it!=l.end(); it++){
+            if(*it == s){
+                std::string err = "Le categorie non possono contenere duplicati!\nLa categoria \"" + s + "\" è già definita!";
+                throw graficoException(err,graficoException::DUPLICATED);
+            }
+        }
+    }
+};

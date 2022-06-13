@@ -9,10 +9,10 @@ class graficoComplesso: public graficoSemplice{
     public:
         graficoComplesso(std::string,std::vector<std::string>,std::vector<double>,std::vector<std::string>);
         std::vector<std::string> getGruppi()const;
-        void setGruppi(std::vector<std::string>);
+        virtual void setGruppi(std::vector<std::string>);
 
         void checkSize()const;
-        
+        void checkDuplicates()const;
 };
 
 #endif

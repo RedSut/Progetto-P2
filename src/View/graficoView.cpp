@@ -24,6 +24,27 @@ void graficoView::showGrafico(grafico* G){
     linea* gl = dynamic_cast<linea*>(G);
     dispersione* gd = dynamic_cast<dispersione*>(G);
 
+    graficoSemplice* gs = dynamic_cast<graficoSemplice*>(G);
+    graficoComplesso* gc = dynamic_cast<graficoComplesso*>(G);
+
+    // Controllo duplicati
+    if(gs){
+        try{
+            gs->checkDuplicates();
+        }
+        catch(graficoException& e){
+            throw e;
+        }
+    }else if(gc){
+        try{
+            gc->checkDuplicates();
+        }
+        catch(graficoException& e){
+            throw e;
+        }
+    }
+
+    // Display del grafico
     chart->setAnimationOptions(QChart::AllAnimations);
     chartView->setRenderHint(QPainter::Antialiasing);
     if(gt){
