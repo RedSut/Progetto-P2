@@ -11,7 +11,7 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     aggiungiColonnaButton = new QPushButton("Aggiungi Colonna");
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
     regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
-    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico\n dei Punti nel grafico");
+    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
     ordinaPunti = true;
 
     tabella->horizontalHeader()->setDefaultSectionSize(120);
@@ -448,9 +448,9 @@ void tableView::updateRegLin(){
 void tableView::updateOrdinaPuntiFlag(){
     if(ordinaPunti){
         ordinaPunti = false;
-        ordinaPuntiButton->setText("Abilita Ordinamento Automatico\n dei Punti nel grafico");
+        ordinaPuntiButton->setText("Abilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
     }else{
         ordinaPunti = true;
-        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico\n dei Punti nel grafico");
+        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
     }
 }
