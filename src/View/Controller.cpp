@@ -13,32 +13,32 @@ void Controller::setView(MainWindow* W){
 }
 
 void Controller::createTorta() const{
-    model->createGrafico(0);
+    model->createGrafico(Model::torta);
     grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 
 void Controller::createIstogramma() const{
-    model->createGrafico(1);
+    model->createGrafico(Model::istogramma);
     grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 void Controller::createBarre() const{
-    model->createGrafico(2);
+    model->createGrafico(Model::barre);
     grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 void Controller::createLinea() const{
-    model->createGrafico(3);
+    model->createGrafico(Model::linea);
     grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();
 }
 void Controller::createDispersione() const{
-    model->createGrafico(4);
+    model->createGrafico(Model::dispersione);
     grafico* G = model->getGrafico();
     mainWin->setGrafico(G);
     mainWin->goToSecondPage();

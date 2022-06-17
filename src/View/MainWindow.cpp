@@ -315,7 +315,10 @@ void MainWindow::openFile(graficoJSON* GJson){
                  }
                  catch(graficoException& e){
                      QMessageBox::information(this, tr("ERRORE IN INPUT FILE JSON"), tr(e.what()));
+                     grafico* g = GJson->getGrafico();
+                     delete g;
                      goToFirstPageAccept();
+                     return;
                  }
                  goToSecondPage();
                  try{

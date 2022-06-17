@@ -1,13 +1,16 @@
 #include "Model.h"
 
 Model::Model(){
-    createGrafico(Model::torta);
+    G = nullptr;
 }
 Model::~Model(){
     delete G;
 }
 
 void Model::createGrafico(int t){
+    if(G != nullptr){
+        delete G;
+    }
     graficoCreator* gc = new graficoCreator;
     switch(t){
         case 0: G = gc->createTorta(); break;
