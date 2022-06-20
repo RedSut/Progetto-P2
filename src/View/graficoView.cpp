@@ -8,6 +8,7 @@ graficoView::graficoView(QWidget* parent) : QWidget(parent){
     mainLayout->addWidget(chartView);
     mainLayout->setMargin(0);
     setLayout(mainLayout);
+    accumulaDati = false;
 }
 
 graficoView::~graficoView(){
@@ -63,11 +64,16 @@ void graficoView::showGrafico(grafico* G){
         chart->addSeries(series);
         chart->setTitle(QString::fromStdString(gt->getTitolo()));
     }else if(gi){
-        std::vector<double> valori = gi->getValori();
+        std::vector<double> valori;
+        if(accumulaDati){
+            valori = gi->getAccumulatedVal();
+        }else{
+            valori = gi->getNormalizedVal();
+        }
         std::vector<std::string> legenda = gi->getLegenda();
         QBarSeries* series = new QBarSeries();
         series->setBarWidth(1);
-        double maxVal = 1;
+        double maxVal = 0;
         double minVal = 0;
         QBarSet* barSet = new QBarSet("Valori");
         for(auto it = valori.begin(); it != valori.end(); ++it){
@@ -229,4 +235,12 @@ void graficoView::updateRegLin(){
     }else{
         chart->series().at(1)->show();
     }
+}
+
+void graficoView::updateAccDati(){
+   if(accumulaDati){
+       accumulaDati = false;
+   }else{
+       accumulaDati = true;
+   }
 }

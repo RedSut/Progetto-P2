@@ -42,6 +42,7 @@ public:
     void modificaSezioneHTabella(int,grafico*);
     void updateRegressioneLineare();
     void updateOrdinaPuntiTabella();
+    void updateAccumulaDati();
 
     void addRighe(grafico*);
     void removeRighe();

@@ -85,6 +85,10 @@ void Controller::updateOrdinaPuntiFlag(){
     mainWin->updateOrdinaPuntiTabella();
 }
 
+void Controller::updateAccumulaDati(){
+    mainWin->updateAccumulaDati();
+}
+
 void Controller::nuovo() const{
     mainWin->goToFirstPage();
 }

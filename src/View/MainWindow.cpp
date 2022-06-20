@@ -263,6 +263,11 @@ void MainWindow::updateOrdinaPuntiTabella(){
     graficoTabella->updateOrdinaPuntiFlag();
 }
 
+void MainWindow::updateAccumulaDati(){
+    graficoTabella->updateAccumulaDatiButton();
+    graficoWidget->updateAccDati();
+}
+
 void MainWindow::setController(Controller* c){
     graficoTabella->setController(c);
     controller = c;

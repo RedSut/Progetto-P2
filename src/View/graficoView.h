@@ -20,6 +20,8 @@ class graficoView: public QWidget{
         QChart* chart;
         QChartView* chartView;
         QVBoxLayout* mainLayout;
+
+        bool accumulaDati;
     public:
         explicit graficoView(QWidget* = nullptr);
         ~graficoView();
@@ -27,6 +29,7 @@ class graficoView: public QWidget{
         void updateGrafico(grafico*);
         void resetGrafico();
         void updateRegLin();
+        void updateAccDati();
 };
 
 #endif

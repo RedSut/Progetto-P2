@@ -32,6 +32,7 @@ class Controller : public QObject{
         void modificaSezioneHTabella(int);
         void updateRegressioneLineare();
         void updateOrdinaPuntiFlag();
+        void updateAccumulaDati();
 
         void nuovo() const;
         void open() const;

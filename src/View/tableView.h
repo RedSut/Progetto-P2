@@ -26,8 +26,10 @@ class tableView: public QWidget{
         QPushButton* rimuoviColonnaButton;
         QPushButton* regressioneLineareButton;
         QPushButton* ordinaPuntiButton;
+        QPushButton* accumulaDatiButton;
 
         bool ordinaPunti;
+        bool accumulaDati;
 
         Controller* C;
 
@@ -56,6 +58,7 @@ class tableView: public QWidget{
         void cicloRimuoviColonne(const int& n);
 
         void updateOrdinaPuntiFlag();
+        void updateAccumulaDatiButton();
 };
 
 #endif

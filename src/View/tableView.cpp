@@ -12,7 +12,9 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
     regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
     ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
+    accumulaDatiButton = new QPushButton("Abilita Visualizzazione Valori Accumulati");
     ordinaPunti = true;
+    accumulaDati = false;
 
     tabella->horizontalHeader()->setDefaultSectionSize(120);
     tabella->verticalHeader()->setDefaultSectionSize(30);
@@ -30,10 +32,12 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     mainLayout->addWidget(rimuoviColonnaButton);
     mainLayout->addWidget(regressioneLineareButton);
     mainLayout->addWidget(ordinaPuntiButton);
+    mainLayout->addWidget(accumulaDatiButton);
     aggiungiColonnaButton->hide();
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
     ordinaPuntiButton->hide();
+    accumulaDatiButton->hide();
     setLayout(mainLayout);
 }
 
@@ -79,6 +83,7 @@ void tableView::populateTable(grafico* G){
             tabella->setItem(i,2,item3);
         }
     }else if(gi){
+        accumulaDatiButton->show();
         tabella->setSortingEnabled(false);
         std::vector<std::string> leg = gi->getLegenda();
         std::vector<double> val = gi->getValori();
@@ -252,6 +257,7 @@ void tableView::resetButtons(){
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
     ordinaPuntiButton->hide();
+    accumulaDatiButton->hide();
 }
 
 void tableView::resetTabella(){
@@ -281,6 +287,8 @@ void tableView::setController(Controller* contr){
     connect(regressioneLineareButton,SIGNAL(clicked()),C,SLOT(updateRegressioneLineare()));
 
     connect(ordinaPuntiButton,SIGNAL(clicked()),C,SLOT(updateOrdinaPuntiFlag()));
+
+    connect(accumulaDatiButton,SIGNAL(clicked()),C,SLOT(updateAccumulaDati()));
 
     connect(tabella->horizontalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneHTabella);
     connect(tabella->verticalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneVTabella);
@@ -452,5 +460,15 @@ void tableView::updateOrdinaPuntiFlag(){
     }else{
         ordinaPunti = true;
         ordinaPuntiButton->setText("Disabilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
+    }
+}
+
+void tableView::updateAccumulaDatiButton(){
+    if(accumulaDati){
+        accumulaDati = false;
+        accumulaDatiButton->setText("Abilita Visualizzazione Valori Accumulati");
+    }else{
+        accumulaDati = true;
+        accumulaDatiButton->setText("Disabilita Visualizzazione Valori Accumulati");
     }
 }
