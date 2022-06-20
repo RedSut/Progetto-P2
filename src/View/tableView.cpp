@@ -11,8 +11,8 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     aggiungiColonnaButton = new QPushButton("Aggiungi Colonna");
     rimuoviColonnaButton = new QPushButton("Rimuovi Ultima Colonna");
     regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
-    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
-    accumulaDatiButton = new QPushButton("Abilita Visualizzazione Valori Accumulati");
+    ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico\ndei Punti nel grafico secondo l'asse x");
+    accumulaDatiButton = new QPushButton("Abilita Visualizzazione\nIstogramma Cumulativo");
     ordinaPunti = true;
     accumulaDati = false;
 
@@ -456,19 +456,19 @@ void tableView::updateRegLin(){
 void tableView::updateOrdinaPuntiFlag(){
     if(ordinaPunti){
         ordinaPunti = false;
-        ordinaPuntiButton->setText("Abilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
+        ordinaPuntiButton->setText("Abilita Ordinamento Automatico\ndei Punti nel grafico secondo l'asse x");
     }else{
         ordinaPunti = true;
-        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico\n dei Punti nel grafico secondo l'asse x");
+        ordinaPuntiButton->setText("Disabilita Ordinamento Automatico\ndei Punti nel grafico secondo l'asse x");
     }
 }
 
 void tableView::updateAccumulaDatiButton(){
     if(accumulaDati){
         accumulaDati = false;
-        accumulaDatiButton->setText("Abilita Visualizzazione Valori Accumulati");
+        accumulaDatiButton->setText("Abilita Visualizzazione\nIstogramma Cumulativo");
     }else{
         accumulaDati = true;
-        accumulaDatiButton->setText("Disabilita Visualizzazione Valori Accumulati");
+        accumulaDatiButton->setText("Disabilita Visualizzazione\nIstogramma Cumulativo");
     }
 }
