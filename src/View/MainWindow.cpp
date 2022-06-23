@@ -312,8 +312,9 @@ void MainWindow::openFile(graficoJSON* GJson){
                      if (msgBox.exec() == QMessageBox::RejectRole){
                          return;
                      }
-                 }else if(pagine->currentIndex() == 1){
-                     o["tipologia"]=tip.Undefined;
+                 }else if((tip.isUndefined() || tip.isNull()) && pagine->currentIndex() == 0){
+                     QMessageBox::warning(this,"Attenzione!","Il file json scelto NON ha settato il valore 'tipologia' e nessun grafico è aperto!\nCrea prima un nuovo grafico!");
+                     return;
                  }
                  try{
                      GJson->loadDataFromJSON(o);

@@ -8,9 +8,7 @@ Model::~Model(){
 }
 
 void Model::createGrafico(int t){
-    if(G != nullptr){
-        delete G;
-    }
+
     graficoCreator* gc = new graficoCreator;
     switch(t){
         case 0: G = gc->createTorta(); break;

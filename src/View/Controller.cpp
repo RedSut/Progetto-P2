@@ -90,6 +90,8 @@ void Controller::updateAccumulaDati(){
 }
 
 void Controller::nuovo() const{
+    grafico* g = model->getGrafico();
+    delete g;
     mainWin->goToFirstPage();
 }
 

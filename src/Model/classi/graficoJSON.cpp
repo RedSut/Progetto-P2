@@ -26,7 +26,7 @@ grafico* graficoJSON::getGrafico()const{
 
 void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
     QJsonValue tp = jsonOBJ[JSON_tipologia];
-    if(!tp.isUndefined()){
+    if(!tp.isUndefined() && !tp.isNull()){
         if(tp.isString()){
             if(tp.toString().toStdString() == "barre"){
                 M->createGrafico(Model::barre);
@@ -41,10 +41,7 @@ void graficoJSON::loadDataFromJSON(const QJsonObject& jsonOBJ){
             }else{
                 throw graficoException("La tipologia deve essere una delle seguenti stringhe: 'torta', 'istogramma', 'barre', 'linea', 'dispersione'",graficoException::INVALID_FORMAT);
             }
-        }else if(tp.isNull()){
-            throw graficoException("La tipologia non è definita e nessun grafico è aperto!\nPuoi settare la tipologia con una delle seguenti stringhe: 'torta', 'istogramma', 'barre', 'linea', 'dispersione'.\nOppure puoi creare prima un grafico",graficoException::EMPTY_ARGUMENT);
-        }
-        else{
+        }else{
             throw graficoException("La tipologia deve essere una delle seguenti stringhe: 'torta', 'istogramma', 'barre', 'linea', 'dispersione'",graficoException::INVALID_FORMAT);
         }
     }
