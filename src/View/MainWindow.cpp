@@ -246,6 +246,36 @@ void MainWindow::rename(grafico * G)
     }
 }
 
+void MainWindow::renameAX(grafico * G)
+{
+    bool ok;
+    QString s = QInputDialog::getText(this,"Rinomina","Assegna un nome all'asse x", QLineEdit::Normal, "", &ok);
+    if(ok){
+        barre* gb = dynamic_cast<barre*>(G);
+        if(gb){
+            gb->setNomeAsseX(s.toStdString());
+            graficoWidget->updateGrafico(G);
+        }else{
+            QMessageBox::warning(this,"Errore inaspettato!","Il grafico selezionato non è di tipo 'barre'");
+        }
+     }
+}
+
+void MainWindow::renameAY(grafico * G)
+{
+    bool ok;
+    QString s = QInputDialog::getText(this,"Rinomina","Assegna un nome all'asse y", QLineEdit::Normal, "", &ok);
+    if(ok){
+        barre* gb = dynamic_cast<barre*>(G);
+        if(gb){
+            gb->setNomeAsseY(s.toStdString());
+            graficoWidget->updateGrafico(G);
+        }else{
+            QMessageBox::warning(this,"Errore inaspettato!","Il grafico selezionato non è di tipo 'barre'");
+        }
+     }
+}
+
 void MainWindow::modificaSezioneVTabella(int i, grafico* G){
     graficoTabella->modificaSezioneV(i,G);
 }
@@ -287,7 +317,7 @@ void MainWindow::setController(Controller* c){
     connect(modifica->actions().at(1), SIGNAL(triggered()), controller, SLOT(removeNumeroRighe()));
     connect(modifica->actions().at(2), SIGNAL(triggered()), controller, SLOT(addNumeroColonne()));
     connect(modifica->actions().at(3), SIGNAL(triggered()), controller, SLOT(removeNumeroColonne()));
-    connect(modifica->actions().at(4), SIGNAL(triggered()), controller, SLOT(rinomina()));
+    connect(modifica->actions().at(4), SIGNAL(triggered()), controller, SLOT(rinominaTitolo()));
 
 
 }

@@ -44,7 +44,9 @@ class Controller : public QObject{
         void removeNumeroRighe() const;
         void addNumeroColonne() const;
         void removeNumeroColonne() const;
-        void rinomina() const;
+        void rinominaTitolo() const;
+        void rinominaAsseX() const;
+        void rinominaAsseY() const;
 };
 
 #endif

@@ -27,6 +27,8 @@ class tableView: public QWidget{
         QPushButton* regressioneLineareButton;
         QPushButton* ordinaPuntiButton;
         QPushButton* accumulaDatiButton;
+        QPushButton* nomeAsseXButton;
+        QPushButton* nomeAsseYButton;
 
         bool ordinaPunti;
         bool accumulaDati;

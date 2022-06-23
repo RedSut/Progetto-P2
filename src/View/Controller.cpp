@@ -136,7 +136,17 @@ void Controller::removeNumeroColonne() const{
     mainWin->removeColonne(G);
 }
 
-void Controller::rinomina() const{
+void Controller::rinominaTitolo() const{
     grafico* G = model->getGrafico();
     mainWin->rename(G);
+}
+
+void Controller::rinominaAsseX() const{
+    grafico* G = model->getGrafico();
+    mainWin->renameAX(G);
+}
+
+void Controller::rinominaAsseY() const{
+    grafico* G = model->getGrafico();
+    mainWin->renameAY(G);
 }

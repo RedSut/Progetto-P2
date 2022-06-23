@@ -49,6 +49,8 @@ public:
     void addColonne(grafico*);
     void removeColonne(grafico*);
     void rename(grafico*);
+    void renameAX(grafico*);
+    void renameAY(grafico*);
 
     void openFile(graficoJSON*);
     void saveFileAs(graficoJSON*);

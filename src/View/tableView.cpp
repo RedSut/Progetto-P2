@@ -13,6 +13,8 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     regressioneLineareButton = new QPushButton("Mostra/Nascondi Regressione Lineare");
     ordinaPuntiButton = new QPushButton("Disabilita Ordinamento Automatico\ndei Punti nel grafico secondo l'asse x");
     accumulaDatiButton = new QPushButton("Abilita Visualizzazione\nIstogramma Cumulativo");
+    nomeAsseXButton = new QPushButton("Modifica il nome dell'asse X");
+    nomeAsseYButton = new QPushButton("Modifica il nome dell'asse Y");
     ordinaPunti = true;
     accumulaDati = false;
 
@@ -33,11 +35,15 @@ tableView::tableView(QWidget* parent): QWidget(parent){
     mainLayout->addWidget(regressioneLineareButton);
     mainLayout->addWidget(ordinaPuntiButton);
     mainLayout->addWidget(accumulaDatiButton);
+    mainLayout->addWidget(nomeAsseXButton);
+    mainLayout->addWidget(nomeAsseYButton);
     aggiungiColonnaButton->hide();
     rimuoviColonnaButton->hide();
     regressioneLineareButton->hide();
     ordinaPuntiButton->hide();
     accumulaDatiButton->hide();
+    nomeAsseXButton->hide();
+    nomeAsseYButton->hide();
     setLayout(mainLayout);
 }
 
@@ -106,6 +112,8 @@ void tableView::populateTable(grafico* G){
         tabella->setSortingEnabled(false);
         aggiungiColonnaButton->show();
         rimuoviColonnaButton->show();
+        nomeAsseXButton->show();
+        nomeAsseYButton->show();
         std::vector<std::string> leg = gb->getLegenda();
         std::vector<double> val = gb->getValori();
         std::vector<std::string> gru = gb->getGruppi();
@@ -258,6 +266,8 @@ void tableView::resetButtons(){
     regressioneLineareButton->hide();
     ordinaPuntiButton->hide();
     accumulaDatiButton->hide();
+    nomeAsseXButton->hide();
+    nomeAsseYButton->hide();
 }
 
 void tableView::resetTabella(){
@@ -289,6 +299,9 @@ void tableView::setController(Controller* contr){
     connect(ordinaPuntiButton,SIGNAL(clicked()),C,SLOT(updateOrdinaPuntiFlag()));
 
     connect(accumulaDatiButton,SIGNAL(clicked()),C,SLOT(updateAccumulaDati()));
+
+    connect(nomeAsseXButton,SIGNAL(clicked()),C,SLOT(rinominaAsseX()));
+    connect(nomeAsseYButton,SIGNAL(clicked()),C,SLOT(rinominaAsseY()));
 
     connect(tabella->horizontalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneHTabella);
     connect(tabella->verticalHeader(), &QHeaderView::sectionDoubleClicked, C, &Controller::modificaSezioneVTabella);
