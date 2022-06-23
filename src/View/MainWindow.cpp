@@ -311,6 +311,9 @@ void MainWindow::openFile(graficoJSON* GJson){
                      msgBox.addButton(tr("Annulla"), QMessageBox::RejectRole);
                      if (msgBox.exec() == QMessageBox::RejectRole){
                          return;
+                     }else{
+                         grafico* g1 = GJson->getGrafico();
+                         delete g1;
                      }
                  }else if((tip.isUndefined() || tip.isNull()) && pagine->currentIndex() == 0){
                      QMessageBox::warning(this,"Attenzione!","Il file json scelto NON ha settato il valore 'tipologia' e nessun grafico è aperto!\nCrea prima un nuovo grafico!");
